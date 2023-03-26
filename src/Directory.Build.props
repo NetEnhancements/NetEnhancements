@@ -1,0 +1,14 @@
+﻿<!-- Shared properties for all projects in this directory (src) -->
+<Project>
+	<PropertyGroup>
+		<Deterministic>true</Deterministic>
+
+		<TargetFramework>net7.0</TargetFramework>
+
+		<LangVersion>latest</LangVersion>
+
+		<Nullable>enable</Nullable>
+
+		<ImplicitUsings>enable</ImplicitUsings>
+	</PropertyGroup>
+</Project>

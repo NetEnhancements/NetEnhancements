@@ -1,0 +1,11 @@
+<Project Sdk="Microsoft.NET.Sdk">
+	<ItemGroup>
+		<FrameworkReference Include="Microsoft.AspNetCore.App" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <ProjectReference Include="..\NetEnhancements.Shared\NetEnhancements.Shared.csproj" />
+	  <ProjectReference Include="..\NetEnhancements.Util\NetEnhancements.Util.csproj" />
+	</ItemGroup>
+
+</Project>

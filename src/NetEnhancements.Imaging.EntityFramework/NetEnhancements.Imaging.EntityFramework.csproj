@@ -1,0 +1,8 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <ItemGroup>
+    <ProjectReference Include="..\NetEnhancements.Shared\NetEnhancements.Shared.csproj" />
+    <ProjectReference Include="..\NetEnhancements.Imaging\NetEnhancements.Imaging.csproj" />
+  </ItemGroup>
+
+</Project>
