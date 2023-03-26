@@ -1,6 +1,4 @@
-using NetEnhancements.Util;
-
-namespace NetEnhancements.Utils.Tests
+namespace NetEnhancements.Util.Tests
 {
     public class CollectionExtensionTests
     {

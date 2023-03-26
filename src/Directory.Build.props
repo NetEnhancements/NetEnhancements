@@ -1,6 +1,5 @@
 ﻿<!-- Shared properties for all projects in this directory (src) -->
 <Project>
-
    <!--Generic project properties--> 
   <PropertyGroup>
     <Deterministic>true</Deterministic>
@@ -46,5 +45,4 @@
     <!-- Also note the PrivateAssets="All", meaning it doesn't get included in the package as a reference -->
     <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.1.1" PrivateAssets="All"/>
   </ItemGroup>
-
 </Project>

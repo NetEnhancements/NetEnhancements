@@ -42,11 +42,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NetEnhancements.Util.Tests"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NetEnhancements.Shared.AspNet", "src\NetEnhancements.Shared.AspNet\NetEnhancements.Shared.AspNet.csproj", "{2270DC49-476D-47BB-A248-63A9D6BEAE33}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{DEE2565B-C725-4723-803E-020165E61D9B}"
-	ProjectSection(SolutionItems) = preProject
-		LICENSE = LICENSE
-	EndProjectSection
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{2765C6D0-3757-4ED1-89CB-EF9857E9FFE0}"
 	ProjectSection(SolutionItems) = preProject
 		src\Directory.Build.props = src\Directory.Build.props
