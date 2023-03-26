@@ -9,7 +9,7 @@ env:
   # Disable sending usage data to Microsoft
   DOTNET_CLI_TELEMETRY_OPTOUT: true
   
-  DOTNETVERSION: "6.0.x"
+  DOTNETVERSION: "7.0.x"
 
   PACK_OUTPUT_DIR: "NuGetPackageStagingArea"
   
@@ -69,6 +69,8 @@ jobs:
             src/NetEnhancements.Util
             src/NetEnhancements.Shared
             src/NetEnhancements.Shared.AspNet
+            src/NetEnhancements.Imaging
+            src/NetEnhancements.Imaging.EntityFramework
           package-version: ${{ env.PACKAGE_VERSION }}
           output-dir: ${{ env.PACK_OUTPUT_DIR }}
           skip-build: true
