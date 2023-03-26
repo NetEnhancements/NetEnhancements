@@ -216,7 +216,7 @@ namespace NetEnhancements.Util
         /// </summary>
         public static string DaysOrWeeksUntil(this DateOnly firstDay, DateOnly lastDay, string day = "day", string days = "days", string week = "week", string weeks = "weeks")
         {
-            if (firstDay >= lastDay)
+            if (firstDay > lastDay)
             {
                 throw new ArgumentException("First day must be before last day");
             }
