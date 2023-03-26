@@ -66,9 +66,9 @@ namespace NetEnhancements.Shared.EntityFramework
         }
     }
 
-    /// <summary> 
-    /// Converts nullable <see cref="DateOnly" /> to nullable <see cref="DateTime"/> and vice versa. 
-    /// </summary> 
+    /// <summary>
+    /// Converts nullable <see cref="DateOnly" /> to nullable <see cref="DateTime"/> and vice versa.
+    /// </summary>
     public class NullableDateOnlyConverter : ValueConverter<DateOnly?, DateTime?>
     {
         /// <summary> 
@@ -84,9 +84,9 @@ namespace NetEnhancements.Shared.EntityFramework
         { }
     }
 
-    /// <summary> 
-    /// Compares <see cref="DateOnly?" />. 
-    /// </summary> 
+    /// <summary>
+    /// Compares <see cref="Nullable{DateOnly}" />.
+    /// </summary>
     public class NullableDateOnlyComparer : ValueComparer<DateOnly?>
     {
         /// <summary> 
@@ -98,7 +98,7 @@ namespace NetEnhancements.Shared.EntityFramework
         {
         }
     }
-    
+
     public class TimeOnlyConverter : ValueConverter<TimeOnly, TimeSpan>
     {
         public TimeOnlyConverter() : base(

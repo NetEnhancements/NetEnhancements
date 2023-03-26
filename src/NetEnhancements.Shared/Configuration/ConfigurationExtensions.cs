@@ -4,8 +4,14 @@ using Microsoft.Extensions.Configuration;
 
 namespace NetEnhancements.Shared.Configuration
 {
+    /// <summary>
+    /// Extension method container for configuration.
+    /// </summary>
     public static class ConfigurationExtensions
     {
+        /// <summary>
+        /// Returns the name of the type, with the suffix "Settings" removed if present.
+        /// </summary>
         public static string GetSectionName<T>() => GetSectionName(typeof(T).Name);
 
         private static string GetSectionName(string name) => name.RemoveEnd("Settings");
@@ -22,9 +28,25 @@ namespace NetEnhancements.Shared.Configuration
 
             TSettings settingsObject = section.Get<TSettings>() ?? throw new ArgumentException($"No '{usedSectionName}' section found in the configuration file", nameof(configuration));
 
-            ValidateByDataAnnotation<TSettings>(settingsObject, section.Key);
+            ValidateByDataAnnotation(settingsObject, section.Key);
 
             return (section, settingsObject);
+        }
+
+        /// <summary>
+        /// Validates a settings instance by its annotations, throws if invalid.
+        /// </summary>
+        public static void ValidateByDataAnnotation<TSettings>(TSettings instance, string sectionName)
+            where TSettings : class
+        {
+            var (isValid, validationResults) = AttributeValidator.Validate(instance);
+
+            if (!isValid)
+            {
+                var propertyErrors = validationResults.Select(r => r.ErrorMessage);
+
+                throw new ConfigurationException($"Invalid configuration for section '{sectionName}': \r\n * {string.Join("\r\n * ", propertyErrors)}");
+            }
         }
 
         /// <summary>
@@ -58,19 +80,6 @@ namespace NetEnhancements.Shared.Configuration
             TValue propertyValue = compiledExpression.Invoke(settingsValue);
             
             return (memberExpression.Member.Name, propertyValue);
-        }
-
-        public static void ValidateByDataAnnotation<TSettings>(TSettings instance, string sectionName)
-            where TSettings : class
-        {
-            var (isValid, validationResults) = AttributeValidator.Validate(instance);
-
-            if (!isValid)
-            {
-                var propertyErrors = validationResults.Select(r => r.ErrorMessage);
-
-                throw new ConfigurationException($"Invalid configuration for section '{sectionName}': \r\n * { string.Join("\r\n * ", propertyErrors)}");
-            }
         }
     }
 }

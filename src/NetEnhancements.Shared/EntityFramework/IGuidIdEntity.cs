@@ -7,6 +7,9 @@ namespace NetEnhancements.Shared.EntityFramework
     /// </summary>
     public interface IGuidIdEntity
     {
+        /// <summary>
+        /// The primary key of this entity, as <see cref="Guid"/>.
+        /// </summary>
         [DatabaseGenerated(DatabaseGeneratedOption.Computed)]
         Guid Id { get; set; }
     }

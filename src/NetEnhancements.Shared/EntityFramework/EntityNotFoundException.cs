@@ -1,7 +1,13 @@
 ﻿namespace NetEnhancements.Shared.EntityFramework
 {
+    /// <summary>
+    /// An exception indicating an expected entity was not found.
+    /// </summary>
     public class EntityNotFoundException : Exception
     {
+        /// <summary>
+        /// Initialize the exception with an entity type <typeparamref name="TEntity"/> and the given primary key value(s).
+        /// </summary>
         public static EntityNotFoundException FromEntity<TEntity>(object primaryKey, params object[] additionalKeys)
         {
             var primaryKeyString = string.Join("', '", new[] { primaryKey }.Concat(additionalKeys));

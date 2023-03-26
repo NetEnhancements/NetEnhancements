@@ -55,25 +55,28 @@ namespace NetEnhancements.Util
             return string.Concat(str.Select((x, i) => i > 0 && char.IsUpper(x) ? "_" + x.ToString() : x.ToString())).ToLower();
         }
 
-        public static string RemoveEnd(this string input, string endsWith)
+        /// <summary>
+        /// Removes the given <paramref name="suffix"/> if the <paramref name="input"/> ends with that string.
+        /// </summary>
+        public static string RemoveEnd(this string input, string suffix, StringComparison comparisonType = StringComparison.InvariantCulture)
         {
-            var settingsIndex = input.IndexOf(endsWith);
-            if (settingsIndex == input.Length - endsWith.Length)
-            {
-                return input.Substring(0, settingsIndex);
-            }
+            if (input == null) throw new ArgumentNullException(nameof(input));
+            if (suffix == null) throw new ArgumentNullException(nameof(suffix));
+            
+            var settingsIndex = input.LastIndexOf(suffix, comparisonType);
 
-            return input;
+            return settingsIndex >= 0 && settingsIndex == input.Length - suffix.Length 
+                ? input[..settingsIndex] 
+                : input;
         }
 
-        // ReSharper disable once InvalidXmlDocComment - it's for docs, we don't want to reference it.
+#pragma warning disable CS1574 // XML comment has cref attribute that could not be resolved - just here for documentation
         /// <summary>
         /// Returns <c>true</c> for <see cref="Microsoft.Extensions.Hosting.IHostEnvironment.EnvironmentName"/> strings like "Development", "Docker", "Development.Docker", but not for "Docker.Production".
         /// </summary>
-        /// <param name="s"></param>
-        /// <returns></returns>
-        public static bool IsDevelopmentOrDocker(this string s) =>
-            s.Contains("Develop") ||
-            (s.Contains("Docker") && !s.Contains("Production") && !s.Contains("Staging"));
+#pragma warning restore CS1574
+        public static bool IsDevelopmentOrDocker(this string environmentName) =>
+            environmentName.Contains("Develop") ||
+            (environmentName.Contains("Docker") && !environmentName.Contains("Production") && !environmentName.Contains("Staging"));
     }
 }
