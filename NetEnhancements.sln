@@ -24,6 +24,7 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "0. Solution Items", "0. Solution Items", "{62F3D058-5DF2-4E7F-8FF0-E79F86FBFC61}"
 	ProjectSection(SolutionItems) = preProject
 		CONTRIBUTING.md = CONTRIBUTING.md
+		src\Directory.Build.props = src\Directory.Build.props
 		LICENSE = LICENSE
 		README.md = README.md
 	EndProjectSection
@@ -44,6 +45,11 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{DEE2565B-C725-4723-803E-020165E61D9B}"
 	ProjectSection(SolutionItems) = preProject
 		LICENSE = LICENSE
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{2765C6D0-3757-4ED1-89CB-EF9857E9FFE0}"
+	ProjectSection(SolutionItems) = preProject
+		src\Directory.Build.props = src\Directory.Build.props
 	EndProjectSection
 EndProject
 Global
@@ -98,6 +104,7 @@ Global
 		{503762C1-CC9B-4ADD-870D-798598A39452} = {62F3D058-5DF2-4E7F-8FF0-E79F86FBFC61}
 		{DED63DA5-5D88-40E1-9C09-8103C26F0052} = {716BA8E5-8A7F-4A53-A47D-6629757A24D6}
 		{2270DC49-476D-47BB-A248-63A9D6BEAE33} = {15D0DC5E-21C6-4252-A80A-4C74533D1C26}
+		{2765C6D0-3757-4ED1-89CB-EF9857E9FFE0} = {62F3D058-5DF2-4E7F-8FF0-E79F86FBFC61}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {3C76D7A0-C62A-46D9-AD19-84BEC6192FE2}
