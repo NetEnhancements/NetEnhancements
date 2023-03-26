@@ -1,6 +1,4 @@
-﻿using System.IO;
-
-namespace NetEnhancements.Util
+﻿namespace NetEnhancements.Util
 {
     public static class StreamExtensions
     {

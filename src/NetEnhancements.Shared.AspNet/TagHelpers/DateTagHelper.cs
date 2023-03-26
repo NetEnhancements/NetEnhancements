@@ -1,5 +1,4 @@
-﻿using System;
-using NetEnhancements.Util;
+﻿using NetEnhancements.Util;
 using Microsoft.AspNetCore.Razor.TagHelpers;
 
 namespace NetEnhancements.Shared.AspNet.TagHelpers

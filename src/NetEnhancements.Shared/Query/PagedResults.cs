@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-
-namespace NetEnhancements.Shared.Query
+﻿namespace NetEnhancements.Shared.Query
 {
     public record PagedResults<T> where T : class
     {

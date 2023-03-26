@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace NetEnhancements.Shared.Configuration
+﻿namespace NetEnhancements.Shared.Configuration
 {
     public class ConfigurationException : Exception
     {

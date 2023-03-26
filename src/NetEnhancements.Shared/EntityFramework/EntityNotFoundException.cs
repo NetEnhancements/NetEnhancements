@@ -1,7 +1,4 @@
-﻿using System;
-using System.Linq;
-
-namespace NetEnhancements.Shared.EntityFramework
+﻿namespace NetEnhancements.Shared.EntityFramework
 {
     public class EntityNotFoundException : Exception
     {

@@ -1,8 +1,4 @@
-﻿using System;
-using System.Linq;
-using System.Threading;
-using System.Threading.Tasks;
-using NetEnhancements.Shared.EntityFramework;
+﻿using NetEnhancements.Shared.EntityFramework;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 

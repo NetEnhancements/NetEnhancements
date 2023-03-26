@@ -1,7 +1,5 @@
-﻿using System;
-using System.Diagnostics;
+﻿using System.Diagnostics;
 using System.Runtime.CompilerServices;
-using System.Threading.Tasks;
 using NetEnhancements.Shared.EntityFramework;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;

@@ -1,6 +1,4 @@
-﻿using System;
-using System.IO;
-using NetEnhancements.Identity.Configuration;
+﻿using NetEnhancements.Identity.Configuration;
 using NetEnhancements.Identity.Data;
 using NetEnhancements.Identity.Managers;
 using NetEnhancements.Shared.Configuration;

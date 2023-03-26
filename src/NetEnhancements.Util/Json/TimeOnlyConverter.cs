@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace NetEnhancements.Util.Json;
+﻿namespace NetEnhancements.Util.Json;
 
 public class TimeOnlyConverter : ParsingConverter<TimeOnly>
 {

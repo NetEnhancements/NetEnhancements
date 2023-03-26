@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-
-namespace NetEnhancements.Shared.Query
+﻿namespace NetEnhancements.Shared.Query
 {
     /// <summary>
     /// Allows for passing query strings and sort clauses from controllers to managers.
