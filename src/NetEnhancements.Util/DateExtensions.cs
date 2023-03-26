@@ -1,4 +1,6 @@
-﻿namespace NetEnhancements.Util
+﻿using System.Globalization;
+
+namespace NetEnhancements.Util
 {
     /// <summary>
     /// Provides extension methods for DateTime and TimeSpan objects.
@@ -97,7 +99,7 @@
                 yield return day;
             }
         }
-        
+
         /// <summary>
         /// Gets the start of the previous month for a given DateTime.
         /// </summary>
@@ -178,6 +180,121 @@
             }
 
             return result;
+        }
+
+        /// <summary>
+        /// Readable date string: "today, HH:mm:ss", "yesterday, HH:mm:ss", "Jan 01, HH:mm:ss", ...
+        /// </summary>
+        public static string? ToReadableString(this DateTimeOffset? dateTime, string today = "today", string yesterday = "yesterday") => dateTime?.ToReadableString(today, yesterday);
+
+        /// <summary>
+        /// Readable date string: "today, HH:mm:ss", "yesterday, HH:mm:ss", "Jan 01, HH:mm:ss", ...
+        /// </summary>
+        public static string ToReadableString(this DateTimeOffset dateTime, string today = "today", string yesterday = "yesterday")
+        {
+            if (dateTime.Date == DateTimeOffset.Now.Date)
+            {
+                return today + ", " + dateTime.ToString("HH:mm:ss");
+            }
+
+            if (dateTime.Date == DateTimeOffset.Now.AddDays(-1).Date)
+            {
+                return yesterday + ", " + dateTime.ToString("HH:mm:ss");
+            }
+
+            // In the past 10 months or so, don't show the year.
+            if (dateTime > DateTime.Now.AddMonths(-10) || dateTime.Year == DateTime.Now.Year)
+            {
+                return dateTime.ToString("MMM dd, HH:mm:ss");
+            }
+
+            return dateTime.ToString("MMM dd yyyy, HH:mm:ss");
+        }
+
+        /// <summary>
+        /// Returns a string representation of the number of days (when less than 7) or number of weeks between the first and last day.
+        /// </summary>
+        public static string DaysOrWeeksUntil(this DateOnly firstDay, DateOnly lastDay, string day = "day", string days = "days", string week = "week", string weeks = "weeks")
+        {
+            if (firstDay >= lastDay)
+            {
+                throw new ArgumentException("First day must be before last day");
+            }
+
+            var numDays = (lastDay.DayNumber - firstDay.DayNumber) + 1;
+            var numWeeks = numDays >= 7 ? (int)Math.Ceiling(numDays / 7f) : 0;
+
+            return numWeeks switch
+            {
+                0 => numDays == 1
+                    ? "1 " + day
+                    : numDays + " " + days,
+                1 => "1 " + week,
+                _ => numWeeks + " " + weeks
+            };
+        }
+
+        /// <summary>
+        /// Returns a human-readable string representation of the number of calendar weeks between the first and last day.
+        /// </summary>
+        public static string WeekNumbersUntil(this DateOnly firstDay, DateOnly lastDay, string week = "Week", string until = "until")
+        {
+            var startWeek = ISOWeek.GetWeekOfYear(firstDay.ToDateTime(default));
+            var endWeek = ISOWeek.GetWeekOfYear(lastDay.ToDateTime(default));
+            
+            if (startWeek == endWeek)
+            {
+                return week + " " + startWeek + " " + lastDay.Year;
+            }
+
+            if (endWeek < startWeek)
+            {
+                return week + " " + startWeek + " " + firstDay.Year +
+                    " " + until + " "
+                    + endWeek + " " + lastDay.Year;
+            }
+
+            return week + " " + startWeek + " " + until + " " + endWeek + " " + lastDay.Year;
+        }
+
+        /// <summary>
+        /// Returns the start date of the week in which the given <paramref name="dateTime"/> falls, provided the week starts at the weekday <paramref name="startOfWeek"/>.
+        /// </summary>
+        public static DateTime StartOfWeek(this DateTime dateTime, DayOfWeek startOfWeek)
+        {
+            int diff = (7 + (dateTime.DayOfWeek - startOfWeek)) % 7;
+            return dateTime.AddDays(-1 * diff).Date;
+        }
+
+        /// <summary>
+        /// Get occurrences per <see cref="DayOfWeek"/> between <paramref name="from"/> and <paramref name="until"/>.
+        /// </summary>
+        public static Dictionary<DayOfWeek, int> GetDayFrequency(this DateTime from, DateTime until)
+        {
+            var startDay = DateOnly.FromDateTime(from);
+            var endDay = DateOnly.FromDateTime(until);
+
+            return startDay.GetDayFrequency(endDay);
+        }
+
+        /// <summary>
+        /// Get occurrences per <see cref="DayOfWeek"/> between <paramref name="from"/> and <paramref name="until"/>.
+        /// </summary>
+        public static Dictionary<DayOfWeek, int> GetDayFrequency(this DateOnly from, DateOnly until)
+        {
+            if (until < from)
+            {
+                throw new ArgumentException("Date until must be on or after from");
+            }
+
+            var dayDict = Enum.GetValues<DayOfWeek>().ToDictionary(d => d, _ => 0);
+
+            for (var date = from; date <= until; date = date.AddDays(1))
+            {
+                dayDict[date.DayOfWeek] += 1;
+            }
+
+            return dayDict;
         }
     }
 }
