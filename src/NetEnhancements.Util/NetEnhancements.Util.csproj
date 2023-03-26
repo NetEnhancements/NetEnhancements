@@ -1,8 +1,5 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <Description>Extension methods</Description>
   </PropertyGroup>
-  <ItemGroup>
-    <PackageReference Include="Azure.Core" Version="1.24.0" />
-  </ItemGroup>
 </Project>
