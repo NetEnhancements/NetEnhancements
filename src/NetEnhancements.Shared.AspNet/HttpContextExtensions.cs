@@ -1,6 +1,5 @@
 ﻿using System.Diagnostics;
 using Microsoft.AspNetCore.Http;
-using NetEnhancements.Shared;
 
 namespace NetEnhancements.AspNet
 {

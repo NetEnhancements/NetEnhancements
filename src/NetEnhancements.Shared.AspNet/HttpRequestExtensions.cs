@@ -1,5 +1,4 @@
 ﻿using Microsoft.AspNetCore.Http;
-using NetEnhancements.Shared;
 
 namespace NetEnhancements.AspNet
 {

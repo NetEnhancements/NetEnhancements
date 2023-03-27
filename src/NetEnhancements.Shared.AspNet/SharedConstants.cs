@@ -1,4 +1,4 @@
-﻿namespace NetEnhancements.Shared
+﻿namespace NetEnhancements.AspNet
 {
     public static class SharedConstants
     {
