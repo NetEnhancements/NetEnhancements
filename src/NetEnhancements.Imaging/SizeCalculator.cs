@@ -1,7 +1,13 @@
 ﻿namespace NetEnhancements.Imaging
 {
+    /// <summary>
+    /// Calculates image sizes.
+    /// </summary>
     public static class SizeCalculator
     {
+        /// <summary>
+        /// Returns the optimal new resolution given an <paramref name="originalResolution"/> and a <paramref name="desiredResolution"/>.
+        /// </summary>
         public static Resolution GetRelativeSize(Resolution originalResolution, Resolution desiredResolution)
         {
             originalResolution.Deconstruct(out int originalWidth, out int originalHeight);

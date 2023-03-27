@@ -5,8 +5,12 @@ using Microsoft.AspNetCore.Mvc.Filters;
 
 namespace NetEnhancements.AspNet.Conventions
 {
+    /// <summary>
+    /// Represents the default policy, applied to all unspecified areas (including no area).
+    /// </summary>
     public class DefaultAreaPolicyFilter : AuthorizeFilter
     {
+        /// Instantiate the default policy, applied to all unspecified areas (including no area).
         public DefaultAreaPolicyFilter() : base(DefaultAreaPolicy.PolicyName) { }
     }
 
@@ -16,8 +20,11 @@ namespace NetEnhancements.AspNet.Conventions
     public record DefaultAreaPolicy()
         : AreaPolicy(PolicyName, new DefaultAreaPolicyFilter())
     {
+        /// <summary>
+        /// Placeholder name to recognize the default policy being applied.
+        /// </summary>
         public const string PolicyName = "(DefaultPolicy)";
-    };
+    }
 
     public record AreaPolicy(string? AreaName, params IFilterMetadata[] Filters);
 
@@ -49,6 +56,7 @@ namespace NetEnhancements.AspNet.Conventions
             }
         }
 
+        /// <inheritdoc/>
         public void Apply(ControllerModel controller)
         {
             controller.RouteValues.TryGetValue("area", out var areaName);
@@ -56,6 +64,7 @@ namespace NetEnhancements.AspNet.Conventions
             ApplyPolicy(areaName, controller.Filters);
         }
 
+        /// <inheritdoc/>
         public void Apply(PageApplicationModel model)
         {
             ApplyPolicy(model.AreaName, model.Filters);

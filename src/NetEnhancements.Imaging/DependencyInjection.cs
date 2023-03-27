@@ -2,6 +2,9 @@
 
 namespace NetEnhancements.Imaging;
 
+/// <summary>
+/// Imaging-specific Dependency Injection Builder.
+/// </summary>
 public class ImagingBuilder
 {
     public IServiceCollection Services { get; }
@@ -12,8 +15,14 @@ public class ImagingBuilder
     }
 }
 
+/// <summary>
+/// Dependency Injection container extensions.
+/// </summary>
 public static class DependencyInjection
 {
+    /// <summary>
+    /// Register the services necessary for image inspection and manipulation.
+    /// </summary>
     public static ImagingBuilder AddImaging(this IServiceCollection services)
     {
         var defaultProcessor = new SkiaImageProcessor();
@@ -24,6 +33,9 @@ public static class DependencyInjection
         return new ImagingBuilder(services);
     }
 
+    /// <summary>
+    /// Add disk storage to an <see cref="ImagingBuilder"/>.
+    /// </summary>
     public static ImagingBuilder AddDiskStore(this ImagingBuilder builder)
     {
         builder.Services.AddScoped<IImageStore, DiskImageStore>();

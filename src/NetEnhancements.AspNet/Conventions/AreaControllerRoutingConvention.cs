@@ -9,6 +9,7 @@ namespace NetEnhancements.AspNet.Conventions
     /// </summary>
     public class AreaControllerRoutingConvention : IApplicationModelConvention
     {
+        /// <inheritdoc/>
         public void Apply(ApplicationModel application)
         {
             foreach (var controller in application.Controllers)

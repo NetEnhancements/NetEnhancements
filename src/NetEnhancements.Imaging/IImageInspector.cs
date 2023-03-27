@@ -1,5 +1,8 @@
 ﻿namespace NetEnhancements.Imaging;
 
+/// <summary>
+/// Retrieve image information.
+/// </summary>
 public interface IImageInspector
 {
     /// <summary>

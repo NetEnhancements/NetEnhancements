@@ -10,6 +10,7 @@ namespace NetEnhancements.AspNet.Conventions
     [AttributeUsage(AttributeTargets.Class | AttributeTargets.Method)]
     public class AreaRoutingAttribute : Attribute, IControllerModelConvention
     {
+        /// <inheritdoc/>
         public void Apply(ControllerModel controller)
         {
             controller.RouteAreaNamespace();

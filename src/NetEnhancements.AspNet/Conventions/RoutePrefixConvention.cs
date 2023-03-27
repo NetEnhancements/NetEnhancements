@@ -16,6 +16,7 @@ namespace NetEnhancements.AspNet.Conventions
             _baseControllerType = typeof(TControllerBase);
         }
 
+        /// <inheritdoc/>
         public void Apply(ApplicationModel application)
         {
             foreach (var selector in application.Controllers.Where(x => _baseControllerType.IsAssignableFrom(x.ControllerType)).SelectMany(c => c.Selectors))
@@ -43,6 +44,7 @@ namespace NetEnhancements.AspNet.Conventions
             _removeAreaFromUrl = removeAreaFromUrl;
         }
 
+        /// <inheritdoc/>
         public void Apply(PageRouteModel model)
         {
             if (model.AreaName != _areaName)
