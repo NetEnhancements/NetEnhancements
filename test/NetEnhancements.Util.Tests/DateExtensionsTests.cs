@@ -10,7 +10,7 @@
             var expected = new DateTime(2019, 5, 11, 8, 1, 0);
 
             // Act and Assert
-            Assert.AreEqual(expected, dt.RoundToNearest(TimeSpan.FromMinutes(1)));
+            Assert.That(dt.RoundToNearest(TimeSpan.FromMinutes(1)), Is.EqualTo(expected));
         }
 
         [Test]
@@ -21,7 +21,7 @@
             var expected = new DateTime(2019, 5, 11, 8, 0, 0);
 
             // Act and Assert
-            Assert.AreEqual(expected, dt.RoundToNearest(TimeSpan.FromMinutes(1)));
+            Assert.That(dt.RoundToNearest(TimeSpan.FromMinutes(1)), Is.EqualTo(expected));
         }
 
         [Test]
@@ -36,7 +36,7 @@
             var result = dt.IsBetweenTwoDates(start, end);
 
             // Assert
-            Assert.IsTrue(result);
+            Assert.That(result, Is.True);
         }
 
         [Test]
@@ -51,7 +51,7 @@
             var result = dt.IsBetweenTwoDates(start, end);
 
             // Assert
-            Assert.IsFalse(result);
+            Assert.That(result, Is.False);
         }
 
         [Test]
@@ -66,7 +66,7 @@
             var result = dt.IsBetweenTwoDates(start, end);
 
             // Assert
-            Assert.IsFalse(result);
+            Assert.That(result, Is.False);
         }
 
         [Test]
@@ -79,7 +79,7 @@
             var result = ts.Humanize();
 
             // Assert
-            Assert.AreEqual("0:00:00", result);
+            Assert.That(result, Is.EqualTo("0:00:00"));
         }
 
         [Test]
@@ -92,7 +92,7 @@
             var result = ts.Humanize();
 
             // Assert
-            Assert.AreEqual("1d", result);
+            Assert.That(result, Is.EqualTo("1d"));
         }
 
         [Test]
@@ -105,7 +105,7 @@
             var result = ts.Humanize();
 
             // Assert
-            Assert.AreEqual("1u", result);
+            Assert.That(result, Is.EqualTo("1u"));
         }
 
         [Test]
@@ -118,7 +118,7 @@
             var result = ts.Humanize();
 
             // Assert
-            Assert.AreEqual("1m", result);
+            Assert.That(result, Is.EqualTo("1m"));
         }
 
         [Test]
@@ -131,7 +131,7 @@
             var result = ts.Humanize();
 
             // Assert
-            Assert.AreEqual("1s", result);
+            Assert.That(result, Is.EqualTo("1s"));
         }
 
         [Test]
@@ -144,7 +144,7 @@
             var result = ts.Humanize();
 
             // Assert
-            Assert.AreEqual("01ms", result);
+            Assert.That(result, Is.EqualTo("01ms"));
         }
 
         [Test]
@@ -157,7 +157,7 @@
             var result = ts.Humanize();
 
             // Assert
-            Assert.AreEqual("1d 2u 3m 4s 5ms", result);
+            Assert.That(result, Is.EqualTo("1d 2u 3m 4s 5ms"));
         }
 
         [Test]
@@ -172,7 +172,7 @@
             var result = date.GetFirstDayOfMonth(firstDayOfWeek);
 
             // Assert
-            Assert.AreEqual(expectedFirstDay, result);
+            Assert.That(result, Is.EqualTo(expectedFirstDay));
         }
 
         [Test]
@@ -187,7 +187,7 @@
             var result = date.GetFirstDayOfMonth(firstDayOfWeek);
 
             // Assert
-            Assert.AreEqual(expectedFirstDay, result);
+            Assert.That(result, Is.EqualTo(expectedFirstDay));
         }
 
         [Test]
@@ -202,7 +202,7 @@
             var result = date.GetFirstDayOfMonth(firstDayOfWeek);
 
             // Assert
-            Assert.AreEqual(expectedFirstDay, result);
+            Assert.That(result, Is.EqualTo(expectedFirstDay));
         }
 
         [Test]
@@ -218,7 +218,7 @@
             var result = DateExtensions.DoDatesOverlap(aStart, aEnd, bStart, bEnd);
 
             // Assert
-            Assert.IsFalse(result);
+            Assert.That(result, Is.False);
         }
 
         [Test]
@@ -234,7 +234,7 @@
             var result = DateExtensions.DoDatesOverlap(aStart, aEnd, bStart, bEnd);
 
             // Assert
-            Assert.IsFalse(result);
+            Assert.That(result, Is.False);
         }
 
         [Test]
@@ -250,7 +250,7 @@
             var result = DateExtensions.DoDatesOverlap(aStart, aEnd, bStart, bEnd);
 
             // Assert
-            Assert.IsTrue(result);
+            Assert.That(result, Is.True);
         }
 
         [Test]
@@ -266,7 +266,7 @@
             var result = DateExtensions.DoDatesOverlap(aStart, aEnd, bStart, bEnd);
 
             // Assert
-            Assert.IsTrue(result);
+            Assert.That(result, Is.True);
         }
 
         [Test]
@@ -282,7 +282,7 @@
             var result = DateExtensions.DoDatesOverlap(aStart, aEnd, bStart, bEnd);
 
             // Assert
-            Assert.IsTrue(result);
+            Assert.That(result, Is.True);
         }
         [Test]
         public void RoundToNearest_RoundsToNearestDay()
@@ -296,7 +296,7 @@
 
             // Assert
             var expected = new TimeSpan(1, 0, 0, 0);
-            Assert.AreEqual(expected, result);
+            Assert.That(result, Is.EqualTo(expected));
         }
 
         [Test]
@@ -311,7 +311,7 @@
 
             // Assert
             var expected = new TimeSpan(1, 0, 0);
-            Assert.AreEqual(expected, result);
+            Assert.That(result, Is.EqualTo(expected));
         }
 
         [Test]
@@ -326,7 +326,7 @@
 
             // Assert
             var expected = new TimeSpan(0, 0, 30, 0);
-            Assert.AreEqual(expected, result);
+            Assert.That(result, Is.EqualTo(expected));
         }
 
         [Test]
@@ -341,7 +341,7 @@
 
             // Assert
             var expected = new TimeSpan(0, 0, 30);
-            Assert.AreEqual(expected, result);
+            Assert.That(result, Is.EqualTo(expected));
         }
 
         [Test]
@@ -356,7 +356,7 @@
 
             // Assert
             var expected = new TimeSpan(0, 0, 30);
-            Assert.AreEqual(expected, result);
+            Assert.That(result, Is.EqualTo(expected));
         }
         [Test]
         public void EachDay_SameDay_ReturnsOneDay()
@@ -384,9 +384,12 @@
             var result = DateExtensions.EachDay(from, thru).ToList();
 
             // Assert
-            Assert.That(result.Count, Is.EqualTo(2));
-            Assert.That(result[0], Is.EqualTo(from));
-            Assert.That(result[1], Is.EqualTo(thru));
+            Assert.That(result, Has.Count.EqualTo(2));
+            Assert.Multiple(() =>
+            {
+                Assert.That(result[0], Is.EqualTo(from));
+                Assert.That(result[1], Is.EqualTo(thru));
+            });
         }
 
         [Test]
@@ -400,11 +403,14 @@
             var result = DateExtensions.EachDay(from, thru).ToList();
 
             // Assert
-            Assert.That(result.Count, Is.EqualTo(4));
-            Assert.That(result[0], Is.EqualTo(new DateTime(2023, 3, 24)));
-            Assert.That(result[1], Is.EqualTo(new DateTime(2023, 3, 25)));
-            Assert.That(result[2], Is.EqualTo(new DateTime(2023, 3, 26)));
-            Assert.That(result[3], Is.EqualTo(new DateTime(2023, 3, 27)));
+            Assert.That(result, Has.Count.EqualTo(4));
+            Assert.Multiple(() =>
+            {
+                Assert.That(result[0], Is.EqualTo(new DateTime(2023, 3, 24)));
+                Assert.That(result[1], Is.EqualTo(new DateTime(2023, 3, 25)));
+                Assert.That(result[2], Is.EqualTo(new DateTime(2023, 3, 26)));
+                Assert.That(result[3], Is.EqualTo(new DateTime(2023, 3, 27)));
+            });
         }
 
         [Test]
@@ -418,7 +424,7 @@
             var result = DateExtensions.EachDay(from, thru).ToList();
 
             // Assert
-            Assert.That(result.Count, Is.EqualTo(0));
+            Assert.That(result, Is.Empty);
         }
 
         [Test]
@@ -432,7 +438,7 @@
             DateTime actual = DateExtensions.FromUnixTime(unixTime);
 
             // Assert
-            Assert.AreEqual(expected, actual);
+            Assert.That(actual, Is.EqualTo(expected));
         }
 
         [Test]
@@ -446,7 +452,7 @@
             DateTime actual = DateExtensions.FromUnixTime(unixTime);
 
             // Assert
-            Assert.AreEqual(expected, actual);
+            Assert.That(actual, Is.EqualTo(expected));
         }
 
         [Test]
@@ -460,7 +466,7 @@
             DateTime actual = DateExtensions.FromUnixTime(unixTime);
             
             // Assert
-            Assert.AreEqual(expected, actual);
+            Assert.That(actual, Is.EqualTo(expected));
         }
         [Test]
         public void TestToUnixTime_MinValue()
@@ -473,7 +479,7 @@
             long actual = dt.ToUnixTime();
 
             // Assert
-            Assert.AreEqual(expected, actual);
+            Assert.That(actual, Is.EqualTo(expected));
         }
 
         [Test]
@@ -487,7 +493,7 @@
             long actual = dt.ToUnixTime();
 
             // Assert
-            Assert.AreEqual(expected, actual);
+            Assert.That(actual, Is.EqualTo(expected));
         }
 
         [Test]
@@ -501,7 +507,7 @@
             long actual = dt.ToUnixTime();
 
             // Assert
-            Assert.AreEqual(expected, actual);
+            Assert.That(actual, Is.EqualTo(expected));
         }
 
         [Test]
@@ -515,7 +521,7 @@
             DateTime actual = dt.StartOfPreviousMonth();
 
             // Assert
-            Assert.AreEqual(expected, actual);
+            Assert.That(actual, Is.EqualTo(expected));
         }
 
         [Test]
@@ -529,7 +535,7 @@
             DateTime actual = dt.StartOfPreviousMonth();
 
             // Assert
-            Assert.AreEqual(expected, actual);
+            Assert.That(actual, Is.EqualTo(expected));
         }
 
         [Test]
@@ -543,7 +549,7 @@
             DateTime actual = dt.StartOfPreviousMonth();
 
             // Assert
-            Assert.AreEqual(expected, actual);
+            Assert.That(actual, Is.EqualTo(expected));
         }
 
         [Test]
@@ -557,7 +563,7 @@
             DateTime actual = dt.EndOfPreviousMonth();
 
             // Assert
-            Assert.AreEqual(expected.Date, actual.Date);
+            Assert.That(actual.Date, Is.EqualTo(expected.Date));
         }
 
         [Test]
@@ -571,7 +577,7 @@
             DateTime actual = dt.EndOfPreviousMonth();
 
             // Assert
-            Assert.AreEqual(expected.Date, actual.Date);
+            Assert.That(actual.Date, Is.EqualTo(expected.Date));
         }
 
         [Test]
@@ -585,7 +591,7 @@
             DateTime actual = dt.EndOfPreviousMonth();
 
             // Assert
-            Assert.AreEqual(expected.Date, actual.Date);
+            Assert.That(actual.Date, Is.EqualTo(expected.Date));
         }
 
         [Test]
