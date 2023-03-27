@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.Linq.Expressions;
-using NetEnhancements.Shared.EntityFramework;
 using Microsoft.AspNetCore.Identity;
+using NetEnhancements.Shared.EntityFramework;
 
 namespace NetEnhancements.Identity.Data
 {

@@ -1,7 +1,7 @@
 ﻿using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
 
-namespace NetEnhancements.Shared
+namespace NetEnhancements.Business
 {
     /// <summary>
     /// A wrapper class for calls into the business layer, so controllers don't have to do their own error handling.

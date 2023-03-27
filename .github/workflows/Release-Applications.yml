@@ -68,7 +68,9 @@ jobs:
           project-names: |
             src/NetEnhancements.Util
             src/NetEnhancements.Shared
-            src/NetEnhancements.Shared.AspNet
+            src/NetEnhancements.AspNet
+            src/NetEnhancements.EntityFramework
+            src/NetEnhancements.Identity
             src/NetEnhancements.Imaging
             src/NetEnhancements.Imaging.EntityFramework
           package-version: ${{ env.PACKAGE_VERSION }}

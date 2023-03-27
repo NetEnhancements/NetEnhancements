@@ -8,8 +8,10 @@
 3. **Imaging**
    * **Imaging**: reading image info, resizing them, saving to disk.
    * **EntityFramework**: saving image metadata through EF.
-4. **Tests**
-   * _TODO_
+4. **Business**
+   * **Business**: combines other libraries to enhance your application code's interaction with the other components.
+5. **Tests**
+   * Tests
 
 # Code Style
 * 0 warnings

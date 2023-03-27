@@ -4,7 +4,7 @@ using NetEnhancements.Shared.EntityFramework;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 
-namespace NetEnhancements.Shared.Managers
+namespace NetEnhancements.Business.Managers
 {
     /// <summary>
     /// Base class for Business Logic classes that talk to the database, which prevents you from having to create try-catch blocks.

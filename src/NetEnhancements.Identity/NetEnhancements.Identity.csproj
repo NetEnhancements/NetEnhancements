@@ -28,6 +28,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\NetEnhancements.EntityFramework\NetEnhancements.EntityFramework.csproj" />
     <ProjectReference Include="..\NetEnhancements.Shared\NetEnhancements.Shared.csproj" />
     <ProjectReference Include="..\NetEnhancements.Util\NetEnhancements.Util.csproj" />
   </ItemGroup>

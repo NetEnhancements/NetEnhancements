@@ -2,7 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
-namespace NetEnhancements.Shared.AspNet
+namespace NetEnhancements.Business
 {
     public static class BusinessResultToStatusCodeExtensions
     {
