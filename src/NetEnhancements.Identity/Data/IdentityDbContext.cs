@@ -4,6 +4,9 @@ using NetEnhancements.EntityFramework;
 
 namespace NetEnhancements.Identity.Data
 {
+    /// <summary>
+    /// Base class for a DbContext to be used with NetEnhancements.Identity.
+    /// </summary>
     public class IdentityDbContext : Microsoft.AspNetCore.Identity.EntityFrameworkCore.IdentityDbContext
     <
         ApplicationUser,
@@ -21,9 +24,11 @@ namespace NetEnhancements.Identity.Data
         /// </summary>
         public const string IdentitySchema = "Identity";
 
-#pragma warning disable CS8618 // DbSet properties are instantiated by EF.
+        /// <summary>
+        /// Initializes a new instance of the class.
+        /// </summary>
+        /// <param name="options">The options to be used by a <see cref="DbContext"/>.</param>
         public IdentityDbContext(DbContextOptions options) : base(options) { }
-#pragma warning restore CS8618
 
         /// <summary>
         /// Set up Identity tables.
@@ -78,6 +83,9 @@ namespace NetEnhancements.Identity.Data
                     );
         }
 
+        /// <summary>
+        /// TODO: does not belong here
+        /// </summary>
         public override int SaveChanges(bool acceptAllChangesOnSuccess)
         {
             MarkModifiedEntitiesAsModified();
@@ -85,6 +93,9 @@ namespace NetEnhancements.Identity.Data
             return base.SaveChanges(acceptAllChangesOnSuccess);
         }
 
+        /// <summary>
+        /// TODO: does not belong here
+        /// </summary>
         public override Task<int> SaveChangesAsync(bool acceptAllChangesOnSuccess, CancellationToken cancellationToken = default)
         {
             MarkModifiedEntitiesAsModified();
@@ -92,6 +103,9 @@ namespace NetEnhancements.Identity.Data
             return base.SaveChangesAsync(acceptAllChangesOnSuccess, cancellationToken);
         }
 
+        /// <summary>
+        /// TODO: does not belong here
+        /// </summary>
         private void MarkModifiedEntitiesAsModified()
         {
             var entries = ChangeTracker.Entries().Where(e => e.Entity is ITimestampedEntity && e.State == EntityState.Modified);
