@@ -24,11 +24,12 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "0. Solution Items", "0. Solution Items", "{62F3D058-5DF2-4E7F-8FF0-E79F86FBFC61}"
 	ProjectSection(SolutionItems) = preProject
 		CONTRIBUTING.md = CONTRIBUTING.md
+		src\Directory.Build.props = src\Directory.Build.props
 		LICENSE = LICENSE
 		README.md = README.md
 	EndProjectSection
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "5. Tests", "5. Tests", "{716BA8E5-8A7F-4A53-A47D-6629757A24D6}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "4. Tests", "4. Tests", "{716BA8E5-8A7F-4A53-A47D-6629757A24D6}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "GitHub", "GitHub", "{503762C1-CC9B-4ADD-870D-798598A39452}"
 	ProjectSection(SolutionItems) = preProject
@@ -39,20 +40,12 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "GitHub", "GitHub", "{503762
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NetEnhancements.Util.Tests", "test\NetEnhancements.Util.Tests\NetEnhancements.Util.Tests.csproj", "{DED63DA5-5D88-40E1-9C09-8103C26F0052}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NetEnhancements.AspNet", "src\NetEnhancements.Shared.AspNet\NetEnhancements.AspNet.csproj", "{2270DC49-476D-47BB-A248-63A9D6BEAE33}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NetEnhancements.AspNet", "src\NetEnhancements.AspNet\NetEnhancements.AspNet.csproj", "{2270DC49-476D-47BB-A248-63A9D6BEAE33}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{2765C6D0-3757-4ED1-89CB-EF9857E9FFE0}"
 	ProjectSection(SolutionItems) = preProject
 		src\Directory.Build.props = src\Directory.Build.props
 	EndProjectSection
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NetEnhancements.Business", "src\NetEnhancements.Business\NetEnhancements.Business.csproj", "{A80D1920-C0B4-4EF7-BD56-FA4E19FB45B8}"
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "4. Business", "4. Business", "{8A7F524B-85C8-452D-B015-84B71912160E}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NetEnhancements.EntityFramework", "src\NetEnhancements.EntityFramework\NetEnhancements.EntityFramework.csproj", "{73AE324C-B218-4EC2-8E42-2AD35EB8D532}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NetEnhancements.Services", "src\NetEnhancements.Services\NetEnhancements.Services.csproj", "{5E8798C1-9B14-45B1-A525-606FBA1F0E61}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -92,18 +85,6 @@ Global
 		{2270DC49-476D-47BB-A248-63A9D6BEAE33}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2270DC49-476D-47BB-A248-63A9D6BEAE33}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2270DC49-476D-47BB-A248-63A9D6BEAE33}.Release|Any CPU.Build.0 = Release|Any CPU
-		{A80D1920-C0B4-4EF7-BD56-FA4E19FB45B8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{A80D1920-C0B4-4EF7-BD56-FA4E19FB45B8}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{A80D1920-C0B4-4EF7-BD56-FA4E19FB45B8}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{A80D1920-C0B4-4EF7-BD56-FA4E19FB45B8}.Release|Any CPU.Build.0 = Release|Any CPU
-		{73AE324C-B218-4EC2-8E42-2AD35EB8D532}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{73AE324C-B218-4EC2-8E42-2AD35EB8D532}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{73AE324C-B218-4EC2-8E42-2AD35EB8D532}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{73AE324C-B218-4EC2-8E42-2AD35EB8D532}.Release|Any CPU.Build.0 = Release|Any CPU
-		{5E8798C1-9B14-45B1-A525-606FBA1F0E61}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{5E8798C1-9B14-45B1-A525-606FBA1F0E61}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{5E8798C1-9B14-45B1-A525-606FBA1F0E61}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{5E8798C1-9B14-45B1-A525-606FBA1F0E61}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -119,9 +100,6 @@ Global
 		{DED63DA5-5D88-40E1-9C09-8103C26F0052} = {716BA8E5-8A7F-4A53-A47D-6629757A24D6}
 		{2270DC49-476D-47BB-A248-63A9D6BEAE33} = {15D0DC5E-21C6-4252-A80A-4C74533D1C26}
 		{2765C6D0-3757-4ED1-89CB-EF9857E9FFE0} = {62F3D058-5DF2-4E7F-8FF0-E79F86FBFC61}
-		{A80D1920-C0B4-4EF7-BD56-FA4E19FB45B8} = {8A7F524B-85C8-452D-B015-84B71912160E}
-		{73AE324C-B218-4EC2-8E42-2AD35EB8D532} = {15D0DC5E-21C6-4252-A80A-4C74533D1C26}
-		{5E8798C1-9B14-45B1-A525-606FBA1F0E61} = {15D0DC5E-21C6-4252-A80A-4C74533D1C26}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {3C76D7A0-C62A-46D9-AD19-84BEC6192FE2}
