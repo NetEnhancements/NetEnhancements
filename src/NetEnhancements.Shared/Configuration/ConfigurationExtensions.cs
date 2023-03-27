@@ -1,5 +1,4 @@
-﻿using System.Linq.Expressions;
-using NetEnhancements.Util;
+﻿using NetEnhancements.Util;
 using Microsoft.Extensions.Configuration;
 
 namespace NetEnhancements.Shared.Configuration
@@ -41,12 +40,14 @@ namespace NetEnhancements.Shared.Configuration
         {
             var (isValid, validationResults) = AttributeValidator.Validate(instance);
 
-            if (!isValid)
+            if (isValid)
             {
-                var propertyErrors = validationResults.Select(r => r.ErrorMessage);
-
-                throw new ConfigurationException($"Invalid configuration for section '{sectionName}': \r\n * {string.Join("\r\n * ", propertyErrors)}");
+                return;
             }
+
+            var propertyErrors = validationResults.Select(r => r.ErrorMessage);
+
+            throw new ConfigurationException($"Invalid configuration for section '{sectionName}': \r\n * {string.Join("\r\n * ", propertyErrors)}");
         }
 
         /// <summary>
@@ -59,27 +60,6 @@ namespace NetEnhancements.Shared.Configuration
                 : GetSectionName(sectionName);
 
             return (configuration.GetSection(sectionName), sectionName);
-        }
-
-        private static (string MemberName, TValue? Value) GetSettingsValue<TSettings, TValue>(TSettings settingsValue, Expression<Func<TSettings, TValue>> propertySelector)
-            where TSettings : class
-        {
-            if (propertySelector.NodeType != ExpressionType.Lambda || propertySelector.Body is not MemberExpression memberExpression)
-            {
-                throw new ArgumentException("Expression does not point to a property name", nameof(propertySelector));
-            }
-
-            if (settingsValue == null)
-            {
-                // Entire section missing
-                throw ConfigurationException.MissingSection<TSettings>();
-            }
-
-            var compiledExpression = propertySelector.Compile();
-
-            TValue propertyValue = compiledExpression.Invoke(settingsValue);
-            
-            return (memberExpression.Member.Name, propertyValue);
         }
     }
 }
