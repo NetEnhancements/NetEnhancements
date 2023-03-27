@@ -19,7 +19,7 @@ public class ImagingBuilder
 }
 
 /// <summary>
-/// Dependency Injection container extensions.
+/// Dependency Injection extensions container.
 /// </summary>
 public static class DependencyInjection
 {

@@ -11,6 +11,9 @@ using Microsoft.Extensions.DependencyInjection;
 
 namespace NetEnhancements.Identity
 {
+    /// <summary>
+    /// Dependency Injection extensions container.
+    /// </summary>
     public static class DependencyInjection
     {
         /// <summary>

@@ -7,6 +7,9 @@ namespace NetEnhancements.Util
     /// </summary>
     public static class CultureInfoExtensions
     {
+        /// <summary>
+        /// The Dutch culture (tulips 'n such).
+        /// </summary>
         public static readonly CultureInfo Dutch = new("nl-NL");
 
         /// <summary>

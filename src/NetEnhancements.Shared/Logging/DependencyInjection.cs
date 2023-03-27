@@ -6,6 +6,9 @@ using Microsoft.Extensions.Logging;
 
 namespace NetEnhancements.Shared.Logging
 {
+    /// <summary>
+    /// Dependency Injection extensions container.
+    /// </summary>
     public static class DependencyInjection
     {
         /// <summary>

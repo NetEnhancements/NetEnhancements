@@ -5,7 +5,7 @@ using Microsoft.Extensions.Options;
 namespace NetEnhancements.Shared.Configuration
 {
     /// <summary>
-    /// Extension method container for settings.
+    /// Dependency Injection extensions container.
     /// </summary>
     public static class DependencyInjection
     {

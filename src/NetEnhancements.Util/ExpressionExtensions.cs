@@ -7,16 +7,24 @@ namespace NetEnhancements.Util
     /// </summary>
     public static class ExpressionExtensions
     {
+        /// <summary>
+        /// Returns the member name the <paramref name="expression"/> points to.
+        /// </summary>
+        /// <exception cref="ArgumentException">When the <paramref name="expression"/> doesn't point to a member.</exception>
         public static string GetMemberName(this Expression expression)
         {
             return expression.NodeType switch
             {
                 ExpressionType.MemberAccess => ((MemberExpression)expression).Member.Name,
                 ExpressionType.Convert => GetMemberName(((UnaryExpression)expression).Operand),
-                _ => throw new NotSupportedException($"Cannot get the name of a {expression.NodeType} expression")
+                _ => throw new ArgumentException($"Cannot get the name of a {expression.NodeType} expression", nameof(expression))
             };
         }
 
+        /// <summary>
+        /// Returns the value of the member the <paramref name="propertySelector"/> points to, or throws when that doesn't.
+        /// </summary>
+        /// <exception cref="ArgumentException">When the <paramref name="propertySelector"/> doesn't point to a callable member.</exception>
         public static (string MemberName, TValue? Value) GetMemberValue<T, TValue>(T instance, Expression<Func<T, TValue>> propertySelector)
             where T : class
         {
