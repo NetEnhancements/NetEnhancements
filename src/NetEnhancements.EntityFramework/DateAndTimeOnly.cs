@@ -2,7 +2,7 @@
 using Microsoft.EntityFrameworkCore.ChangeTracking;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
-namespace NetEnhancements.Shared.EntityFramework
+namespace NetEnhancements.EntityFramework
 {
     /// <summary>
     /// Entity Framework doesn't support DateOnly/TimeOnly natively.
@@ -120,7 +120,7 @@ namespace NetEnhancements.Shared.EntityFramework
     public class NullableTimeOnlyConverter : ValueConverter<TimeOnly?, TimeSpan?>
     {
         public NullableTimeOnlyConverter() : base(
-            timeOnly => timeOnly != null ? timeOnly.Value.ToTimeSpan() : (TimeSpan?)null,
+            timeOnly => timeOnly != null ? timeOnly.Value.ToTimeSpan() : null,
             timeSpan => TimeOnly.FromTimeSpan(timeSpan ?? new TimeSpan()))
         {
         }

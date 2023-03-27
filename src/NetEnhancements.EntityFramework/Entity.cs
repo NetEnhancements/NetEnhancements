@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace NetEnhancements.Shared.EntityFramework
+namespace NetEnhancements.EntityFramework
 {
     /// <summary>
     /// Base entity with created/modified fields.

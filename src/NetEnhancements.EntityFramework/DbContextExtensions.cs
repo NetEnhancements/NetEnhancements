@@ -1,12 +1,12 @@
 ﻿using Microsoft.EntityFrameworkCore;
 
-namespace NetEnhancements.Shared.EntityFramework
+namespace NetEnhancements.EntityFramework
 {
     public static class DbContextExtensions
     {
-        public static Task EnableIdentityInsert<TEntity>(this DbContext context) => SetIdentityInsert<TEntity>(context, on: true);
+        public static Task EnableIdentityInsert<TEntity>(this DbContext context) => context.SetIdentityInsert<TEntity>(on: true);
 
-        public static Task DisableIdentityInsert<TEntity>(this DbContext context) => SetIdentityInsert<TEntity>(context, on: false);
+        public static Task DisableIdentityInsert<TEntity>(this DbContext context) => context.SetIdentityInsert<TEntity>(on: false);
 
         private static Task SetIdentityInsert<TEntity>(this DbContext context, bool on)
         {

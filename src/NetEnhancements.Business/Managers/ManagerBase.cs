@@ -1,8 +1,8 @@
 ﻿using System.Diagnostics;
 using System.Runtime.CompilerServices;
-using NetEnhancements.Shared.EntityFramework;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
+using NetEnhancements.EntityFramework;
 
 namespace NetEnhancements.Business.Managers
 {

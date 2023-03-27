@@ -1,4 +1,4 @@
-﻿namespace NetEnhancements.Shared.Query
+﻿namespace NetEnhancements.EntityFramework.Query
 {
     /// <summary>
     /// Allows for passing query strings and sort clauses from controllers to managers.
@@ -16,12 +16,12 @@
         public static DataQuery Query(string? query)
         {
             var q = new DataQuery();
-            
+
             if (!string.IsNullOrWhiteSpace(query))
             {
                 q._queryExpressions.Add(new QueryExpression(query));
             }
-            
+
             return q;
         }
 
@@ -38,12 +38,12 @@
         public static DataQuery Order(string? order, OrderDirection direction = OrderDirection.Ascending)
         {
             var q = new DataQuery();
-            
+
             if (!string.IsNullOrWhiteSpace(order))
             {
                 q._orderExpressions.Add(new OrderExpression(order, direction));
             }
-            
+
             return q;
         }
 

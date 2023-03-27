@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using System.ComponentModel.DataAnnotations;
-using NetEnhancements.Shared.EntityFramework;
+using NetEnhancements.EntityFramework;
 
 namespace NetEnhancements.Imaging.EntityFramework;
 

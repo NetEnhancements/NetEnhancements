@@ -1,4 +1,4 @@
-﻿namespace NetEnhancements.Shared.EntityFramework
+﻿namespace NetEnhancements.EntityFramework
 {
     /// <summary>
     /// Entities annotated with this will have their 

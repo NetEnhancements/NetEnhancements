@@ -1,10 +1,10 @@
 ﻿using NetEnhancements.Identity.Data;
-using NetEnhancements.Shared.EntityFramework;
-using NetEnhancements.Shared.Query;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
+using NetEnhancements.EntityFramework.Query;
+using NetEnhancements.EntityFramework;
 
 namespace NetEnhancements.Identity.Managers
 {

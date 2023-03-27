@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Microsoft.EntityFrameworkCore.Query;
 
-namespace NetEnhancements.Shared.EntityFramework
+namespace NetEnhancements.EntityFramework
 {
     /// <summary>
     /// From various posts at https://stackoverflow.com/questions/47673524/ef-core-soft-delete-with-shadow-properties-and-query-filters
@@ -36,7 +36,7 @@ namespace NetEnhancements.Shared.EntityFramework
 
             modelBuilder.ApplyPropertyBuilder<ITimestampedEntity>(
                 e => e.Modified,
-                
+
                 // Tells EF that the database generates this value, but does not allow setting it automatically. See IdentityDbContext.
                 prop => prop.ValueGeneratedOnUpdate()
                             // Allow updates

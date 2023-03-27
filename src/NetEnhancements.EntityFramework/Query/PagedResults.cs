@@ -1,4 +1,4 @@
-﻿namespace NetEnhancements.Shared.Query
+﻿namespace NetEnhancements.EntityFramework.Query
 {
     public record PagedResults<T> where T : class
     {

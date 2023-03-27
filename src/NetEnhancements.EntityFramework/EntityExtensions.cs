@@ -1,8 +1,8 @@
 ﻿using System.ComponentModel;
 using System.Linq.Expressions;
-using NetEnhancements.Shared.Query;
+using NetEnhancements.EntityFramework.Query;
 
-namespace NetEnhancements.Shared.EntityFramework
+namespace NetEnhancements.EntityFramework
 {
     public static class EntityExtensions
     {
@@ -38,12 +38,12 @@ namespace NetEnhancements.Shared.EntityFramework
 
                 orderedQueryable = orderExpression.Direction switch
                 {
-                    OrderDirection.Ascending => 
+                    OrderDirection.Ascending =>
                         orderedQueryable == null
                             ? queryable.OrderBy(expression)
                             : orderedQueryable.ThenBy(expression),
 
-                    OrderDirection.Descending => 
+                    OrderDirection.Descending =>
                         orderedQueryable == null
                             ? queryable.OrderByDescending(expression)
                             : orderedQueryable.ThenByDescending(expression),

@@ -1,6 +1,6 @@
-﻿using NetEnhancements.Shared.EntityFramework;
-using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using NetEnhancements.EntityFramework;
 
 namespace NetEnhancements.Identity.Data
 {
