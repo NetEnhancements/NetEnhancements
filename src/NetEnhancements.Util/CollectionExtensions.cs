@@ -44,5 +44,59 @@ namespace NetEnhancements.Util
 
             return collection.ElementAt(index);
         }
+
+        /// <summary>
+        /// Takes one random element from the collection.
+        /// </summary>
+        public static T Random<T>(this ICollection<T> collection)
+        {
+            return collection.Random(new Random());
+        }
+
+        /// <summary>
+        /// Generates all permutations of a given length from the specified list.
+        /// </summary>
+        /// <typeparam name="T">The type of the elements in the list.</typeparam>
+        /// <param name="list">The input list to generate permutations from.</param>
+        /// <param name="length">The length of the permutations to generate.</param>
+        /// <returns>An enumerable of permutations, where each permutation is an enumerable of the same type as the input list.</returns>
+        /// <exception cref="ArgumentOutOfRangeException">Thrown when the length is greater than the number of elements in the list.</exception>
+        public static IEnumerable<IEnumerable<T>> GetPermutations<T>(this ICollection<T> list, int length)
+        {
+            if (length > list.Count)
+            {
+                throw new ArgumentOutOfRangeException(nameof(length));
+            }
+            if (length == 1)
+            {
+                foreach (T t in list)
+                {
+                    yield return new[] { t };
+                }
+            }
+            else
+            {
+                foreach (IEnumerable<T> perm in GetPermutations(list, length - 1))
+                {
+                    foreach (T t in list.Where(e => !perm.Contains(e)))
+                    {
+                        yield return perm.Concat(new[] { t });
+                    }
+                }
+            }
+        }
+
+        /// <summary>
+        /// Generates all permutations from the specified list.
+        /// </summary>
+        /// <typeparam name="T">The type of the elements in the list.</typeparam>
+        /// <param name="list">The input list to generate permutations from.</param>
+        /// <returns>An enumerable of permutations, where each permutation is an enumerable of the same type as the input list.</returns>
+        public static IEnumerable<IEnumerable<T>> GetPermutations<T>(this ICollection<T> list)
+        {
+            var length = list.Count;
+
+            return list.GetPermutations(length);
+        }
     }
 }
