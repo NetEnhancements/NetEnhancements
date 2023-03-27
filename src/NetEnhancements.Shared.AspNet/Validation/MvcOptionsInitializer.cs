@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
 
-namespace NetEnhancements.Shared.AspNet.Validation
+namespace NetEnhancements.AspNet.Validation
 {
     /// <summary>
     /// Registers our localizer with MVC, to translate errors while model binding.

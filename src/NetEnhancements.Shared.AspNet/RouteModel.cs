@@ -1,4 +1,4 @@
-﻿namespace NetEnhancements.Shared.AspNet
+﻿namespace NetEnhancements.AspNet
 {
     /// <summary>
     /// An ASP.NET Core route.

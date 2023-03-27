@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Mvc.ApplicationModels;
 using Microsoft.AspNetCore.Mvc.Authorization;
 using Microsoft.AspNetCore.Mvc.Filters;
 
-namespace NetEnhancements.Shared.AspNet.Conventions
+namespace NetEnhancements.AspNet.Conventions
 {
     public class DefaultAreaPolicyFilter : AuthorizeFilter
     {
@@ -65,10 +65,10 @@ namespace NetEnhancements.Shared.AspNet.Conventions
         {
             var areaPolicy = _policies.FirstOrDefault(p => p.AreaName == areaName)?.Filters;
 
-            bool wasConfigured = areaPolicy != null;
+            var wasConfigured = areaPolicy != null;
 
             areaPolicy ??= _defaultPolicy;
-            
+
             Debug.WriteLine($"Using {(wasConfigured ? "configured" : "default")} policy with {areaPolicy.Length} filter{(areaPolicy.Length == 1 ? "" : "s")} for area {areaName}");
 
             foreach (var filter in areaPolicy)

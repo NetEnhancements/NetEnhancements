@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc.ApplicationModels;
 
-namespace NetEnhancements.Shared.AspNet.Conventions
+namespace NetEnhancements.AspNet.Conventions
 {
     /// <summary>
     /// Apply this convention to route all controllers based on their "Areas." namespace, if any.

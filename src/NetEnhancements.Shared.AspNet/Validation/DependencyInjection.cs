@@ -2,7 +2,7 @@
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
 
-namespace NetEnhancements.Shared.AspNet.Validation
+namespace NetEnhancements.AspNet.Validation
 {
     public static class DependencyInjection
     {

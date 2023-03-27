@@ -1,9 +1,9 @@
-﻿using NetEnhancements.Shared.AspNet.Conventions;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Routing;
+using NetEnhancements.AspNet.Conventions;
 
-namespace NetEnhancements.Shared.AspNet
+namespace NetEnhancements.AspNet
 {
     public static class MvcOptionsExtensions
     {

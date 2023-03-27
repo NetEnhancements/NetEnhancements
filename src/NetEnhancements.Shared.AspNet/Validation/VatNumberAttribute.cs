@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using NetEnhancements.Util;
 
-namespace NetEnhancements.Shared.AspNet.Validation
+namespace NetEnhancements.AspNet.Validation
 {
     /// <summary>
     /// Applied to models on which you want to apply a <see cref="VatNumberAttribute"/>.

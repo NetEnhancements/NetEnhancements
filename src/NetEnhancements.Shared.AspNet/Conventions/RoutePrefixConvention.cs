@@ -2,7 +2,7 @@
 using Microsoft.AspNetCore.Mvc.ApplicationModels;
 using Microsoft.AspNetCore.Mvc.Routing;
 
-namespace NetEnhancements.Shared.AspNet.Conventions
+namespace NetEnhancements.AspNet.Conventions
 {
     public class RoutePrefixConvention<TControllerBase> : IApplicationModelConvention
         where TControllerBase : Controller
@@ -20,8 +20,8 @@ namespace NetEnhancements.Shared.AspNet.Conventions
         {
             foreach (var selector in application.Controllers.Where(x => _baseControllerType.IsAssignableFrom(x.ControllerType)).SelectMany(c => c.Selectors))
             {
-                selector.AttributeRouteModel = selector.AttributeRouteModel != null 
-                    ? AttributeRouteModel.CombineAttributeRouteModel(_routePrefix, selector.AttributeRouteModel) 
+                selector.AttributeRouteModel = selector.AttributeRouteModel != null
+                    ? AttributeRouteModel.CombineAttributeRouteModel(_routePrefix, selector.AttributeRouteModel)
                     : _routePrefix;
             }
         }

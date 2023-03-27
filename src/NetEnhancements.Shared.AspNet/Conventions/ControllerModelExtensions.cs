@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc.ApplicationModels;
 
-namespace NetEnhancements.Shared.AspNet.Conventions
+namespace NetEnhancements.AspNet.Conventions
 {
     public static class ControllerModelExtensions
     {

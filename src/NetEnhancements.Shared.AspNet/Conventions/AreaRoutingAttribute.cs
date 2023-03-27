@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc.ApplicationModels;
 
-namespace NetEnhancements.Shared.AspNet.Conventions
+namespace NetEnhancements.AspNet.Conventions
 {
     /// <summary>
     /// Apply to a controller to auto-route its area based on its namespace.

@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.Globalization;
 
-namespace NetEnhancements.Shared.AspNet.Validation
+namespace NetEnhancements.AspNet.Validation
 {
     public class NonZeroAttribute : ValidationAttribute
     {

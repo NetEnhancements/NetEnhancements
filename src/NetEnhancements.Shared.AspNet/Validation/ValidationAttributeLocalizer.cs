@@ -2,7 +2,7 @@
 using Microsoft.AspNetCore.Mvc.ModelBinding.Metadata;
 using Microsoft.Extensions.Options;
 
-namespace NetEnhancements.Shared.AspNet.Validation
+namespace NetEnhancements.AspNet.Validation
 {
     public class ValidationAttributeLocalizerOptions
     {
@@ -20,7 +20,7 @@ namespace NetEnhancements.Shared.AspNet.Validation
 
         public ValidationAttributeLocalizer(IOptions<ValidationAttributeLocalizerOptions> options)
         {
-            ErrorMessageResourceType = options.Value?.ValidationErrorResourceType 
+            ErrorMessageResourceType = options.Value?.ValidationErrorResourceType
                                        ?? throw new ArgumentNullException(nameof(ValidationAttributeLocalizerOptions.ValidationErrorResourceType));
         }
 

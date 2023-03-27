@@ -1,7 +1,7 @@
 ﻿using System.Net;
 using Microsoft.AspNetCore.Mvc.Filters;
 
-namespace NetEnhancements.Shared.AspNet.Filters
+namespace NetEnhancements.AspNet.Filters
 {
     public class UnauthorizedAccessExceptionFilter : IExceptionFilter
     {

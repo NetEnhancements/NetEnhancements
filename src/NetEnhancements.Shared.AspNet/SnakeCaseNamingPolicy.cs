@@ -1,7 +1,7 @@
 ﻿using System.Text.Json;
 using NetEnhancements.Util;
 
-namespace NetEnhancements.Shared.AspNet
+namespace NetEnhancements.AspNet
 {
     public class SnakeCaseNamingPolicy : JsonNamingPolicy
     {

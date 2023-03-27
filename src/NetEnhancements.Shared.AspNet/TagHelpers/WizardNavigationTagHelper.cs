@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Razor.TagHelpers;
 
-namespace NetEnhancements.Shared.AspNet.TagHelpers
+namespace NetEnhancements.AspNet.TagHelpers
 {
     public class WizardNavigationTagHelper : TagHelper
     {

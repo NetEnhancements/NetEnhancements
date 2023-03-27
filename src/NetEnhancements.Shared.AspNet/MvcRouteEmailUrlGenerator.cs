@@ -1,6 +1,6 @@
 ﻿//using NetEnhancements.Email;
 
-namespace NetEnhancements.Shared.AspNet
+namespace NetEnhancements.AspNet
 {
     //public class MvcRouteEmailUrlGenerator : IUrlGenerator
     //{

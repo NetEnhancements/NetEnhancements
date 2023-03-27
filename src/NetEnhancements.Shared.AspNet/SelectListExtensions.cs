@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc.Rendering;
 
-namespace NetEnhancements.Shared.AspNet
+namespace NetEnhancements.AspNet
 {
     public static class SelectListExtensions
     {

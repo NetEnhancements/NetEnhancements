@@ -1,7 +1,7 @@
 ﻿using NetEnhancements.Util;
 using Microsoft.AspNetCore.Razor.TagHelpers;
 
-namespace NetEnhancements.Shared.AspNet.TagHelpers
+namespace NetEnhancements.AspNet.TagHelpers
 {
     [HtmlTargetElement("date")]
     public class DateTagHelper : TagHelper

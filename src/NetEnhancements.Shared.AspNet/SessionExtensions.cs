@@ -2,7 +2,7 @@
 using NetEnhancements.Util.Json;
 using Microsoft.AspNetCore.Http;
 
-namespace NetEnhancements.Shared.AspNet
+namespace NetEnhancements.AspNet
 {
     public static class SessionExtensions
     {
@@ -26,9 +26,9 @@ namespace NetEnhancements.Shared.AspNet
         public static TModel? ReadObject<TModel>(this ISession session, string key)
         {
             var json = session.GetString(key);
-            
-            return string.IsNullOrWhiteSpace(json) 
-                ? default 
+
+            return string.IsNullOrWhiteSpace(json)
+                ? default
                 : JsonSerializer.Deserialize<TModel>(json, SerializerOptions);
         }
 

@@ -1,14 +1,14 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 
-namespace NetEnhancements.Shared.AspNet.Validation
+namespace NetEnhancements.AspNet.Validation
 {
     public static class ModelStateExtensions
     {
         private const string UnknownErrorMessage = "Unknown error";
 
         /// <summary>
-        /// Adds the error results from <see cref="NetEnhancements.Util.AttributeValidator.Validate{T}"/> to the <paramref name="modelState"/>, prefixed with the member name <paramref name="prefix"/>.
+        /// Adds the error results from <see cref="Util.AttributeValidator.Validate{T}"/> to the <paramref name="modelState"/>, prefixed with the member name <paramref name="prefix"/>.
         /// 
         /// In the case of an empty error message provided by a validator, the <paramref name="unknownErrorMessage"/> will be added, which defaults to "Unknown error" when not specified otherwise.
         /// </summary>

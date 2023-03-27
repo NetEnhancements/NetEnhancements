@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
+using NetEnhancements.Shared;
 
-namespace NetEnhancements.Shared.AspNet
+namespace NetEnhancements.AspNet
 {
     public static class HttpRequestExtensions
     {
