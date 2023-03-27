@@ -7,6 +7,9 @@ namespace NetEnhancements.Imaging;
 /// </summary>
 public class ImagingBuilder
 {
+    /// <summary>
+    /// The service collection to add additional services to.
+    /// </summary>
     public IServiceCollection Services { get; }
 
     internal ImagingBuilder(IServiceCollection services)

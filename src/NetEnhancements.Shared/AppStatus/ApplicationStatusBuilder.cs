@@ -4,8 +4,14 @@ using Microsoft.Extensions.Hosting;
 
 namespace NetEnhancements.Shared.AppStatus
 {
+    /// <summary>
+    /// Reads application (main assembly) information.
+    /// </summary>
     public static class ApplicationStatusBuilder
     {
+        /// <summary>
+        /// Returns host and version information about the executed assembly.
+        /// </summary>
         public static ApplicationStatus FromHostedAssembly(IHostEnvironment hostingEnvironment, bool includingSensitiveData = false)
         {
             var assembly = GetEntryAssembly();
@@ -14,7 +20,7 @@ namespace NetEnhancements.Shared.AppStatus
 
             var result = new ApplicationStatus
             (
-                assembly.GetName()!.Name!,
+                assembly.GetName().Name!,
                 version.ProductVersion!,
                 hostingEnvironment.EnvironmentName
             );
@@ -29,9 +35,12 @@ namespace NetEnhancements.Shared.AppStatus
             return result;
         }
 
+        /// <summary>
+        /// Returns when an assembly was last written.
+        /// </summary>
         public static DateTime GetBuildDateTime(Assembly? assembly = null)
         {
-            return System.IO.File.GetLastWriteTime((assembly ?? GetEntryAssembly()).Location);
+            return File.GetLastWriteTime((assembly ?? GetEntryAssembly()).Location);
         }
 
         private static Assembly GetEntryAssembly() => Assembly.GetEntryAssembly()

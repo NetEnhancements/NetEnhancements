@@ -12,6 +12,9 @@ namespace NetEnhancements.EntityFramework
     /// </summary>
     public static class ModelConfigurationBuilderExtensions
     {
+        /// <summary>
+        /// Add support for <see cref="DateOnly"/> to Entity Framework Core.
+        /// </summary>
         public static ModelConfigurationBuilder AddDateOnly(this ModelConfigurationBuilder builder)
         {
             builder.Properties<DateOnly>()
@@ -25,6 +28,9 @@ namespace NetEnhancements.EntityFramework
             return builder;
         }
 
+        /// <summary>
+        /// Add support for <see cref="TimeOnly"/> to Entity Framework Core.
+        /// </summary>
         public static ModelConfigurationBuilder AddTimeOnly(this ModelConfigurationBuilder builder)
         {
             builder.Properties<TimeOnly>()
@@ -89,9 +95,9 @@ namespace NetEnhancements.EntityFramework
     /// </summary>
     public class NullableDateOnlyComparer : ValueComparer<DateOnly?>
     {
-        /// <summary> 
+        /// <summary>
         /// Creates a new instance of this converter. 
-        /// </summary> 
+        /// </summary>
         public NullableDateOnlyComparer() : base(
             (d1, d2) => d1 == d2 && d1.GetValueOrDefault().DayNumber == d2.GetValueOrDefault().DayNumber,
             d => d.GetHashCode())
@@ -99,8 +105,14 @@ namespace NetEnhancements.EntityFramework
         }
     }
 
+    /// <summary>
+    /// Converts <see cref="TimeOnly" /> to nullable <see cref="TimeSpan"/> and vice versa.
+    /// </summary>
     public class TimeOnlyConverter : ValueConverter<TimeOnly, TimeSpan>
     {
+        /// <summary>
+        /// Creates a new instance of this converter. 
+        /// </summary>
         public TimeOnlyConverter() : base(
             timeOnly => timeOnly.ToTimeSpan(),
             timeSpan => TimeOnly.FromTimeSpan(timeSpan))
@@ -108,8 +120,15 @@ namespace NetEnhancements.EntityFramework
         }
     }
 
+
+    /// <summary>
+    /// Compares <see cref="TimeOnly" />.
+    /// </summary>
     public class TimeOnlyComparer : ValueComparer<TimeOnly>
     {
+        /// <summary>
+        /// Creates a new instance of this converter. 
+        /// </summary>
         public TimeOnlyComparer() : base(
             (t1, t2) => t1.Ticks == t2.Ticks,
             t => t.GetHashCode())
@@ -117,8 +136,14 @@ namespace NetEnhancements.EntityFramework
         }
     }
 
+    /// <summary>
+    /// Converts nullable <see cref="TimeOnly" /> to nullable <see cref="TimeSpan"/> and vice versa.
+    /// </summary>
     public class NullableTimeOnlyConverter : ValueConverter<TimeOnly?, TimeSpan?>
     {
+        /// <summary>
+        /// Creates a new instance of this converter. 
+        /// </summary>
         public NullableTimeOnlyConverter() : base(
             timeOnly => timeOnly != null ? timeOnly.Value.ToTimeSpan() : null,
             timeSpan => TimeOnly.FromTimeSpan(timeSpan ?? new TimeSpan()))
@@ -126,8 +151,14 @@ namespace NetEnhancements.EntityFramework
         }
     }
 
+    /// <summary>
+    /// Compares <see cref="Nullable{TimeOnly}" />.
+    /// </summary>
     public class NullableTimeOnlyComparer : ValueComparer<TimeOnly?>
     {
+        /// <summary>
+        /// Creates a new instance of this converter. 
+        /// </summary>
         public NullableTimeOnlyComparer() : base(
             (t1, t2) => t1 == t2,
             t => t.GetHashCode())
