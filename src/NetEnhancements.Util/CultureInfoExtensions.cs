@@ -2,6 +2,9 @@
 
 namespace NetEnhancements.Util
 {
+    /// <summary>
+    /// Provides extension methods for <see cref="CultureInfo"/>.
+    /// </summary>
     public static class CultureInfoExtensions
     {
         public static readonly CultureInfo Dutch = new("nl-NL");

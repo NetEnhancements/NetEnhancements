@@ -2,8 +2,14 @@
 
 namespace NetEnhancements.Util
 {
-    public class RandomExtensions
+    /// <summary>
+    /// Provides extension methods for <see cref="Random"/>.
+    /// </summary>
+    public static class RandomExtensions
     {
+        /// <summary>
+        /// Generate a hexadecimal token string with the given length, which must be a multiple of 2.
+        /// </summary>
         public static string GenerateRandomToken(int length)
         {
             if (length % 2 != 0)

@@ -1,7 +1,7 @@
 ﻿namespace NetEnhancements.Util
 {
     /// <summary>
-    /// Extension method container for <see cref="Stream"/>s.
+    /// Provides extension methods for <see cref="Stream"/>s.
     /// </summary>
     public static class StreamExtensions
     {

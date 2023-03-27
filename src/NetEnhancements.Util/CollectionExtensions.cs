@@ -5,6 +5,9 @@ using System.Runtime.CompilerServices;
 
 namespace NetEnhancements.Util
 {
+    /// <summary>
+    /// Provides extension methods for collections.
+    /// </summary>
     public static class CollectionExtensions
     {
         /// <summary>
@@ -20,7 +23,7 @@ namespace NetEnhancements.Util
         /// <summary>
         /// Returns the collection when not null nor empty, or throws complaining thereabout.
         /// </summary>
-		[StackTraceHidden]
+        [StackTraceHidden]
         public static TCollection ThrowIfNullOrEmpty<TCollection>([NotNull] this TCollection? collection, [CallerArgumentExpression(nameof(collection))] string? collectionName = null)
             where TCollection : ICollection
         {
@@ -31,7 +34,7 @@ namespace NetEnhancements.Util
 
             return collection;
         }
-        
+
         /// <summary>
         /// Takes one random element from the collection.
         /// </summary>

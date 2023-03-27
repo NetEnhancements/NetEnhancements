@@ -2,6 +2,9 @@
 
 namespace NetEnhancements.Util
 {
+    /// <summary>
+    /// Provides extension methods for expressions.
+    /// </summary>
     public static class ExpressionExtensions
     {
         public static string GetMemberName(this Expression expression)

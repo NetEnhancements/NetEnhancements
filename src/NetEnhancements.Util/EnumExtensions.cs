@@ -1,11 +1,10 @@
-﻿using System.ComponentModel;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 using System.Reflection;
 
 namespace NetEnhancements.Util
 {
     /// <summary>
-    /// Extension methods for enums.
+    /// Provides extension methods for enums.
     /// </summary>
     public static class EnumExtensions
     {

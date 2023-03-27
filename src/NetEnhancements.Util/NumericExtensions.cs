@@ -1,5 +1,8 @@
 ﻿namespace NetEnhancements.Util
 {
+    /// <summary>
+    /// Provides extension methods for numeric types.
+    /// </summary>
     public static class NumericExtensions
     {
         public static string ToValueString(this decimal value) =>
