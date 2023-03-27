@@ -587,5 +587,58 @@
             // Assert
             Assert.AreEqual(expected.Date, actual.Date);
         }
+
+        [Test]
+        public void StartOfWeek_Goes_Back()
+        {
+            // Arrange Monday
+            var date = new DateTime(2023, 3, 27);
+
+            // Act
+            var weekStart = date.StartOfWeek(DayOfWeek.Sunday);
+
+            // Assert Sunday
+            Assert.That(weekStart, Is.EqualTo(new DateTime(2023, 3, 26)));
+        }
+
+        [Test]
+        public void StartOfWeek_Keeps_WeekStart()
+        {
+            // Arrange Monday
+            var date = new DateTime(2023, 3, 27);
+
+            // Act
+            var weekStart = date.StartOfWeek(DayOfWeek.Monday);
+
+            // Assert still Monday
+            Assert.That(weekStart, Is.EqualTo(date));
+        }
+
+        [Test]
+        [TestCaseSource(nameof(ToReadableString_DataSource))]
+        public void ToReadableString((DateTimeOffset? DateTimeOffset, bool UseValue, string? Expected) testData)
+        {
+            var (dateTimeOffset, useValue, expected) = testData;
+            
+            // UseValue calls using .Value, the non-nullable overload.
+            Assert.That(useValue ? dateTimeOffset!.Value.ToReadableString() : dateTimeOffset.ToReadableString(), Is.EqualTo(expected));
+        }
+
+        private static List<(DateTimeOffset? DateTimeOffset, bool UseValue, string? Expected)> ToReadableString_DataSource()
+        {
+            var now = DateTimeOffset.Now;
+
+            return new List<(DateTimeOffset? DateTimeOffset, bool UseValue, string? Expected)>
+            {
+                // Nullable overload
+                (null, false, null),
+                (new DateTimeOffset(now.Date.AddHours(9).AddMinutes(12).AddSeconds(15), TimeSpan.FromHours(2)), false, "today, 09:12:15"),
+
+                // Non-nullable overload
+                (new DateTimeOffset(now.Date.AddHours(9).AddMinutes(12).AddSeconds(15), TimeSpan.FromHours(2)), true, "today, 09:12:15"),
+                (new DateTimeOffset(now.Date.AddDays(-1).AddHours(19).AddMinutes(12).AddSeconds(15), TimeSpan.FromHours(2)), true, "yesterday, 19:12:15"),
+                (new DateTimeOffset(now.Date.AddDays(-1).AddHours(19).AddMinutes(12).AddSeconds(15), TimeSpan.FromHours(2)), true, "yesterday, 19:12:15"),
+            };
+        }
     }
 }

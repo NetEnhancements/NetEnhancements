@@ -2,9 +2,26 @@ using System.ComponentModel.DataAnnotations;
 
 namespace NetEnhancements.Util.Tests
 {
-    // ReSharper disable InconsistentNaming
     public class VatNumberValidatorTests
     {
+        [Test]
+        public void Validate_Null_CountryCode_Invalid()
+        {
+            var valid = VatNumberValidator.Validate("VAT123", null, allowSeparatorChars: true, allowEmpty: false);
+
+            Assert.That(valid, Is.Not.Null);
+            Assert.That(valid!.ErrorMessage, Contains.Substring("country"));
+        }
+
+        [Test]
+        public void Validate_Unknown_CountryCode_Throws()
+        {
+            var valid = VatNumberValidator.Validate("VAT123", "XXXX", allowSeparatorChars: true, allowEmpty: false);
+
+            Assert.That(valid, Is.Not.Null);
+            Assert.That(valid!.ErrorMessage, Contains.Substring("country"));
+        }
+
         [Test]
         [TestCaseSource(nameof(EUVatData))]
         [TestCaseSource(nameof(NonEUVatData))]
@@ -60,6 +77,7 @@ namespace NetEnhancements.Util.Tests
             };
         }
 
+        // ReSharper disable once InconsistentNaming - EU
         private static List<(string, string, bool)> EUVatData()
         {
             return new List<(string, string, bool)>
@@ -137,6 +155,7 @@ namespace NetEnhancements.Util.Tests
             };
         }
 
+        // ReSharper disable once InconsistentNaming - EU
         private static List<(string, string, bool)> NonEUVatData()
         {
             return new List<(string, string, bool)>

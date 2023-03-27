@@ -1,6 +1,6 @@
 ﻿namespace NetEnhancements.Util.Tests
 {
-    public class DateRangeExtensionsTest
+    public class DateRangeExtensionsTests
     {
         [Test]
         public void GetDayFrequency_Throws()
@@ -84,6 +84,99 @@
 
             // Assert
             Assert.That(text, Is.EqualTo("1 day"));
+        }
+
+        [Test]
+        public void DaysOrWeeksUntil_3Days()
+        {
+            // Arrange
+            var start = new DateOnly(2023, 04, 26);
+            var end = start.AddDays(2);
+
+            // Act
+            var text = start.DaysOrWeeksUntil(end);
+
+            // Assert
+            Assert.That(text, Is.EqualTo("3 days"));
+        }
+
+        [Test]
+        public void DaysOrWeeksUntil_1Week()
+        {
+            // Arrange
+            var start = new DateOnly(2023, 04, 26);
+            var end = start.AddDays(6);
+
+            // Act
+            var text = start.DaysOrWeeksUntil(end);
+
+            // Assert
+            Assert.That(text, Is.EqualTo("1 week"));
+        }
+
+        [Test]
+        public void DaysOrWeeksUntil_3Weeks()
+        {
+            // Arrange
+            var start = new DateOnly(2023, 04, 26);
+            var end = start.AddDays(20);
+
+            // Act
+            var text = start.DaysOrWeeksUntil(end);
+
+            // Assert
+            Assert.That(text, Is.EqualTo("3 weeks"));
+        }
+
+        [Test]
+        public void WeekNumbersUntil_Throws()
+        {
+            var start = new DateOnly(2023, 04, 26);
+            var end = start.AddDays(-1);
+
+            Assert.Throws<ArgumentException>(() => start.WeekNumbersUntil(end));
+        }
+
+        [Test]
+        public void WeekNumbersUntil_1Week()
+        {
+            // Arrange
+            var start = new DateOnly(2023, 04, 26);
+            var end = start;
+
+            // Act
+            var text = start.WeekNumbersUntil(end);
+
+            // Assert
+            Assert.That(text, Is.EqualTo("Week 17 2023"));
+        }
+
+        [Test]
+        public void WeekNumbersUntil_3Weeks()
+        {
+            // Arrange
+            var start = new DateOnly(2023, 02, 15);
+            var end = new DateOnly(2023, 03, 17);
+
+            // Act
+            var text = start.WeekNumbersUntil(end);
+
+            // Assert
+            Assert.That(text, Is.EqualTo("Week 7 until 11 2023"));
+        }
+
+        [Test]
+        public void WeekNumbersUntil_YearBoundary()
+        {
+            // Arrange
+            var start = new DateOnly(2022, 12, 31);
+            var end = new DateOnly(2023, 01, 31);
+
+            // Act
+            var text = start.WeekNumbersUntil(end);
+
+            // Assert
+            Assert.That(text, Is.EqualTo("Week 52 2022 until 5 2023"));
         }
     }
 }

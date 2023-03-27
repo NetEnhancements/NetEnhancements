@@ -3,7 +3,7 @@
 namespace NetEnhancements.Util
 {
     /// <summary>
-    /// Provides extension methods for DateTime and TimeSpan objects.
+    /// Provides extension methods for <see cref="DateTimeOffset"/>, <see cref="DateTime"/>, <see cref="DateOnly"/> and <see cref="TimeSpan"/> objects.
     /// </summary>
     public static class DateExtensions
     {
@@ -236,18 +236,25 @@ namespace NetEnhancements.Util
 
         /// <summary>
         /// Returns a human-readable string representation of the number of calendar weeks between the first and last day.
+        ///
+        /// Examples: "Week 15 2023", "Week 1 until 5 2023", "Week 52 2022 until 5 2023".
         /// </summary>
         public static string WeekNumbersUntil(this DateOnly firstDay, DateOnly lastDay, string week = "Week", string until = "until")
         {
+            if (lastDay < firstDay)
+            {
+                throw new ArgumentException("First day must be before last day");
+            }
+
             var startWeek = ISOWeek.GetWeekOfYear(firstDay.ToDateTime(default));
             var endWeek = ISOWeek.GetWeekOfYear(lastDay.ToDateTime(default));
             
-            if (startWeek == endWeek)
+            if (firstDay.Year == lastDay.Year && startWeek == endWeek)
             {
                 return week + " " + startWeek + " " + lastDay.Year;
             }
 
-            if (endWeek < startWeek)
+            if (firstDay.Year != lastDay.Year)
             {
                 return week + " " + startWeek + " " + firstDay.Year +
                     " " + until + " "

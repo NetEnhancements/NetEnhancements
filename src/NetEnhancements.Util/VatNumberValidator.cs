@@ -3,6 +3,9 @@ using System.Text.RegularExpressions;
 
 namespace NetEnhancements.Util
 {
+    /// <summary>
+    /// Validator for VAT numbers.
+    /// </summary>
     public static class VatNumberValidator
     {
         private static readonly Dictionary<string, string> CountryVatRegex = new()
@@ -43,6 +46,9 @@ namespace NetEnhancements.Util
             { "US", "[0-9]{5,15}" },
         };
 
+        /// <summary>
+        /// Validate a VAT number.
+        /// </summary>
         public static ValidationResult? Validate(string? vatNumber, string? countryCode, bool allowSeparatorChars, bool allowEmpty)
         {
             if (countryCode == null || !CountryVatRegex.TryGetValue(countryCode, out var regex))

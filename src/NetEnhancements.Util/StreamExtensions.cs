@@ -1,15 +1,18 @@
 ﻿namespace NetEnhancements.Util
 {
+    /// <summary>
+    /// Extension method container for <see cref="Stream"/>s.
+    /// </summary>
     public static class StreamExtensions
     {
         /// <summary>
-        /// Read a strem entirely, optinoally not disposing it.
+        /// Read a stream entirely, optionally not disposing it.
         /// </summary>
         public static byte[] ReadFully(this Stream stream, bool dispose = true)
         {
-            using MemoryStream ms = new();
+            using MemoryStream memoryStream = new();
 
-            stream.CopyTo(ms);
+            stream.CopyTo(memoryStream);
             
             if (dispose)
             { 
@@ -17,7 +20,25 @@
                 stream.Dispose();
             }
 
-            return ms.ToArray();
+            return memoryStream.ToArray();
+        }
+
+        /// <summary>
+        /// Read a stream entirely, optionally not disposing it.
+        /// </summary>
+        public static async Task<byte[]> ReadFullyAsync(this Stream stream, bool dispose = true, CancellationToken cancellationToken = default)
+        {
+            using MemoryStream memoryStream = new();
+
+            await stream.CopyToAsync(memoryStream, cancellationToken);
+
+            if (dispose)
+            {
+                // We're done with the source stream, and so should the caller.
+                await stream.DisposeAsync();
+            }
+
+            return memoryStream.ToArray();
         }
     }
 }
