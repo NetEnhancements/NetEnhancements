@@ -369,7 +369,7 @@
             var result = DateExtensions.EachDay(from, thru).ToList();
 
             // Assert
-            Assert.That(result.Count, Is.EqualTo(1));
+            Assert.That(result, Has.Count.EqualTo(1));
             Assert.That(result[0], Is.EqualTo(from));
         }
 
