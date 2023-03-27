@@ -9,6 +9,8 @@ namespace NetEnhancements.EntityFramework
     /// 
     /// https://github.com/dotnet/efcore/issues/24507
     /// https://github.com/dotnet/SqlClient/issues/1009
+    ///
+    /// https://learn.microsoft.com/en-us/ef/core/what-is-new/ef-core-8.0/whatsnew#dateonlytimeonly-supported-on-sql-server (Soon)
     /// </summary>
     public static class ModelConfigurationBuilderExtensions
     {
