@@ -628,6 +628,9 @@
         {
             var now = DateTimeOffset.Now;
 
+            var nineMonthsAgo = now.AddMonths(-9).Date.AddHours(5).AddMinutes(6).AddSeconds(7);
+            var elevenMonthsAgo = now.AddMonths(-11).Date.AddHours(6).AddMinutes(7).AddSeconds(8);
+
             return new List<(DateTimeOffset? DateTimeOffset, bool UseValue, string? Expected)>
             {
                 // Nullable overload
@@ -638,6 +641,9 @@
                 (new DateTimeOffset(now.Date.AddHours(9).AddMinutes(12).AddSeconds(15), TimeSpan.FromHours(2)), true, "today, 09:12:15"),
                 (new DateTimeOffset(now.Date.AddDays(-1).AddHours(19).AddMinutes(12).AddSeconds(15), TimeSpan.FromHours(2)), true, "yesterday, 19:12:15"),
                 (new DateTimeOffset(now.Date.AddDays(-1).AddHours(19).AddMinutes(12).AddSeconds(15), TimeSpan.FromHours(2)), true, "yesterday, 19:12:15"),
+                
+                (new DateTimeOffset(nineMonthsAgo, TimeSpan.FromHours(2)), true, nineMonthsAgo.ToString("MMM dd, HH:mm:ss")),
+                (new DateTimeOffset(elevenMonthsAgo, TimeSpan.FromHours(2)), true, elevenMonthsAgo.ToString("MMM dd yyyy, HH:mm:ss")),
             };
         }
     }

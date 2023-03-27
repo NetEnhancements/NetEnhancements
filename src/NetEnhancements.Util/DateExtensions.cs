@@ -202,7 +202,7 @@ namespace NetEnhancements.Util
                 return yesterday + ", " + dateTime.ToString("HH:mm:ss");
             }
 
-            // In the past 10 months or so, don't show the year.
+            // In the past 10 months or for dates in the current year, don't show the year.
             if (dateTime > DateTime.Now.AddMonths(-10) || dateTime.Year == DateTime.Now.Year)
             {
                 return dateTime.ToString("MMM dd, HH:mm:ss");
