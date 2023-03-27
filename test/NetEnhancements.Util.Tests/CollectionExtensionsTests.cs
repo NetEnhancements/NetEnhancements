@@ -1,5 +1,3 @@
-using System.Reflection.Emit;
-
 namespace NetEnhancements.Util.Tests
 {
     public class CollectionExtensionTests
@@ -69,8 +67,6 @@ namespace NetEnhancements.Util.Tests
             // Assert
             CollectionAssert.AreEquivalent(expectedPermutations, result.Select(p => p.ToList()));
         }
-
-
 
         [Test]
         public void GetPermutations_Throws_When_Lenght_Is_Larger_Than_Collection_Count()
