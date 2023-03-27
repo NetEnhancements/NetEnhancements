@@ -47,7 +47,7 @@ namespace NetEnhancements.Shared.Configuration
 
             var propertyErrors = validationResults.Select(r => r.ErrorMessage);
 
-            throw new ConfigurationException($"Invalid configuration for section '{sectionName}': \r\n * {string.Join("\r\n * ", propertyErrors)}");
+            throw new ConfigurationException($"Invalid configuration for section '{sectionName}': " + Environment.NewLine + $" * {string.Join(Environment.NewLine + " * ", propertyErrors)}");
         }
 
         /// <summary>
@@ -55,8 +55,8 @@ namespace NetEnhancements.Shared.Configuration
         /// </summary>
         private static (IConfigurationSection, string sectionName) GetSection<T>(this IConfiguration configuration, string? sectionName = null)
         {
-            sectionName = sectionName == null 
-                ? GetSectionName<T>() 
+            sectionName = sectionName == null
+                ? GetSectionName<T>()
                 : GetSectionName(sectionName);
 
             return (configuration.GetSection(sectionName), sectionName);

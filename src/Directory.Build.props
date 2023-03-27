@@ -1,6 +1,6 @@
 ﻿<!-- Shared properties for all projects in this directory (src) -->
 <Project>
-   <!--Generic project properties--> 
+   <!-- Generic project properties --> 
   <PropertyGroup>
     <Deterministic>true</Deterministic>
     <TargetFramework>net7.0</TargetFramework>
