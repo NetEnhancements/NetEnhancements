@@ -72,15 +72,15 @@ namespace NetEnhancements.EntityFramework
 
         /// <summary>
         /// Calls the <paramref name="expression"/> action with a <see cref="PropertyBuilder"/> for each entity inheriting from <typeparamref name="TBase"/>.
-        /// 
-        /// Usage:
+        /// </summary>
+        /// <example>
         /// <code>
         ///     modelBuilder.ApplyPropertyBuilder{IGuidEntity}(
         ///         e => e.Id,
         ///         prop => prop.HasDefaultValueSql("NEWID()")
         ///     );
         /// </code>
-        /// </summary>
+        /// </example>
         public static void ApplyPropertyBuilder<TBase>(this ModelBuilder modelBuilder, Expression<Func<TBase, object?>> propertyExpression, Action<PropertyBuilder> expression)
             where TBase : class
         {
@@ -144,13 +144,13 @@ namespace NetEnhancements.EntityFramework
         ///
         /// Calls the <paramref name="expression"/> action with a <see cref="ModelBuilder"/> for each entity inheriting from <typeparamref name="TBase"/>.
         /// 
-        /// Usage:
+        /// <example>
         /// <code>
         ///     modelBuilder.ApplyEntityTypeBuilder{OwnedEntity}(
         ///         e => e.HasOne(...)
         ///     );
         /// </code>
-        /// </summary>
+        /// </example>
         public static void ApplyEntityTypeBuilder<TBase>(this ModelBuilder modelBuilder, Action<EntityTypeBuilder<TBase>> expression)
             where TBase : class
         {
@@ -160,7 +160,8 @@ namespace NetEnhancements.EntityFramework
             var genericEntityMethod = typeof(ModelBuilder)
                 .GetTypeInfo()
                 .DeclaredMethods
-                .Single(m => m.Name == nameof(ModelBuilder.Entity) && m.GetParameters().Length == 0 && m.ContainsGenericParameters && m.GetGenericArguments().Length == 1);
+                .SingleOrDefault(m => m.Name == nameof(ModelBuilder.Entity) && m.GetParameters().Length == 0 && m.ContainsGenericParameters && m.GetGenericArguments().Length == 1)
+                ?? throw new InvalidOperationException("Cannot find method ModelBuilder.Entity<T>(). Did Entity Framework Core do a breaking change after v7?");
 
             foreach (var entity in entities)
             {
@@ -199,7 +200,7 @@ namespace NetEnhancements.EntityFramework
             var entityType = typeof(TBase);
 
             return modelBuilder.GetInheritingEntities<TBase>()
-                               .Where(e => entityType.GetCustomAttributes(inherit: false).Any(a => a is TAttribute))
+                               .Where(e => e.ClrType.GetCustomAttributes(inherit: false).Any(a => a is TAttribute))
                                .ToList();
         }
 

@@ -18,11 +18,11 @@ namespace NetEnhancements.EntityFramework
         public static ModelConfigurationBuilder AddDateOnly(this ModelConfigurationBuilder builder)
         {
             builder.Properties<DateOnly>()
-                .HaveConversion<DateOnlyConverter>()
+                .HaveConversion<DateOnlyConverter, DateOnlyComparer>()
                 .HaveColumnType("date");
 
             builder.Properties<DateOnly?>()
-                .HaveConversion<NullableDateOnlyConverter>()
+                .HaveConversion<NullableDateOnlyConverter, NullableDateOnlyComparer>()
                 .HaveColumnType("date");
 
             return builder;
@@ -34,10 +34,12 @@ namespace NetEnhancements.EntityFramework
         public static ModelConfigurationBuilder AddTimeOnly(this ModelConfigurationBuilder builder)
         {
             builder.Properties<TimeOnly>()
-                .HaveConversion<TimeOnlyConverter, TimeOnlyComparer>();
+                .HaveConversion<TimeOnlyConverter, TimeOnlyComparer>()
+                .HaveColumnType("time");
 
             builder.Properties<TimeOnly?>()
-                .HaveConversion<NullableTimeOnlyConverter, NullableTimeOnlyComparer>();
+                .HaveConversion<NullableTimeOnlyConverter, NullableTimeOnlyComparer>()
+                .HaveColumnType("time");
 
             return builder;
         }

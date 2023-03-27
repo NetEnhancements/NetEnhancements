@@ -3,6 +3,9 @@ using Microsoft.AspNetCore.Mvc.ModelBinding;
 
 namespace NetEnhancements.AspNet.Validation
 {
+    /// <summary>
+    /// <see cref="ModelStateDictionary"/> extensions.
+    /// </summary>
     public static class ModelStateExtensions
     {
         private const string UnknownErrorMessage = "Unknown error";
