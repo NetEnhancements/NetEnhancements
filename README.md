@@ -14,6 +14,7 @@ Or how do we convince you to use these libraries?
 * **Identity**: a ready-to-use ASP.NET Core Identity setup.
 * **Imaging**: resizing images.
   * **Imaging.EntityFramework**: saving image metadata in a database.
+* **Services**: background services.
 * **Business**: combining the above in easy-to-use application parts.
 
 # Ideology
