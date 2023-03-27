@@ -4,10 +4,13 @@ using NetEnhancements.EntityFramework;
 
 namespace NetEnhancements.Imaging.EntityFramework;
 
+/// <summary>
+/// Default class for storing image metadata.
+/// </summary>
 public class Image : ImageBase<Category> { }
 
 /// <summary>
-/// Images can be used as PDF page backgrounds. The pages they can belong to are stored in the <see cref="PdfPage"/>s table, entries there are seeded.
+/// Base class for storing image metadata.
 /// </summary>
 [Index(nameof(Name), IsUnique = true)]
 public abstract class ImageBase<TCategory> : GuidIdEntity
