@@ -143,7 +143,7 @@ namespace NetEnhancements.EntityFramework
         /// BROKEN, not covariant.
         ///
         /// Calls the <paramref name="expression"/> action with a <see cref="ModelBuilder"/> for each entity inheriting from <typeparamref name="TBase"/>.
-        /// 
+        /// </summary>
         /// <example>
         /// <code>
         ///     modelBuilder.ApplyEntityTypeBuilder{OwnedEntity}(
