@@ -4,4 +4,8 @@
     <PackageReference Include="ClosedXML" Version="0.100.3" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\NetEnhancements.Util\NetEnhancements.Util.csproj" />
+  </ItemGroup>
+
 </Project>
