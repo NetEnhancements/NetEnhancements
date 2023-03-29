@@ -33,6 +33,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "GitHub", "GitHub", "{503762
 	ProjectSection(SolutionItems) = preProject
 		.github\workflows\Continuous-Integration.yml = .github\workflows\Continuous-Integration.yml
 		.github\workflows\Delete-Old-Workflow-Runs.yml = .github\workflows\Delete-Old-Workflow-Runs.yml
+		.github\workflows\Publish-Docs.yml = .github\workflows\Publish-Docs.yml
 		.github\workflows\Release-Applications.yml = .github\workflows\Release-Applications.yml
 	EndProjectSection
 EndProject
