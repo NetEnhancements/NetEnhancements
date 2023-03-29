@@ -9,7 +9,7 @@ namespace NetEnhancements.Util
     public static class EnumExtensions
     {
         /// <summary>
-        /// Read the <see cref="DisplayAttribute"/>'s <see cref="DisplayAttribute.Name"/> property from an enum member.
+        /// Read the <see cref="DisplayAttribute.Name"/> property from an enum member.
         ///
         /// When the member can't be found by name, or when none of the attributes is found, the passed enum member's <see cref="Enum.ToString()"/> will be returned.
         /// </summary>
