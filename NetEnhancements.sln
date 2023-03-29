@@ -59,6 +59,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "4. Imaging", "4. Imaging", 
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NetEnhancements.ClosedXML", "src\NetEnhancements.ClosedXML\NetEnhancements.ClosedXML.csproj", "{3E758E30-A315-4C48-A5AF-8AA4531214F9}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NetEnhancements.ClosedXML.Tests", "test\NetEnhancements.ClosedXML.Tests\NetEnhancements.ClosedXML.Tests.csproj", "{DCE282A0-98D1-4054-9ACB-6387175D4738}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -117,6 +119,10 @@ Global
 		{3E758E30-A315-4C48-A5AF-8AA4531214F9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3E758E30-A315-4C48-A5AF-8AA4531214F9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3E758E30-A315-4C48-A5AF-8AA4531214F9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DCE282A0-98D1-4054-9ACB-6387175D4738}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DCE282A0-98D1-4054-9ACB-6387175D4738}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DCE282A0-98D1-4054-9ACB-6387175D4738}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DCE282A0-98D1-4054-9ACB-6387175D4738}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -137,6 +143,7 @@ Global
 		{5E9401CB-CB71-48D9-85C5-8A5134EB02C1} = {716BA8E5-8A7F-4A53-A47D-6629757A24D6}
 		{010DC920-5FA9-4078-A4BD-362E8DC03312} = {716BA8E5-8A7F-4A53-A47D-6629757A24D6}
 		{3E758E30-A315-4C48-A5AF-8AA4531214F9} = {461E31B6-8B02-43E7-A7A0-DF0CF76A7C8C}
+		{DCE282A0-98D1-4054-9ACB-6387175D4738} = {716BA8E5-8A7F-4A53-A47D-6629757A24D6}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {3C76D7A0-C62A-46D9-AD19-84BEC6192FE2}

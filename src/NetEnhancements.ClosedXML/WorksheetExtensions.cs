@@ -22,5 +22,24 @@ namespace NetEnhancements.ClosedXML
 
             await Task.CompletedTask;
         }
+
+        public static XLWorkbook AddSheet<T>(this XLWorkbook workbook, IEnumerable<T> dataList, string sheetName = "")
+            where T : class, new()
+        {
+            var dataSet = ExcelGenerator.ToDataSet(dataList);
+            workbook.Worksheets.Add(dataSet);
+            workbook.Worksheets.Last().Name = sheetName;
+            return workbook;
+        }
+
+        public static byte[] ToBytes(this XLWorkbook workbook)
+        {
+            var stream = new MemoryStream();
+            workbook.SaveAs(stream);
+
+            stream.Flush();
+            stream.Seek(0, SeekOrigin.Begin);
+            return stream.ToArray();
+        }
     }
 }
