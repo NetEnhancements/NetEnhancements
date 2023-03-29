@@ -38,7 +38,7 @@ namespace NetEnhancements.Util
         /// <summary>
         /// Takes one random element from the collection.
         /// </summary>
-        public static T Random<T>(this ICollection<T> collection, Random random)
+        public static T Random<T>(this IReadOnlyCollection<T> collection, Random random)
         {
             int index = random.Next(collection.Count);
 
@@ -48,7 +48,7 @@ namespace NetEnhancements.Util
         /// <summary>
         /// Takes one random element from the collection.
         /// </summary>
-        public static T Random<T>(this ICollection<T> collection)
+        public static T Random<T>(this IReadOnlyCollection<T> collection)
         {
             return collection.Random(new Random());
         }
@@ -61,7 +61,7 @@ namespace NetEnhancements.Util
         /// <param name="length">The length of the permutations to generate.</param>
         /// <returns>An enumerable of permutations, where each permutation is an enumerable of the same type as the input list.</returns>
         /// <exception cref="ArgumentOutOfRangeException">Thrown when the length is greater than the number of elements in the list.</exception>
-        public static IEnumerable<IEnumerable<T>> GetPermutations<T>(this ICollection<T> list, int length)
+        public static IEnumerable<IEnumerable<T>> GetPermutations<T>(this IReadOnlyCollection<T> list, int length)
         {
             if (length > list.Count)
             {
@@ -92,7 +92,7 @@ namespace NetEnhancements.Util
         /// <typeparam name="T">The type of the elements in the list.</typeparam>
         /// <param name="list">The input list to generate permutations from.</param>
         /// <returns>An enumerable of permutations, where each permutation is an enumerable of the same type as the input list.</returns>
-        public static IEnumerable<IEnumerable<T>> GetPermutations<T>(this ICollection<T> list)
+        public static IEnumerable<IEnumerable<T>> GetPermutations<T>(this IReadOnlyCollection<T> list)
         {
             var length = list.Count;
 
