@@ -1,0 +1,9 @@
+apiRules:
+- exclude:
+  uidRegex: ^System\.Object
+  type: Type
+
+# Don't show it as _extension_ method on every instance class
+- exclude:
+  uidRegex: \.NetEnhancements\.Util\.CollectionExtensions\.In
+  type: Method
