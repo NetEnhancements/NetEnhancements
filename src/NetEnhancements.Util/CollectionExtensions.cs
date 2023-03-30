@@ -36,7 +36,7 @@ namespace NetEnhancements.Util
         }
 
         /// <summary>
-        /// Takes one random element from the collection using the provided <see cref="Random"/> instance.
+        /// Takes one random element from the collection using the provided <see cref="System.Random"/> instance.
         /// </summary>
         public static T Random<T>(this IReadOnlyCollection<T> collection, Random random)
         {
