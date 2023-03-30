@@ -15,6 +15,9 @@ namespace NetEnhancements.Services
 
         protected abstract string CronSchedule { get; }
 
+        /// <summary>
+        /// Insantiates the service.
+        /// </summary>
         protected ScheduledBackgroundService(ILogger<ScheduledBackgroundService> logger, IServiceProvider services)
         {
             Logger = logger;
@@ -30,6 +33,7 @@ namespace NetEnhancements.Services
             return nextOccurrence - now;
         }
 
+        /// <inheritdoc />
         protected sealed override async Task ExecuteAsync(CancellationToken stoppingToken)
         {
             Logger.LogInformation("Scheduled service {serviceName} running on schedule {schedule}", GetType().FullName, CronSchedule);
