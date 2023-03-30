@@ -38,7 +38,7 @@ namespace NetEnhancements.Util
         /// <summary>
         /// Takes one random element from the collection using the provided <see cref="Random"/> instance.
         /// </summary>
-        public static T Random<T>(this ICollection<T> collection, Random random)
+        public static T Random<T>(this IReadOnlyCollection<T> collection, Random random)
         {
             int index = random.Next(collection.Count);
 
@@ -46,22 +46,12 @@ namespace NetEnhancements.Util
         }
 
         /// <summary>
-        /// Takes one random element from the collection using the provided <see cref="Random"/> instance.
-        /// </summary>
-        public static T Random<T>(this IReadOnlyCollection<T> collection, Random random) => ((ICollection<T>)collection).Random(random);
-
-        /// <summary>
         /// Takes one random element from the collection.
         /// </summary>
-        public static T Random<T>(this ICollection<T> collection)
+        public static T Random<T>(this IReadOnlyCollection<T> collection)
         {
             return collection.Random(new Random());
         }
-
-        /// <summary>
-        /// Takes one random element from the collection.
-        /// </summary>
-        public static T Random<T>(this IReadOnlyCollection<T> collection) => ((ICollection<T>)collection).Random();
 
         /// <summary>
         /// Generates all permutations of a given length from the specified list.
