@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.Globalization;
 
-namespace NetEnhancements.AspNet.Validation
+namespace NetEnhancements.Util.Validation
 {
     /// <summary>
     /// Indicates that a numeric property cannot have a value of zero (0).
