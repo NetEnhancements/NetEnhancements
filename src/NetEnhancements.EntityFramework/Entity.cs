@@ -8,8 +8,10 @@ namespace NetEnhancements.EntityFramework
     /// </summary>
     public abstract class Entity : ITimestampedEntity
     {
+        /// <inheritdoc/>
         public DateTimeOffset Created { get; set; }
 
+        /// <inheritdoc/>
         public DateTimeOffset? Modified { get; set; }
     }
 
@@ -18,7 +20,8 @@ namespace NetEnhancements.EntityFramework
     /// </summary>
     public abstract class GuidIdEntity : Entity, IGuidIdEntity
     {
-        public Guid Id { get; set; }
+        /// <inheritdoc/>
+        public Guid  Id { get; set; }
     }
 
     /// <summary>
@@ -26,6 +29,9 @@ namespace NetEnhancements.EntityFramework
     /// </summary>
     public abstract class IntIdEntity : Entity
     {
+        /// <summary>
+        /// The PK of the entity, as <see cref="int"/>.
+        /// </summary>
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }

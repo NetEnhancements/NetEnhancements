@@ -4,11 +4,7 @@ namespace NetEnhancements.EntityFramework
 {
     public static class DbContextExtensions
     {
-        public static Task EnableIdentityInsert<TEntity>(this DbContext context) => context.SetIdentityInsert<TEntity>(on: true);
-
-        public static Task DisableIdentityInsert<TEntity>(this DbContext context) => context.SetIdentityInsert<TEntity>(on: false);
-
-        private static Task SetIdentityInsert<TEntity>(this DbContext context, bool on)
+        public static Task EnableIdentityInsertAsync<TEntity>(this DbContext context, bool enable)
         {
             var entityType = typeof(TEntity);
 
@@ -20,23 +16,23 @@ namespace NetEnhancements.EntityFramework
                 throw new ArgumentException(errorString);
             }
 
-            var onOrOff = on ? "ON" : "OFF";
+            var onOrOff = enable ? "ON" : "OFF";
             var query = $"SET IDENTITY_INSERT [{entityModelType.GetSchema()}].[{entityModelType.GetTableName()}] {onOrOff}";
 
             return context.Database.ExecuteSqlRawAsync(query);
         }
 
-        public static int SaveChanges<TEntity>(this DbContext context)
+        public static async Task<int> SaveChangesWithIdentityInsertAsync<TEntity>(this DbContext context)
         {
-            using var transaction = context.Database.BeginTransaction();
+            await using var transaction = await context.Database.BeginTransactionAsync();
 
-            context.EnableIdentityInsert<TEntity>();
+            await context.EnableIdentityInsertAsync<TEntity>(enable: true);
 
-            var rowsAffected = context.SaveChanges();
+            var rowsAffected = await context.SaveChangesAsync();
 
-            context.DisableIdentityInsert<TEntity>();
+            await context.EnableIdentityInsertAsync<TEntity>(enable: false);
 
-            transaction.Commit();
+            await transaction.CommitAsync();
 
             return rowsAffected;
         }
