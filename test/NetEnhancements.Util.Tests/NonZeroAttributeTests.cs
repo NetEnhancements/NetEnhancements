@@ -1,7 +1,6 @@
-using NetEnhancements.AspNet.Validation;
-using NetEnhancements.Util;
+using NetEnhancements.Util.Validation;
 
-namespace NetEnhancements.AspNet.Tests
+namespace NetEnhancements.Util.Tests
 {
     public class NonZeroAttributeTests
     {
