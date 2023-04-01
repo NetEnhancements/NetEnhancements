@@ -30,7 +30,7 @@ namespace NetEnhancements.ClosedXML
         /// <param name="workbook">The workbook to add the worksheet to.</param>
         /// <param name="dataList">The collection of objects to add to the worksheet.</param>
         /// <param name="sheetName">The name to give to the new worksheet.</param>
-        /// <returns>The workbook with the new worksheet added.</returns>
+        /// <returns>A <see cref="XLWorkbook" /> workbook with the new worksheet added.</returns>
         public static XLWorkbook AddSheet<T>(this XLWorkbook workbook, IEnumerable<T> dataList, string sheetName = "")
             where T : class, new()
         {
@@ -44,7 +44,7 @@ namespace NetEnhancements.ClosedXML
         /// Saves the workbook as a byte array in the Excel file format.
         /// </summary>
         /// <param name="workbook">The workbook to save.</param>
-        /// <returns>A byte array representing the Excel file.</returns>
+        /// <returns>A <see cref="byte"/> array representing the Excel file.</returns>
         public static byte[] ToBytes(this XLWorkbook workbook)
         {
             using var stream = new MemoryStream();

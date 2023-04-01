@@ -7,14 +7,14 @@ namespace NetEnhancements.ClosedXML
     /// Provides methods for generating Excel workbooks and datasets from collections of objects.
     /// </summary>
     public static class ExcelGenerator
-    { 
+    {
         /// <summary>
         /// Generates an Excel workbook containing one worksheet with the data from a collection of objects.
         /// </summary>
         /// <typeparam name="T">The type of the objects in the collection.</typeparam>
         /// <param name="dataList">The collection of objects to add to the worksheet.</param>
-        /// <returns>An Excel workbook containing one worksheet with the data from the collection, or an empty workbook if the collection is empty.</returns>
-        public static XLWorkbook GenerateExcel<T>(IReadOnlyCollection<T> dataList)
+        /// <returns>A <see cref="XLWorkbook" /> workbook containing one worksheet with the data from the collection, or an empty workbook if the collection is empty.</returns>
+        public static XLWorkbook GenerateExcel<T>(IEnumerable<T> dataList)
             where T : class, new()
         {
             if (!dataList.Any())
@@ -34,8 +34,8 @@ namespace NetEnhancements.ClosedXML
         /// </summary>
         /// <typeparam name="T">The type of the objects in the collection.</typeparam>
         /// <param name="list">The collection of objects to convert to a dataset.</param>
-        /// <returns>A dataset containing one table with the object data.</returns>
-        public static DataSet ToDataSet<T>(IReadOnlyCollection<T> list)
+        /// <returns>A <see cref="DataSet" /> dataset containing one table with the object data.</returns>
+        public static DataSet ToDataSet<T>(IEnumerable<T> list)
             where T : class, new()
         {
             var columns = PropertyParser.ParsePropertiesToColumnNames<T>();

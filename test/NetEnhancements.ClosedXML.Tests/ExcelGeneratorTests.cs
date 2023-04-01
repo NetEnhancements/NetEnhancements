@@ -21,7 +21,6 @@ namespace NetEnhancements.ClosedXML.Tests
                                 new TestInput {FirstName = "5", LastName = "6", DateOfBorth = DateTime.Now, PinCode = 5678},
                             };
 
-            
             var classUnderTest = ExcelGenerator.GenerateExcel(input);
 
             var output = new RowParser<TestOutput>().ParseRow(classUnderTest.Worksheets.First().Rows().Skip(1).First());
