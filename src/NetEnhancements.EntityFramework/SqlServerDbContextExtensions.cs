@@ -2,8 +2,14 @@
 
 namespace NetEnhancements.EntityFramework
 {
-    public static class DbContextExtensions
+    /// <summary>
+    /// SQL Server extensions.
+    /// </summary>
+    public static class SqlServerDbContextExtensions
     {
+        /// <summary>
+        /// Enables or disables [Identity Insert](https://learn.microsoft.com/en-us/sql/t-sql/statements/set-identity-insert-transact-sql) for the given <typeparamref name="TEntity"/>.
+        /// </summary>
         public static Task EnableIdentityInsertAsync<TEntity>(this DbContext context, bool enable)
         {
             var entityType = typeof(TEntity);
@@ -22,6 +28,9 @@ namespace NetEnhancements.EntityFramework
             return context.Database.ExecuteSqlRawAsync(query);
         }
 
+        /// <summary>
+        /// Enables [Identity Insert](https://learn.microsoft.com/en-us/sql/t-sql/statements/set-identity-insert-transact-sql) for the given <typeparamref name="TEntity"/>, saves the changes and disables Identity Insert again, all wrapped in a transaction.
+        /// </summary>
         public static async Task<int> SaveChangesWithIdentityInsertAsync<TEntity>(this DbContext context)
         {
             await using var transaction = await context.Database.BeginTransactionAsync();
