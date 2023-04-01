@@ -3,7 +3,7 @@
 namespace NetEnhancements.ClosedXML
 {
     /// <summary>
-    /// Parses rows into objects.
+    /// Provides extension methods for working with Excel worksheets and workbooks.
     /// </summary>
     public static class WorksheetExtensions
     {
@@ -23,6 +23,14 @@ namespace NetEnhancements.ClosedXML
             await Task.CompletedTask;
         }
 
+        /// <summary>
+        /// Adds a new worksheet to the workbook containing the data from a collection of objects.
+        /// </summary>
+        /// <typeparam name="T">The type of the objects in the collection.</typeparam>
+        /// <param name="workbook">The workbook to add the worksheet to.</param>
+        /// <param name="dataList">The collection of objects to add to the worksheet.</param>
+        /// <param name="sheetName">The name to give to the new worksheet.</param>
+        /// <returns>The workbook with the new worksheet added.</returns>
         public static XLWorkbook AddSheet<T>(this XLWorkbook workbook, IEnumerable<T> dataList, string sheetName = "")
             where T : class, new()
         {
@@ -32,13 +40,15 @@ namespace NetEnhancements.ClosedXML
             return workbook;
         }
 
+        /// <summary>
+        /// Saves the workbook as a byte array in the Excel file format.
+        /// </summary>
+        /// <param name="workbook">The workbook to save.</param>
+        /// <returns>A byte array representing the Excel file.</returns>
         public static byte[] ToBytes(this XLWorkbook workbook)
         {
-            var stream = new MemoryStream();
+            using var stream = new MemoryStream();
             workbook.SaveAs(stream);
-
-            stream.Flush();
-            stream.Seek(0, SeekOrigin.Begin);
             return stream.ToArray();
         }
     }
