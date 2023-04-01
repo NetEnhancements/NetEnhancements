@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
 using System.Reflection;
+using DocumentFormat.OpenXml.EMMA;
 using NetEnhancements.Util;
 
 namespace NetEnhancements.ClosedXML;
@@ -9,7 +10,7 @@ internal static class PropertyParser
     /// <summary>
     /// Parse a class's properties' <see cref="ColumnAttribute"/> to determine in which Excel column its data resides.
     /// </summary>
-    public static Dictionary<int, PropertyTypeInfo> ParseProperties<TRow>() 
+    public static Dictionary<int, PropertyTypeInfo> ParseProperties<TRow>()
         where TRow : class, new()
     {
         var cache = new Dictionary<int, PropertyTypeInfo>();
@@ -42,6 +43,45 @@ internal static class PropertyParser
             }
 
             cache[columnIndex] = GetPropertyTypeInfo(property);
+        }
+
+        if (!cache.Any())
+        {
+            throw new InvalidOperationException($"No [{columnAttributeName}] found on {rowObjectTypeName}");
+        }
+
+        return cache;
+    }
+
+    public static Dictionary<string, PropertyInfo> ParsePropertiesToColumnNames<TRow>()
+        where TRow : class, new()
+    {
+        var cache = new Dictionary<string, PropertyInfo>();
+
+        var rowObjectTypeName = typeof(TRow).FullName;
+        var columnAttributeName = nameof(ColumnAttribute).RemoveEnd(nameof(Attribute));
+
+        var properties = typeof(TRow).GetProperties();
+
+        foreach (var property in properties)
+        {
+            var attrsDisabled = property.GetCustomAttributes(typeof(ExcelColumnDisabled), true).FirstOrDefault();
+
+            if (attrsDisabled is ExcelColumnDisabled)
+            {
+                continue;
+            }
+
+            var attrs = property.GetCustomAttributes(typeof(ExcelColumnName), true).FirstOrDefault();
+
+            if (attrs is ExcelColumnName excelColumnName)
+            {
+                cache.Add(excelColumnName.ColumnName, property);
+            }
+            else
+            {
+                cache.Add(property.Name, property);
+            }
         }
 
         if (!cache.Any())
