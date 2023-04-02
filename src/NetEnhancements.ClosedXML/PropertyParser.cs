@@ -51,43 +51,38 @@ internal static class PropertyParser
         return cache;
     }
 
-    public static Dictionary<string, PropertyInfo> ParsePropertiesToColumnNames<TRow>()
+    /// <summary>
+    /// Parse a class's properties' <see cref="ExcelColumnNameAttribute"/> to determine into which Excel column name to write its data.
+    /// </summary>
+    public static Dictionary<string, PropertyTypeInfo> ParseWriteProperties<TRow>()
         where TRow : class, new()
     {
-        var cache = new Dictionary<string, PropertyInfo>();
-
-        var rowObjectTypeName = typeof(TRow).FullName;
-        var columnAttributeName = nameof(ColumnAttribute).RemoveEnd(nameof(Attribute));
+        var cache = new Dictionary<string, PropertyTypeInfo>();
 
         var properties = typeof(TRow).GetProperties();
 
         foreach (var property in properties)
         {
-            var attrsDisabled = property.GetCustomAttributes(typeof(ExcelColumnDisabled), true).FirstOrDefault();
+            var disabledAttribute = property.GetCustomAttribute<ExcelColumnDisabledAttribute>(inherit: true);
 
-            if (attrsDisabled is ExcelColumnDisabled)
+            if (disabledAttribute != null)
             {
                 continue;
             }
 
-            var attrs = property.GetCustomAttributes(typeof(ExcelColumnName), true).FirstOrDefault();
+            var columnAttribute = property.GetCustomAttribute<ExcelColumnNameAttribute>(inherit: true);
 
-            if (attrs is ExcelColumnName excelColumnName)
-            {
-                cache.Add(excelColumnName.ColumnName, property);
-            }
-            else
-            {
-                cache.Add(property.Name, property);
-            }
+            cache.Add(columnAttribute?.ColumnName ?? property.Name, GetPropertyTypeInfo(property));
         }
 
-        if (!cache.Any())
+        if (cache.Any())
         {
-            throw new InvalidOperationException($"No [{columnAttributeName}] found on {rowObjectTypeName}");
+            return cache;
         }
 
-        return cache;
+        var rowObjectTypeName = typeof(TRow).FullName;
+
+        throw new InvalidOperationException($"No exportable properties found on {rowObjectTypeName}");
     }
 
     private static PropertyTypeInfo GetPropertyTypeInfo(PropertyInfo property)
