@@ -3,17 +3,21 @@
     /// <summary>
     /// Gives the property a custom column name when writing to Excel.
     /// </summary>
-    public class ExcelColumnName : Attribute
+    [AttributeUsage(AttributeTargets.Property)]
+    public class ExcelColumnNameAttribute : Attribute
     {
-        public readonly string ColumnName;
+        /// <summary>
+        /// The name of the column.
+        /// </summary>
+        public string ColumnName { get; }
 
         /// <summary>
         /// Gives the property a custom column name when writing to Excel.
         /// </summary>
         /// <param name="columnName"></param>
-        public ExcelColumnName(string columnName)
+        public ExcelColumnNameAttribute(string columnName)
         {
-            this.ColumnName = columnName;
+            ColumnName = columnName;
         }
     }
 }

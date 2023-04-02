@@ -3,7 +3,8 @@
     /// <summary>
     /// Marks property as to not be included when writing to Excel.
     /// </summary>
-    public class ExcelColumnDisabled : Attribute
+    [AttributeUsage(AttributeTargets.Property)]
+    public class ExcelColumnDisabledAttribute : Attribute
     {
     }
 }
