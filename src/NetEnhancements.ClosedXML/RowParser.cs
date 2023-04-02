@@ -15,7 +15,7 @@ public class RowParser<TRow>
     /// </summary>
     public RowParser()
     {
-        _propertyCache = PropertyParser.ParseProperties<TRow>();
+        _propertyCache = PropertyParser.ParseReadProperties<TRow>();
     }
 
     /// <summary>

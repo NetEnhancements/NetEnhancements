@@ -38,16 +38,17 @@ namespace NetEnhancements.ClosedXML
         public static DataSet ToDataSet<T>(IEnumerable<T> list)
             where T : class, new()
         {
-            var columns = PropertyParser.ParsePropertiesToColumnNames<T>();
+            var columns = PropertyParser.ParseWriteProperties<T>();
             var dataTable = new DataTable();
-            dataTable.Columns.AddRange(columns.Select(c => new DataColumn(c.Key, Nullable.GetUnderlyingType(c.Value.PropertyType) ?? c.Value.PropertyType)).ToArray());
+
+            dataTable.Columns.AddRange(columns.Select(c => new DataColumn(c.Key, Nullable.GetUnderlyingType(c.Value.PropertyInfo.PropertyType) ?? c.Value.PropertyInfo.PropertyType)).ToArray());
 
             foreach (var item in list)
             {
                 var row = dataTable.NewRow();
                 foreach (var column in columns)
                 {
-                    row[column.Key] = column.Value.GetValue(item) ?? DBNull.Value;
+                    row[column.Key] = column.Value.PropertyInfo.GetValue(item) ?? DBNull.Value;
                 }
 
                 dataTable.Rows.Add(row);
