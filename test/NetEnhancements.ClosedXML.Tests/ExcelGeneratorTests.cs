@@ -128,12 +128,18 @@ namespace NetEnhancements.ClosedXML.Tests
             var dataSet = ExcelGenerator.ToDataSet(dataList);
 
             // Assert
-            Assert.IsInstanceOf<DataSet>(dataSet);
-            Assert.AreEqual(1, dataSet.Tables.Count);
-            Assert.AreEqual(dataList.Count, dataSet.Tables[0].Rows.Count);
-            Assert.AreEqual(2, dataSet.Tables[0].Columns.Count);
-            Assert.AreEqual("Prop1", dataSet.Tables[0].Columns[0].ColumnName);
-            Assert.AreEqual("Prop2", dataSet.Tables[0].Columns[1].ColumnName);
+            Assert.That(dataSet, Is.InstanceOf<DataSet>());
+            Assert.That(dataSet.Tables, Has.Count.EqualTo(1));
+            Assert.Multiple(() =>
+            {
+                Assert.That(dataSet.Tables[0].Rows, Has.Count.EqualTo(dataList.Count));
+                Assert.That(dataSet.Tables[0].Columns, Has.Count.EqualTo(2));
+            });
+            Assert.Multiple(() =>
+            {
+                Assert.That(dataSet.Tables[0].Columns[0].ColumnName, Is.EqualTo("Prop1"));
+                Assert.That(dataSet.Tables[0].Columns[1].ColumnName, Is.EqualTo("Prop2"));
+            });
             CollectionAssert.AreEquivalent(dataList.Select(x => new object[] { x.Prop1, x.Prop2 }).ToList(), dataSet.Tables[0].AsEnumerable().Select(x => x.ItemArray).ToList());
         }
 
