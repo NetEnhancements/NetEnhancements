@@ -1,6 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
-using System.Reflection;
-using DocumentFormat.OpenXml.EMMA;
+﻿using System.Reflection;
 using NetEnhancements.Util;
 
 namespace NetEnhancements.ClosedXML;
@@ -8,34 +6,34 @@ namespace NetEnhancements.ClosedXML;
 internal static class PropertyParser
 {
     /// <summary>
-    /// Parse a class's properties' <see cref="ColumnAttribute"/> to determine in which Excel column its data resides.
+    /// Parse a class's properties' <see cref="ExcelColumnNameAttribute"/> to determine in which Excel column its data resides.
     /// </summary>
-    public static Dictionary<int, PropertyTypeInfo> ParseProperties<TRow>()
+    public static Dictionary<int, PropertyTypeInfo> ParseReadProperties<TRow>()
         where TRow : class, new()
     {
         var cache = new Dictionary<int, PropertyTypeInfo>();
 
         var rowObjectTypeName = typeof(TRow).FullName;
-        var columnAttributeName = nameof(ColumnAttribute).RemoveEnd(nameof(Attribute));
+        var columnAttributeName = nameof(ExcelColumnNameAttribute).RemoveEnd(nameof(Attribute));
 
         var properties = typeof(TRow).GetProperties();
 
         foreach (var property in properties)
         {
-            var columnAttribute = property.GetCustomAttribute<ColumnAttribute>();
+            var columnAttribute = property.GetCustomAttribute<ExcelColumnNameAttribute>();
 
-            if (string.IsNullOrWhiteSpace(columnAttribute?.Name))
+            if (string.IsNullOrWhiteSpace(columnAttribute?.ColumnName))
             {
                 continue;
             }
 
-            var columnIndex = ColumnExtensions.LetterToIndex(columnAttribute.Name);
+            var columnIndex = ColumnExtensions.LetterToIndex(columnAttribute.ColumnName);
 
             if (cache.TryGetValue(columnIndex, out var otherProperty))
             {
                 var thisPropertyName = rowObjectTypeName + "." + property.Name;
                 var otherPropertyName = rowObjectTypeName + "." + otherProperty.PropertyInfo.Name;
-                var attributeDescription = $"[{columnAttributeName}(\"{columnAttribute.Name}\")]";
+                var attributeDescription = $"[{columnAttributeName}(\"{columnAttribute.ColumnName}\")]";
 
                 var errorString = $"Property '{thisPropertyName}' has {attributeDescription}, but '{otherPropertyName}' already claimed that column.";
 
