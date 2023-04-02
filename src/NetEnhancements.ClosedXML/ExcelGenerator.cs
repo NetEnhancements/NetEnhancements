@@ -17,12 +17,12 @@ namespace NetEnhancements.ClosedXML
         public static XLWorkbook GenerateExcel<T>(IEnumerable<T> dataList)
             where T : class, new()
         {
-            if (!dataList.Any())
+            var dataSet = ToDataSet(dataList);
+
+            if (dataSet.Tables[0].Rows.Count == 0)
             {
                 return new XLWorkbook();
             }
-
-            var dataSet = ToDataSet(dataList);
 
             var workbook = new XLWorkbook();
             workbook.Worksheets.Add(dataSet);
