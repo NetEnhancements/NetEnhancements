@@ -17,7 +17,7 @@ namespace NetEnhancements.ClosedXML.Tests
 
             // Assert
             Assert.IsInstanceOf<XLWorkbook>(workbook);
-            Assert.AreEqual(0, workbook.Worksheets.Count);
+            Assert.That(workbook.Worksheets.Count, Is.EqualTo(0));
         }
 
         [Test]
@@ -36,7 +36,7 @@ namespace NetEnhancements.ClosedXML.Tests
 
             // Assert
             Assert.IsInstanceOf<XLWorkbook>(workbook);
-            Assert.AreEqual(1, workbook.Worksheets.Count);
+            Assert.That(workbook.Worksheets.Count, Is.EqualTo(1));
         }
 
         [Test]
@@ -55,16 +55,16 @@ namespace NetEnhancements.ClosedXML.Tests
 
             // Assert
             Assert.IsInstanceOf<XLWorkbook>(workbook);
-            Assert.AreEqual(1, workbook.Worksheets.Count);
-            Assert.AreEqual(dataList.Count + 1, workbook.Worksheets.First().Rows().Count());
-            Assert.AreEqual(2, workbook.Worksheets.First().Columns().Count());
-            Assert.AreEqual("Prop1", workbook.Worksheets.First().Row(1).Cell(1).Value.ToString());
-            Assert.AreEqual("Prop2", workbook.Worksheets.First().Row(1).Cell(2).Value.ToString());
+            Assert.That(workbook.Worksheets.Count, Is.EqualTo(1));
+            Assert.That(workbook.Worksheets.First().Rows().Count(), Is.EqualTo(dataList.Count + 1));
+            Assert.That(workbook.Worksheets.First().Columns().Count(), Is.EqualTo(2));
+            Assert.That(workbook.Worksheets.First().Row(1).Cell(1).Value.ToString(), Is.EqualTo("Prop1"));
+            Assert.That(workbook.Worksheets.First().Row(1).Cell(2).Value.ToString(), Is.EqualTo("Prop2"));
 
             for (int i = 0; i < dataList.Count; i++)
             {
-                Assert.AreEqual(dataList[i].Prop1, workbook.Worksheets.First().Row(i + 2).Cell(1).Value.ToString());
-                Assert.AreEqual(dataList[i].Prop2.ToString(), workbook.Worksheets.First().Row(i + 2).Cell(2).Value.ToString());
+                Assert.That(workbook.Worksheets.First().Row(i + 2).Cell(1).Value.ToString(), Is.EqualTo(dataList[i].Prop1));
+                Assert.That(workbook.Worksheets.First().Row(i + 2).Cell(2).Value.ToString(), Is.EqualTo(dataList[i].Prop2.ToString()));
             }
         }
 
@@ -84,16 +84,16 @@ namespace NetEnhancements.ClosedXML.Tests
 
             // Assert
             Assert.IsInstanceOf<XLWorkbook>(workbook);
-            Assert.AreEqual(1, workbook.Worksheets.Count);
-            Assert.AreEqual(dataList.Count + 1, workbook.Worksheets.First().Rows().Count());
-            Assert.AreEqual(2, workbook.Worksheets.First().Columns().Count());
-            Assert.AreEqual("Property 1", workbook.Worksheets.First().Row(1).Cell(1).Value.ToString());
-            Assert.AreEqual("Prop2", workbook.Worksheets.First().Row(1).Cell(2).Value.ToString());
+            Assert.That(workbook.Worksheets.Count, Is.EqualTo(1));
+            Assert.That(workbook.Worksheets.First().Rows().Count(), Is.EqualTo(dataList.Count + 1));
+            Assert.That(workbook.Worksheets.First().Columns().Count(), Is.EqualTo(2));
+            Assert.That(workbook.Worksheets.First().Row(1).Cell(1).Value.ToString(), Is.EqualTo("Property 1"));
+            Assert.That(workbook.Worksheets.First().Row(1).Cell(2).Value.ToString(), Is.EqualTo("Prop2"));
 
             for (int i = 0; i < dataList.Count; i++)
             {
-                Assert.AreEqual(dataList[i].Prop1, workbook.Worksheets.First().Row(i + 2).Cell(1).Value.ToString());
-                Assert.AreEqual(dataList[i].Prop2.ToString(), workbook.Worksheets.First().Row(i + 2).Cell(2).Value.ToString());
+                Assert.That(workbook.Worksheets.First().Row(i + 2).Cell(1).Value.ToString(), Is.EqualTo(dataList[i].Prop1));
+                Assert.That(workbook.Worksheets.First().Row(i + 2).Cell(2).Value.ToString(), Is.EqualTo(dataList[i].Prop2.ToString()));
             }
         }
 
@@ -108,9 +108,9 @@ namespace NetEnhancements.ClosedXML.Tests
 
             // Assert
             Assert.IsInstanceOf<DataSet>(dataSet);
-            Assert.AreEqual(1, dataSet.Tables.Count);
-            Assert.AreEqual(0, dataSet.Tables[0].Rows.Count);
-            Assert.AreEqual(2, dataSet.Tables[0].Columns.Count);
+            Assert.That(dataSet.Tables.Count, Is.EqualTo(1));
+            Assert.That(dataSet.Tables[0].Rows.Count, Is.EqualTo(0));
+            Assert.That(dataSet.Tables[0].Columns.Count, Is.EqualTo(2));
         }
 
         [Test]
