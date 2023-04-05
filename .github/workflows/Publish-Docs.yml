@@ -24,7 +24,13 @@ jobs:
           dotnet-version: ${{ env.DOTNETVERSION }}
       
       - name: Set up docfx
-        run: dotnet tool update -g docfx
+        run: dotnet tool update --global docfx
+        
+      - name: Set up DocFxTocGenerator
+        run: dotnet tool update --global DocFxTocGenerator
+        
+      - name: Generate TOCs for articles
+        run: DocFxTocGenerator --docfolder articles
 
       - name: Compile documentation
         run: docfx docfx/docfx.json
