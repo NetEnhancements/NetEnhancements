@@ -1,0 +1,12 @@
+apiRules:
+# Don't show it as _extension_ method on every instance class
+- exclude:
+    uidRegex: NetEnhancements\.Util\.CollectionExtensions\.In``1\(NetEnhancements
+    type: Method
+- exclude:
+    uidRegex: NetEnhancements\.Util\.CollectionExtensions\.In``1\(System.Collections.Generic.IEnumerable{NetEnhancements
+    type: Method
+
+- exclude:
+    uidRegex: ^System\.Object
+    type: Type

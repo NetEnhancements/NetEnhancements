@@ -1,0 +1,48 @@
+﻿<!-- Shared properties for all projects in this directory (src) -->
+<Project>
+   <!-- Generic project properties --> 
+  <PropertyGroup>
+    <Deterministic>true</Deterministic>
+    <TargetFramework>net7.0</TargetFramework>
+    <LangVersion>latest</LangVersion>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+  </PropertyGroup>
+
+  <!-- For packaging -->
+  <PropertyGroup>
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
+    <IncludeSymbols>true</IncludeSymbols>
+    <SymbolPackageFormat>snupkg</SymbolPackageFormat>
+  </PropertyGroup>
+
+  <!-- Package Metadata - overriding in csproj is replacing these for that project -->
+  <PropertyGroup>
+    <Authors>NetEnhancements</Authors>
+    <Company>NetEnhancements</Company>
+    <PackageTags>NetEnhancements</PackageTags>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+  </PropertyGroup>
+
+  <!-- All these are required for proper Source Link in the package to work -->
+  <PropertyGroup Condition="'$(GITHUB_ACTIONS)' == 'true'">
+    <!-- Publish the repository URL in the built .nupkg (in the NuSpec <Repository> element) -->
+    <PublishRepositoryUrl>true</PublishRepositoryUrl>
+
+    <!-- Embed source files that are not tracked by the source control manager in the PDB (generated files, but we have none) -->
+    <EmbedUntrackedSources>true</EmbedUntrackedSources>
+
+    <!-- Embed symbols containing Source Link in the main file (exe/dll) -->
+    <!-- TODO: but then no symbols, hence empty snupkgs and larger assemblies -->
+    <!--<DebugType>embedded</DebugType>-->
+
+    <!-- Relative paths in PDBs -->
+    <ContinuousIntegrationBuild>true</ContinuousIntegrationBuild>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <!-- Update here, not through the NuGet Package Manager, that updates it in individual .csproj files. -->
+    <!-- Also note the PrivateAssets="All", meaning it doesn't get included in the package as a reference -->
+    <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.1.1" PrivateAssets="All"/>
+  </ItemGroup>
+</Project>
