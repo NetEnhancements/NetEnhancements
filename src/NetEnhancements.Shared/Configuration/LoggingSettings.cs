@@ -7,5 +7,7 @@
     {
         // This is not a setting.
         public const string Log4NetSectionName = "Log4Net";
+
+        public string? LogLocation { get; set; }
     }
 }
