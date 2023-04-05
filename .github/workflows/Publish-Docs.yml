@@ -30,7 +30,7 @@ jobs:
         run: dotnet tool update --global DocFxTocGenerator
         
       - name: Generate TOCs for articles
-        run: DocFxTocGenerator --docfolder articles
+        run: DocFxTocGenerator --docfolder articles --sequence --override --index
 
       - name: Compile documentation
         run: docfx docfx/docfx.json
