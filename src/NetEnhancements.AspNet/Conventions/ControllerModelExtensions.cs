@@ -30,7 +30,7 @@ namespace NetEnhancements.AspNet.Conventions
                 return;
             }
 
-            var template = areaName + "/[controller]/[action]/{id?}";
+            var template = areaName + "/[controller]/[action]";
             controller.RouteValues.Add("area", areaName);
 
             foreach (var selector in controller.Selectors)
