@@ -2,6 +2,9 @@
 
 namespace NetEnhancements.AspNet.Conventions
 {
+    /// <summary>
+    /// Extension methods for <see cref="ControllerModel"/>.
+    /// </summary>
     public static class ControllerModelExtensions
     {
         /// <summary>

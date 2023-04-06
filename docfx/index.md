@@ -1,4 +1,10 @@
-# This is the **HOMEPAGE**.
-Refer to [Markdown](http://daringfireball.net/projects/markdown/) for how to write markdown files.
-## Quick Start Notes:
-1. Add images to the *images* folder if the file is referencing an image.
+---
+title: .NET Enhancements
+---
+
+# .NET Enhancements
+
+This site contains the documentation for the .NET Enhancements. See:
+
+* [Articles](/articles)
+* [API Documentation](/api)
