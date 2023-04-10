@@ -1,13 +1,15 @@
-﻿using System.Diagnostics;
+﻿using System.Collections.Concurrent;
+using System.Diagnostics;
 using System.Reflection;
 
 using log4net;
 using log4net.Appender;
-using log4net.Config;
 using log4net.Core;
 using log4net.Layout;
 using log4net.Repository;
 using log4net.Repository.Hierarchy;
+
+using ILogger = Microsoft.Extensions.Logging.ILogger;
 
 using NetEnhancements.Shared.Configuration;
 using Microsoft.Extensions.Configuration;
@@ -68,9 +70,7 @@ namespace NetEnhancements.Shared.Logging
                         log4NetOptions.Log4NetConfigFileName = "log4net.config";
                     }
 
-                    BuildLog4NetRepository(log4NetOptions, loggingSettings);
-
-                    logging.AddLog4Net(log4NetOptions);
+                    logging.BuildLog4NetRepository(log4NetOptions, loggingSettings);
 
                     logging.AddSimpleConsole(console =>
                         {
@@ -83,20 +83,29 @@ namespace NetEnhancements.Shared.Logging
                 });
         }
 
-        private static ILoggerRepository BuildLog4NetRepository(Log4NetProviderOptions options, LoggingSettings loggingSettings)
+        private static void BuildLog4NetRepository(this ILoggingBuilder logging, Log4NetProviderOptions options, LoggingSettings loggingSettings)
         {
-            var repository = LogManager.CreateRepository(Guid.NewGuid().ToString());
-
             if (!string.IsNullOrEmpty(options.Log4NetConfigFileName) && File.Exists(options.Log4NetConfigFileName))
             {
-                XmlConfigurator.Configure(repository, new FileInfo(options.Log4NetConfigFileName));
+                logging.AddLog4Net(options);
             }
             else
             {
-                ConfigureLog4Net(repository, loggingSettings);
-            }
+                ILoggerRepository repository;
+                try
+                {
+                    repository = LogManager.GetRepository("HouseOfTickets.Logging.Repository");
 
-            return repository;
+                }
+                catch (LogException _)
+                {
+                    repository = LogManager.CreateRepository("HouseOfTickets.Logging.Repository");
+                }
+
+                ConfigureLog4Net(repository, loggingSettings);
+                logging.Services.AddSingleton(repository);
+                logging.Services.AddSingleton<ILoggerProvider, LoggingRepository>();
+            }
         }
 
         private static void ConfigureLog4Net(ILoggerRepository repository, LoggingSettings loggingSettings)
@@ -132,5 +141,57 @@ namespace NetEnhancements.Shared.Logging
             hierarchy.Root.Level = Level.Warn;
             hierarchy.Configured = true;
         }
+    }
+
+    internal class LoggingRepository : ILoggerProvider
+    {
+        #region Implementation of IDisposable
+
+        private readonly ConcurrentDictionary<string, Log4NetLogger> _loggers = new();
+        private readonly ILoggerRepository _loggerRepository;
+        private bool _disposedValue = false;
+
+        public LoggingRepository()
+        {
+            _loggerRepository = LogManager.GetRepository("HouseOfTickets.Logging.Repository");
+        }
+
+        private IExternalScopeProvider ExternalScopeProvider { get; set; } = new LoggerExternalScopeProvider();
+        public void Dispose()
+        {
+            Dispose(true);
+            GC.SuppressFinalize(this);
+        }
+
+        private void Dispose(bool disposing)
+        {
+            if (!_disposedValue)
+            {
+                if (disposing)
+                {
+                    _loggerRepository.Shutdown();
+                    _loggers.Clear();
+                }
+
+                _disposedValue = true;
+            }
+        }
+
+        public ILogger CreateLogger(string categoryName) => _loggers.GetOrAdd(categoryName, CreateLoggerImplementation);
+
+        private Log4NetLogger CreateLoggerImplementation(string name)
+        {
+            return new Log4NetLogger(
+                new Log4NetProviderOptions()
+                {
+                    Name = name,
+                    LoggerRepository = _loggerRepository.Name,
+                    LoggingEventFactory = new Log4NetLoggingEventFactory(),
+                    LogLevelTranslator = new Log4NetLogLevelTranslator()
+                },
+                ExternalScopeProvider);
+        }
+
+        #endregion
     }
 }

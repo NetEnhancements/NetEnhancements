@@ -65,6 +65,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "7. Apps", "7. Apps", "{7E08
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NetEnhancements.Web", "sample\NetEnhancements.Web\NetEnhancements.Web.csproj", "{2B429695-20B8-4E48-96BF-B343F343A173}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NetEnhancements.ConsoleApp", "sample\NetEnhancements.ConsoleApp\NetEnhancements.ConsoleApp.csproj", "{DFB22C3C-CE19-4FB1-B4A0-0FB7B523EFD0}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -143,6 +145,10 @@ Global
 		{2B429695-20B8-4E48-96BF-B343F343A173}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2B429695-20B8-4E48-96BF-B343F343A173}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2B429695-20B8-4E48-96BF-B343F343A173}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DFB22C3C-CE19-4FB1-B4A0-0FB7B523EFD0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DFB22C3C-CE19-4FB1-B4A0-0FB7B523EFD0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DFB22C3C-CE19-4FB1-B4A0-0FB7B523EFD0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DFB22C3C-CE19-4FB1-B4A0-0FB7B523EFD0}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -167,6 +173,7 @@ Global
 		{C2C903A6-0233-4E52-A13A-7CF8043544DB} = {15D0DC5E-21C6-4252-A80A-4C74533D1C26}
 		{25C95F94-02AC-4C65-96EF-26D7A2A0306F} = {62F3D058-5DF2-4E7F-8FF0-E79F86FBFC61}
 		{2B429695-20B8-4E48-96BF-B343F343A173} = {7E08244D-B704-4400-8894-1491B3F7BA7A}
+		{DFB22C3C-CE19-4FB1-B4A0-0FB7B523EFD0} = {7E08244D-B704-4400-8894-1491B3F7BA7A}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {3C76D7A0-C62A-46D9-AD19-84BEC6192FE2}
