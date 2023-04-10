@@ -2,6 +2,9 @@
 
 namespace NetEnhancements.AspNet.Conventions
 {
+    /// <summary>
+    /// Extension methods for <see cref="ControllerModel"/>.
+    /// </summary>
     public static class ControllerModelExtensions
     {
         /// <summary>
@@ -27,7 +30,7 @@ namespace NetEnhancements.AspNet.Conventions
                 return;
             }
 
-            var template = areaName + "/[controller]/[action]/{id?}";
+            var template = areaName + "/[controller]/[action]";
             controller.RouteValues.Add("area", areaName);
 
             foreach (var selector in controller.Selectors)
