@@ -124,7 +124,7 @@ namespace NetEnhancements.Shared.Logging
             var roller = new RollingFileAppender
             {
                 Name = "RollingFile",
-                File = @$"{loggingSettings.LogLocation ?? "Logs"}\{assembly?.GetName().Name ?? Process.GetCurrentProcess().ProcessName}",
+                File = $@"{loggingSettings.LogLocation ?? "Logs"}\{assembly?.GetName().Name ?? Process.GetCurrentProcess().ProcessName}",
                 DatePattern = "'.'yyyy-MM-dd'.log'",
                 StaticLogFileName = false,
                 AppendToFile = true,
