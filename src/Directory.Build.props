@@ -21,7 +21,13 @@
     <Authors>NetEnhancements</Authors>
     <Company>NetEnhancements</Company>
     <PackageTags>NetEnhancements</PackageTags>
+
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
+
+    <!-- Each project must have one -->
+    <PackageReadmeFile>README.md</PackageReadmeFile>
+    
+    <PackageProjectUrl>https://netenhancements.github.io/</PackageProjectUrl>
   </PropertyGroup>
 
   <!-- All these are required for proper Source Link in the package to work -->

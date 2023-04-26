@@ -1,5 +1,3 @@
-﻿# Util
+﻿# NetEnhancements.Util
 
-This project contains very basic stuff. Can't have package nor project dependencies.
-
-So: framework stuff, like string extensions.
+Extension methods for built-in value types and collections, as well as JSON helpers and validation attributes.

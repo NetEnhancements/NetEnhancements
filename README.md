@@ -4,6 +4,9 @@ This is a collection of helpers, snippets, extension methods and application com
 
 These are inteded to be used to build ASP.NET Core / .NET 7+ applications, usually with Microsoft DI, logging, EF, MVC.
 
+# [Documentation](https://netenhancements.github.io/)
+See https://netenhancements.github.io/.
+
 # What's in the box
 Or how do we convince you to use these libraries?
 

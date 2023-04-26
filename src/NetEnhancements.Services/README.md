@@ -1,3 +1,3 @@
-﻿# Services
+﻿# NetEnhancements.Services
 
 Background services.

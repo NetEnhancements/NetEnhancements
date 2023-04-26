@@ -1,5 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
+
   <PropertyGroup>
-    <Description>Extension methods</Description>
+    <Description>Extension methods for built-in value types and collections, as well as JSON helpers and validation attributes.</Description>
   </PropertyGroup>
+
 </Project>
