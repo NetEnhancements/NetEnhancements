@@ -1,0 +1,12 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="7.0.4" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\NetEnhancements.EntityFramework\NetEnhancements.EntityFramework.csproj" />
+    <ProjectReference Include="..\NetEnhancements.Imaging\NetEnhancements.Imaging.csproj" />
+  </ItemGroup>
+
+</Project>

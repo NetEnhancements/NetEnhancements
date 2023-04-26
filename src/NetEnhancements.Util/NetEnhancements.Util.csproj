@@ -1,0 +1,5 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <Description>Extension methods</Description>
+  </PropertyGroup>
+</Project>

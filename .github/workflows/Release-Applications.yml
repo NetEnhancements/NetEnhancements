@@ -1,0 +1,92 @@
+name: Release Applications
+
+# Required to create release.
+permissions:
+  contents: write
+
+on:
+  push:
+    tags:
+      - "v*"
+      
+env:
+  DOTNET_CLI_TELEMETRY_OPTOUT: true
+  DOTNETVERSION: "7.0.x"
+  PACK_OUTPUT_DIR: "NuGetPackageStagingArea"
+  
+jobs:
+  Build_and_Publish:
+    name: Build, Test, Publish NuGet Packages
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v2
+
+      - name: Setup NuGet Cache
+        uses: actions/cache@v2
+        with:
+          path: ~/.nuget/packages
+          key: ${{ runner.os }}-nuget-v0-${{ hashFiles('**/*.csproj') }}
+
+      - name: Setup .NET Core SDK ${{ env.DOTNETVERSION }}
+        uses: actions/setup-dotnet@v1
+        with:
+            dotnet-version: ${{ env.DOTNETVERSION }}
+
+      # Versioning: semver
+      - name: Get version
+        id: battila7Version
+        uses: battila7/get-version-action@v2.3.0
+      
+      - name: Get SHA
+        uses: benjlevesque/short-sha@v1.2
+        id: benShortSha
+        with:
+          length: 7
+
+      # Package version: "v0.7.0-beta07", "v1.0.0" and so on.
+      - name: Set Package Version
+        run: echo "PACKAGE_VERSION=${{ steps.battila7Version.outputs.version-without-v }}" >> $GITHUB_ENV
+
+      # Assembly version: "v1.0.2-alpha03+4acdfc0" or "v1.0.2+abc1234".
+      - name: Set Assembly Version
+        run: echo "ASSEMBLY_VERSION=${{ env.PACKAGE_VERSION }}+${{ steps.benShortSha.outputs.sha }}" >> $GITHUB_ENV          
+
+      # Restore, build, test...
+      - name: Restore dependencies
+        run: dotnet restore
+      
+      - name: Build Release
+        run: dotnet build --configuration Release --no-restore -p:Version=$ASSEMBLY_VERSION
+      
+      - name: Run Unit Tests
+        run: dotnet test --configuration Release --no-build --verbosity normal
+
+      # Pack the build output
+      - name: Pack NuGet packages
+        uses: EasyDesk/action-dotnet-pack@v1
+        with:
+          project-names: |
+            src/NetEnhancements.Util
+            src/NetEnhancements.Shared
+            src/NetEnhancements.AspNet
+            src/NetEnhancements.EntityFramework
+            src/NetEnhancements.Identity
+            src/NetEnhancements.Imaging
+            src/NetEnhancements.Imaging.EntityFramework
+          package-version: ${{ env.PACKAGE_VERSION }}
+          output-dir: ${{ env.PACK_OUTPUT_DIR }}
+          skip-build: true
+
+      # Create release, attach package files
+      - name: Release
+        uses: softprops/action-gh-release@v1
+        with:
+          name: ${{ env.ASSEMBLY_VERSION }}
+          generate_release_notes: true
+          prerelease: ${{ steps.battila7Version.outputs.is-prerelease }}
+          files: ${{ env.PACK_OUTPUT_DIR }}/*.*nupkg
+
+      # Release to NuGet!
+      - name: Release to NuGet.org
+        run: dotnet nuget push ${{ env.PACK_OUTPUT_DIR }}/*.nupkg --api-key ${{ secrets.NUGET_API_KEY }} --source https://api.nuget.org/v3/index.json
