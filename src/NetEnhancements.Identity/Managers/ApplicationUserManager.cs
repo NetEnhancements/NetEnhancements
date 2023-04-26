@@ -3,8 +3,8 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
-using NetEnhancements.EntityFramework.Query;
 using NetEnhancements.EntityFramework;
+using NetEnhancements.EntityFramework.Query;
 
 namespace NetEnhancements.Identity.Managers
 {

@@ -71,7 +71,9 @@ jobs:
             src/NetEnhancements.Business
             src/NetEnhancements.ClosedXML
             src/NetEnhancements.EntityFramework
+            src/NetEnhancements.EntityFramework.Data
             src/NetEnhancements.Identity
+            src/NetEnhancements.Identity.Data
             src/NetEnhancements.Imaging
             src/NetEnhancements.Imaging.EntityFramework
             src/NetEnhancements.Services

@@ -1,0 +1,12 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <Description>Interfaces and entities for Entity Framework enhancements.</Description>
+  </PropertyGroup>
+
+  <PropertyGroup>
+     <!-- No .Data in this project -->
+    <RootNamespace>NetEnhancements.EntityFramework</RootNamespace>
+  </PropertyGroup>
+
+</Project>

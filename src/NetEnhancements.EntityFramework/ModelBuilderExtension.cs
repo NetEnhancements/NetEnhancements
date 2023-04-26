@@ -14,7 +14,7 @@ namespace NetEnhancements.EntityFramework
     public static class ModelBuilderExtension
     {
         /// <summary>
-        /// Apply default Id, Created and Modified values for _all_ <see cref="IGuidIdEntity"/>/<see cref="ITimestampedEntity"/>-derived types known to the context's <paramref name="modelBuilder"/> it's called on.
+        /// Apply default Id, Created and Modified values for all <see cref="IGuidIdEntity"/>/<see cref="ITimestampedEntity"/>-derived types known to the context's <paramref name="modelBuilder"/> it's called on.
         /// </summary>
         public static void ApplyDefaultValues(this ModelBuilder modelBuilder)
         {
@@ -37,7 +37,7 @@ namespace NetEnhancements.EntityFramework
             modelBuilder.ApplyPropertyBuilder<ITimestampedEntity>(
                 e => e.Modified,
 
-                // Tells EF that the database generates this value, but does not allow setting it automatically. See IdentityDbContext.
+                // Tells EF that the database generates this value, but does not allow setting it automatically. See TimestampedEntityInterceptor.
                 prop => prop.ValueGeneratedOnUpdate()
                             // Allow updates
                             .Metadata.SetAfterSaveBehavior(PropertySaveBehavior.Save)

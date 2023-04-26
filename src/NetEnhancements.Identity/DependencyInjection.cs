@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using NetEnhancements.AspNet;
 
 namespace NetEnhancements.Identity
 {
@@ -42,6 +43,9 @@ namespace NetEnhancements.Identity
             return builder;
         }
 
+        /// <summary>
+        /// Configure the Identity cookie names by removing the ".AspNetCore" part.
+        /// </summary>
         public static IdentityBuilder ConfigureAuthCookies(this IdentityBuilder builder, IConfiguration configuration)
         {
             var (section, settings) = configuration.GetSectionOrThrow<IdentitySettings>();
@@ -58,14 +62,17 @@ namespace NetEnhancements.Identity
 
             // TODO: get all these strings from config
 
+            // Don't leak ".AspNetCore.Antiforgery.*".
+            builder.Services.AddAntiforgery(options =>
+            {
+                options.HeaderName = options.Cookie.Name = "XSRF-Token";
+            });
+
             // JWT cookie and auth URLs.
             builder.Services.ConfigureApplicationCookie(options =>
             {
                 options.Cookie.Name = "Auth";
                 options.Cookie.IsEssential = true;
-                options.LoginPath = "/account/login";
-                options.LogoutPath = "/account/logout";
-                options.AccessDeniedPath = "/account/accessdenied";
 
                 options.Validate();
             });
@@ -82,6 +89,27 @@ namespace NetEnhancements.Identity
             {
                 options.Cookie.Name = "2FAUserId";
                 options.Cookie.IsEssential = true;
+            });
+
+            return builder;
+        }
+
+        /// <summary>
+        /// Remove the "/Identity" prefix from the routes introduced by using the ASP.NET Core Identity Default UI. Call after <c>AddDefaultUI()</c>.
+        /// </summary>
+        public static IdentityBuilder RemoveIdentityPrefix(this IdentityBuilder builder, IMvcBuilder mvcBuilder)
+        {
+            builder.Services.ConfigureApplicationCookie(options =>
+            {
+                options.LoginPath = "/account/login";
+                options.LogoutPath = "/account/logout";
+                options.AccessDeniedPath = "/account/accessdenied";
+            });
+
+            mvcBuilder.AddRazorPagesOptions(options =>
+            {
+                // Hide "/Identity" from identity pages.
+                options.UseGeneralRoutePrefix("Identity", "", removeAreaFromUrl: true);
             });
 
             return builder;

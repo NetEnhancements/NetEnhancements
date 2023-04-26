@@ -1,6 +1,5 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-using NetEnhancements.EntityFramework;
 
 namespace NetEnhancements.Identity.Data
 {
@@ -81,39 +80,6 @@ namespace NetEnhancements.Identity.Data
                         left => left.HasOne<ApplicationUser>().WithMany().HasForeignKey(ur => ur.UserId).IsRequired(),
                         right => right.HasOne<ApplicationRole>().WithMany().HasForeignKey(ur => ur.RoleId).IsRequired()
                     );
-        }
-
-        /// <summary>
-        /// TODO: does not belong here
-        /// </summary>
-        public override int SaveChanges(bool acceptAllChangesOnSuccess)
-        {
-            MarkModifiedEntitiesAsModified();
-
-            return base.SaveChanges(acceptAllChangesOnSuccess);
-        }
-
-        /// <summary>
-        /// TODO: does not belong here
-        /// </summary>
-        public override Task<int> SaveChangesAsync(bool acceptAllChangesOnSuccess, CancellationToken cancellationToken = default)
-        {
-            MarkModifiedEntitiesAsModified();
-
-            return base.SaveChangesAsync(acceptAllChangesOnSuccess, cancellationToken);
-        }
-
-        /// <summary>
-        /// TODO: does not belong here
-        /// </summary>
-        private void MarkModifiedEntitiesAsModified()
-        {
-            var entries = ChangeTracker.Entries().Where(e => e.Entity is ITimestampedEntity && e.State == EntityState.Modified);
-
-            foreach (var entityEntry in entries)
-            {
-                ((ITimestampedEntity)entityEntry.Entity).Modified = DateTimeOffset.Now;
-            }
         }
     }
 }
