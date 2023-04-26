@@ -20,16 +20,16 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout source
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
 
       - name: Setup NuGet Cache
-        uses: actions/cache@v2
+        uses: actions/cache@v3
         with:
           path: ~/.nuget/packages
           key: ${{ runner.os }}-nuget-v0-${{ hashFiles('**/*.csproj') }}
 
       - name: Setup .NET Core SDK ${{ env.DOTNETVERSION }}
-        uses: actions/setup-dotnet@v1
+        uses: actions/setup-dotnet@v3
         with:
             dotnet-version: ${{ env.DOTNETVERSION }}
 
@@ -39,7 +39,7 @@ jobs:
         uses: battila7/get-version-action@v2.3.0
       
       - name: Get SHA
-        uses: benjlevesque/short-sha@v1.2
+        uses: benjlevesque/short-sha@v2.2
         id: benShortSha
         with:
           length: 7
@@ -50,7 +50,7 @@ jobs:
 
       # Assembly version: "v1.0.2-alpha03+4acdfc0" or "v1.0.2+abc1234".
       - name: Set Assembly Version
-        run: echo "ASSEMBLY_VERSION=${{ env.PACKAGE_VERSION }}+${{ steps.benShortSha.outputs.sha }}" >> $GITHUB_ENV          
+        run: echo "ASSEMBLY_VERSION=${{ env.PACKAGE_VERSION }}+${{ steps.benShortSha.outputs.sha }}" >> $GITHUB_ENV
 
       # Restore, build, test...
       - name: Restore dependencies
