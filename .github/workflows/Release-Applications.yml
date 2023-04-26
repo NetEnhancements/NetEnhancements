@@ -67,13 +67,16 @@ jobs:
         uses: EasyDesk/action-dotnet-pack@v1
         with:
           project-names: |
-            src/NetEnhancements.Util
-            src/NetEnhancements.Shared
             src/NetEnhancements.AspNet
+            src/NetEnhancements.Business
+            src/NetEnhancements.ClosedXML
             src/NetEnhancements.EntityFramework
             src/NetEnhancements.Identity
             src/NetEnhancements.Imaging
             src/NetEnhancements.Imaging.EntityFramework
+            src/NetEnhancements.Services
+            src/NetEnhancements.Shared
+            src/NetEnhancements.Util
           package-version: ${{ env.PACKAGE_VERSION }}
           output-dir: ${{ env.PACK_OUTPUT_DIR }}
           skip-build: true

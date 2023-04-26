@@ -1,7 +1,8 @@
 ﻿<!-- Shared properties for all projects in this directory (src) -->
 <Project>
-   <!-- Generic project properties --> 
+  <!-- Generic project properties -->
   <PropertyGroup>
+    <Version>0.0.99-dev</Version>
     <Deterministic>true</Deterministic>
     <TargetFramework>net7.0</TargetFramework>
     <LangVersion>latest</LangVersion>
@@ -16,6 +17,11 @@
     <SymbolPackageFormat>snupkg</SymbolPackageFormat>
   </PropertyGroup>
 
+  <!-- Each package requires a README.md, see below -->
+  <ItemGroup>
+    <None Include="README.md" Pack="true" PackagePath="\"/>
+  </ItemGroup>
+
   <!-- Package Metadata - overriding in csproj is replacing these for that project -->
   <PropertyGroup>
     <Authors>NetEnhancements</Authors>
@@ -26,7 +32,7 @@
 
     <!-- Each project must have one -->
     <PackageReadmeFile>README.md</PackageReadmeFile>
-    
+
     <PackageProjectUrl>https://netenhancements.github.io/</PackageProjectUrl>
   </PropertyGroup>
 
