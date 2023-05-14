@@ -11,7 +11,10 @@ namespace NetEnhancements.Util
         /// <summary>
         /// Returns the original string, or truncates it to <paramref name="maxLength"/> if it's longer than that.
         /// </summary>
-        /// <exception cref="ArgumentOutOfRangeException">When the length is less than 0.</exception>
+        /// <param name="s">The string to truncate, or <c>null</c>.</param>
+        /// <param name="maxLength">The maximum length of the string.</param>
+        /// <returns>The original string if its length is less than or equal to <paramref name="maxLength"/>, or a truncated version of the string if its length is greater than <paramref name="maxLength"/>.</returns>
+        /// <exception cref="ArgumentOutOfRangeException">Thrown when the <paramref name="maxLength"/> is less than 0.</exception>
         [return: NotNullIfNotNull(nameof(s))]
         public static string? Truncate(this string? s, int maxLength)
         {
@@ -26,6 +29,8 @@ namespace NetEnhancements.Util
         /// <summary>
         /// Returns the hexadecimal representation of the input string in UTF-16 bytes.
         /// </summary>
+        /// <param name="input">The input string to convert.</param>
+        /// <returns>A hexadecimal string that represents the UTF-16 bytes of the input string.</returns>
         public static string ToHexString(this string input)
         {
             var bytes = Encoding.Unicode.GetBytes(input);
@@ -36,6 +41,8 @@ namespace NetEnhancements.Util
         /// <summary>
         /// Returns the hexadecimal representation of the input bytes.
         /// </summary>
+        /// <param name="bytes">The input bytes to convert.</param>
+        /// <returns>A hexadecimal string that represents the input bytes.</returns>
         public static string ToHexString(this byte[] bytes)
         {
             var sb = new StringBuilder();
@@ -51,6 +58,9 @@ namespace NetEnhancements.Util
         /// <summary>
         /// Given a hexadecimal string, returns the bytes that string represents.
         /// </summary>
+        /// <param name="input">The hexadecimal string to convert.</param>
+        /// <returns>An array of bytes that represent the input hexadecimal string.</returns>
+        /// <exception cref="ArgumentOutOfRangeException">When the length of the input string is odd.</exception>
         public static byte[] ToBytes(this string input)
         {
             if (input.Length %2 != 0)
@@ -71,22 +81,30 @@ namespace NetEnhancements.Util
         /// <summary>
         /// Given a hexadecimal string, returns the UTF-16 string the bytes therein represent.
         /// </summary>
+        /// <param name="input">The hexadecimal string to convert.</param>
+        /// <returns>A UTF-16 string that represents the bytes represented by the input hexadecimal string.</returns>
         public static string FromHexString(this string input)
         {
             return Encoding.Unicode.GetString(input.ToBytes());
         }
 
         /// <summary>
-        /// to_snake_case
+        /// Converts the given string to_snake_case.
         /// </summary>
+        /// <param name="str">The string to convert.</param>
+        /// <returns>A new string in snake case format.</returns>
         public static string ToSnakeCase(this string str)
         {
             return string.Concat(str.Select((x, i) => i > 0 && char.IsUpper(x) ? "_" + x : x.ToString())).ToLower();
         }
 
         /// <summary>
-        /// Removes the given <paramref name="suffix"/> if the <paramref name="input"/> ends with that string.
+        /// Removes the given suffix from the end of the input string, if it exists.
         /// </summary>
+        /// <param name="input">The input string.</param>
+        /// <param name="suffix">The suffix to remove from the input string.</param>
+        /// <param name="comparisonType">The string comparison type to use. The default is InvariantCulture.</param>
+        /// <returns>The input string with the suffix removed if it exists, otherwise the original input string.</returns>
         public static string RemoveEnd(this string input, string suffix, StringComparison comparisonType = StringComparison.InvariantCulture)
         {
             if (input == null) throw new ArgumentNullException(nameof(input));

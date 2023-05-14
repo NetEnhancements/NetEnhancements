@@ -10,6 +10,9 @@ namespace NetEnhancements.Util
         /// <summary>
         /// Generate a hexadecimal token string with the given length, which must be a multiple of 2.
         /// </summary>
+        /// <param name="length">The length of the token string, which must be a multiple of 2.</param>
+        /// <returns>A random hexadecimal token string of the given length.</returns>
+        /// <exception cref="ArgumentOutOfRangeException">Thrown when the length parameter is not a multiple of 2.</exception>
         public static string GenerateRandomToken(int length)
         {
             if (length % 2 != 0)
