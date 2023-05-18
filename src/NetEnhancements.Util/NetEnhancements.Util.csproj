@@ -4,4 +4,9 @@
     <Description>Extension methods for built-in value types and collections, as well as JSON helpers and validation attributes.</Description>
   </PropertyGroup>
 
+  <ItemGroup>
+    <AssemblyAttribute Include="System.Runtime.CompilerServices.InternalsVisibleToAttribute">
+      <_Parameter1>NetEnhancements.Util.Tests</_Parameter1>
+    </AssemblyAttribute>
+  </ItemGroup>
 </Project>
