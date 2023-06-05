@@ -531,5 +531,22 @@ namespace NetEnhancements.Util
 
             return dayDict;
         }
+
+        /// <summary>
+        /// Returns the date of the weekday following <paramref name="date"/>.
+        /// </summary>
+        public static DateOnly Next(this DateOnly date, DayOfWeek day, bool rollOverToNextWeek = false)
+        {
+            const int daysPerWeek = 7;
+
+            var daysToAdd = day + daysPerWeek - date.DayOfWeek;
+
+            if (daysToAdd == daysPerWeek && !rollOverToNextWeek)
+            {
+                daysToAdd = 0;
+            }
+
+            return date.AddDays(daysToAdd);
+        }
     }
 }

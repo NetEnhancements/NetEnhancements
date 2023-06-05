@@ -652,5 +652,44 @@
                 (new DateTimeOffset(elevenMonthsAgo, TimeSpan.FromHours(2)), true, elevenMonthsAgo.ToString("MMM dd yyyy, HH:mm:ss")),
             };
         }
+
+        [Test]
+        public void DateOnly_Next_NextDay_AddsDays()
+        {
+            // Arrange
+            var friday = new DateOnly(2023, 05, 26);
+
+            // Act
+            var nextSunday = friday.Next(DayOfWeek.Sunday);
+
+            // Assert
+            Assert.That(nextSunday, Is.EqualTo(new DateOnly(2023, 05, 28)));
+        }
+
+        [Test]
+        public void DateOnly_Next_SameDay_AddsNothing()
+        {
+            // Arrange
+            var saturday = new DateOnly(2023, 05, 27);
+
+            // Act
+            var sameSaturday = saturday.Next(DayOfWeek.Saturday);
+
+            // Assert
+            Assert.That(sameSaturday, Is.EqualTo(saturday));
+        }
+
+        [Test]
+        public void DateOnly_Next_SameDayAndRollover_AddsWeek()
+        {
+            // Arrange
+            var saturday = new DateOnly(2023, 05, 27);
+
+            // Act
+            var nextSaturday = saturday.Next(DayOfWeek.Saturday, rollOverToNextWeek: true);
+
+            // Assert
+            Assert.That(nextSaturday, Is.EqualTo(new DateOnly(2023, 06, 03)));
+        }
     }
 }
