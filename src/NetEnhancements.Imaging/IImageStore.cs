@@ -11,14 +11,9 @@ public interface IImageStore
     Task<Stream> OpenStreamAsync(string locationIdentifier, string imageIdentifier, string extension, Resolution? resolution);
 
     /// <summary>
-    /// Saves the original version of an image.
+    /// Saves an image to storage.
     /// </summary>
-    Task SaveOriginalAsync(Stream imageStream, string locationIdentifier, string imageIdentifier, string extension);
-    
-    /// <summary>
-    /// Saves resized version of an original image.
-    /// </summary>
-    Task SaveResizedAsync(Stream imageStream, string locationIdentifier, string imageIdentifier, string extension, Resolution resolution);
+    Task<ImageInfo> SaveImageAsync(Stream imageStream, string locationIdentifier, string imageIdentifier, string extension);
 
     /// <summary>
     /// Deletes an original image, and the specified resized ones (<paramref name="sizesToRemove"/>). When <paramref name="moveToTrash"/> is <c>true</c>, the original will be moved to a location from where it can be (manually) restored.

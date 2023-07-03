@@ -1,49 +1,26 @@
-﻿using SkiaSharp;
-
-namespace NetEnhancements.Imaging;
+﻿namespace NetEnhancements.Imaging;
 
 /// <summary>
 /// Saves images to disk.
 /// </summary>
 internal class DiskImageStore : IImageStore
 {
+    private readonly IImageInspector _imageInspector;
     private const string TrashDirectory = "_Trash";
 
-    public async Task SaveOriginalAsync(Stream imageStream, string locationIdentifier, string imageIdentifier, string extension)
+    public DiskImageStore(IImageInspector imageInspector)
+    {
+        _imageInspector = imageInspector;
+    }
+
+    public async Task<ImageInfo> SaveImageAsync(Stream imageStream, string locationIdentifier, string imageIdentifier, string extension)
     {
         // Pre-emptively rewind.
         imageStream.Position = 0;
 
-        await WriteFileAsync(imageStream, locationIdentifier, imageIdentifier, extension, null);
+        return await WriteFileAsync(imageStream, locationIdentifier, imageIdentifier, extension, null);
     }
-
-    public async Task SaveResizedAsync(Stream imageStream, string locationIdentifier, string imageIdentifier, string extension, Resolution resolution)
-    {
-        // Pre-emptively rewind.
-        imageStream.Position = 0;
-
-        using var bitmap = SKBitmap.Decode(new SKManagedStream(imageStream, disposeManagedStream: false));
-
-        // Possibly not equal to desired size, because of ratios.
-        var targetResolution = SizeCalculator.GetRelativeSize(new(bitmap.Width, bitmap.Height), resolution);
-
-        using var resizedBitmap = bitmap.Resize(new SKSizeI(targetResolution.Width, targetResolution.Height), SKFilterQuality.High);
-
-        var memoryStream = new MemoryStream();
-
-        if (!resizedBitmap.Encode(memoryStream, SKEncodedImageFormat.Png, quality: 95))
-        {
-            // TODO: log, but there's nothing we can do.
-            return;
-        }
-
-        // Rewind to read from start while saving.
-        memoryStream.Position = 0;
-
-        // Save with _desired_, not actual width and height.
-        await WriteFileAsync(memoryStream, locationIdentifier, imageIdentifier, extension, resolution);
-    }
-
+    
     public Task DeleteAsync(string locationIdentifier, string imageIdentifier, string extension, ICollection<Resolution>? sizesToRemove = null, bool moveToTrash = true)
     {
         var filePath = GetDirectory(locationIdentifier, imageIdentifier);
@@ -103,7 +80,7 @@ internal class DiskImageStore : IImageStore
     /// <summary>
     /// Copy the stream to disk, using a predefined directory structure (to prevent too many files in one directory).
     /// </summary>
-    private static async Task WriteFileAsync(Stream imageStream, string basePath, string identifier, string extension, Resolution? resolution)
+    private async Task<ImageInfo> WriteFileAsync(Stream imageStream, string basePath, string identifier, string extension, Resolution? resolution)
     {
         var filePath = GetDirectory(basePath, identifier);
 
@@ -114,6 +91,12 @@ internal class DiskImageStore : IImageStore
         await using var fileStream = File.OpenWrite(diskFileName);
 
         await imageStream.CopyToAsync(fileStream);
+
+        fileStream.Position = 0;
+        
+        var imageInfo = await _imageInspector.GetImageInfoAsync(fileStream);
+
+        return imageInfo!;
     }
 
     /// <summary>

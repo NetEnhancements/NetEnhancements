@@ -16,13 +16,28 @@ public class Image : ImageBase<Category> { }
 public abstract class ImageBase<TCategory> : GuidIdEntity
     where TCategory : CategoryBase
 {
+    /// <summary>
+    /// The unique system name for this image.
+    /// </summary>
     [Required]
     [StringLength(64, MinimumLength = 1)]
     public string? Name { get; set; }
 
+    /// <summary>
+    /// A developer-specified string indicating the file type, e.g. "png"", "jpeg", ...
+    /// </summary>
     [Required]
     [StringLength(16, MinimumLength = 1)]
     public string? ContentType { get; set; }
 
+    /// <summary>
+    /// The size of the image in storage bytes.
+    /// </summary>
+    [Required]
+    public long FileSize { get; set; }
+
+    /// <summary>
+    /// The categories this image belongs to.
+    /// </summary>
     public virtual ICollection<TCategory>? Categories { get; set; }
 }

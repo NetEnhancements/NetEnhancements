@@ -2,11 +2,26 @@
 
 namespace NetEnhancements.Imaging.EntityFramework;
 
+/// <summary>
+/// Imaging-specific Dependency Injection Builder.
+/// </summary>
 public static class ModelBuilderExtensions
 {
+    /// <summary>
+    /// The table name for storing images, default: "Images".
+    /// </summary>
     public const string DefaultImageTableName = "Images";
-    // "ImageCategories" for not colliding with the generic term "Categories".
-    public const string DefaultCategoriesTableName = "ImageCategories"; 
+
+    /// <summary>
+    /// The table name for storing image categories, default: "ImageCategories".
+    ///
+    /// "ImageCategories" for not colliding with the generic term "Categories".
+    /// </summary>
+    public const string DefaultCategoriesTableName = "ImageCategories";
+
+    /// <summary>
+    /// The table name for storing image categories, default: "ImageCategoryImages".
+    /// </summary>
     public const string DefaultImageCategoriesTableName = "ImageCategoryImages";
 
     /// <summary>

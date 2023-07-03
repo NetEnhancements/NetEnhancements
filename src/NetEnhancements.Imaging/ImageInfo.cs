@@ -3,7 +3,7 @@
 /// <summary>
 /// Image characteristics
 /// </summary>
-public record ImageInfo(string Format, int Width, int Height) : Resolution(Width, Height);
+public record ImageInfo(string Format, int Width, int Height, long FileSize) : Resolution(Width, Height);
 
 /// <summary>
 /// Width and height of media.

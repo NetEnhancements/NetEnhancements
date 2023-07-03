@@ -65,9 +65,11 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "7. Apps", "7. Apps", "{7E08
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NetEnhancements.Web", "sample\NetEnhancements.Web\NetEnhancements.Web.csproj", "{2B429695-20B8-4E48-96BF-B343F343A173}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NetEnhancements.Identity.Data", "src\NetEnhancements.Identity.Data\NetEnhancements.Identity.Data.csproj", "{CA90CD9E-BDB0-4824-AB22-B4A4F25C51D9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NetEnhancements.Identity.Data", "src\NetEnhancements.Identity.Data\NetEnhancements.Identity.Data.csproj", "{CA90CD9E-BDB0-4824-AB22-B4A4F25C51D9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NetEnhancements.EntityFramework.Data", "src\NetEnhancements.EntityFramework.Data\NetEnhancements.EntityFramework.Data.csproj", "{493D8E72-EA58-4E64-8B21-02ED487C5EA8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NetEnhancements.EntityFramework.Data", "src\NetEnhancements.EntityFramework.Data\NetEnhancements.EntityFramework.Data.csproj", "{493D8E72-EA58-4E64-8B21-02ED487C5EA8}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NetEnhancements.Imaging.Tests", "test\NetEnhancements.Imaging.Tests\NetEnhancements.Imaging.Tests.csproj", "{EB815F4B-ED04-49A3-8EBC-51FF127529DD}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -155,6 +157,10 @@ Global
 		{493D8E72-EA58-4E64-8B21-02ED487C5EA8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{493D8E72-EA58-4E64-8B21-02ED487C5EA8}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{493D8E72-EA58-4E64-8B21-02ED487C5EA8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EB815F4B-ED04-49A3-8EBC-51FF127529DD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EB815F4B-ED04-49A3-8EBC-51FF127529DD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EB815F4B-ED04-49A3-8EBC-51FF127529DD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EB815F4B-ED04-49A3-8EBC-51FF127529DD}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -181,6 +187,7 @@ Global
 		{2B429695-20B8-4E48-96BF-B343F343A173} = {7E08244D-B704-4400-8894-1491B3F7BA7A}
 		{CA90CD9E-BDB0-4824-AB22-B4A4F25C51D9} = {7EC2F86A-13FE-47BB-B301-79075D856E62}
 		{493D8E72-EA58-4E64-8B21-02ED487C5EA8} = {461E31B6-8B02-43E7-A7A0-DF0CF76A7C8C}
+		{EB815F4B-ED04-49A3-8EBC-51FF127529DD} = {716BA8E5-8A7F-4A53-A47D-6629757A24D6}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {3C76D7A0-C62A-46D9-AD19-84BEC6192FE2}
