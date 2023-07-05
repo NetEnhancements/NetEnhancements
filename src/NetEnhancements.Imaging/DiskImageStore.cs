@@ -18,9 +18,24 @@ internal class DiskImageStore : IImageStore
         // Pre-emptively rewind.
         imageStream.Position = 0;
 
-        return await WriteFileAsync(imageStream, locationIdentifier, imageIdentifier, extension, null);
+        // Use a predefined directory structure to prevent too many files in one directory.
+        var filePath = GetDirectory(locationIdentifier, imageIdentifier);
+
+        Directory.CreateDirectory(filePath);
+
+        var diskFileName = Path.Combine(filePath, GetFileName(imageIdentifier, extension, resolution: null));
+
+        await using var fileStream = File.OpenWrite(diskFileName);
+
+        await imageStream.CopyToAsync(fileStream);
+
+        fileStream.Position = 0;
+
+        var imageInfo = await _imageInspector.GetImageInfoAsync(fileStream);
+
+        return imageInfo!;
     }
-    
+
     public Task DeleteAsync(string locationIdentifier, string imageIdentifier, string extension, ICollection<Resolution>? sizesToRemove = null, bool moveToTrash = true)
     {
         var filePath = GetDirectory(locationIdentifier, imageIdentifier);
@@ -78,28 +93,6 @@ internal class DiskImageStore : IImageStore
     }
 
     /// <summary>
-    /// Copy the stream to disk, using a predefined directory structure (to prevent too many files in one directory).
-    /// </summary>
-    private async Task<ImageInfo> WriteFileAsync(Stream imageStream, string basePath, string identifier, string extension, Resolution? resolution)
-    {
-        var filePath = GetDirectory(basePath, identifier);
-
-        Directory.CreateDirectory(filePath);
-
-        var diskFileName = Path.Combine(filePath, GetFileName(identifier, extension, resolution));
-
-        await using var fileStream = File.OpenWrite(diskFileName);
-
-        await imageStream.CopyToAsync(fileStream);
-
-        fileStream.Position = 0;
-        
-        var imageInfo = await _imageInspector.GetImageInfoAsync(fileStream);
-
-        return imageInfo!;
-    }
-
-    /// <summary>
     /// 26*26 directories ought to be enough for anybody.
     /// </summary>
     private static string GetDirectory(string basePath, string id) => Path.Combine(new[]
@@ -114,7 +107,7 @@ internal class DiskImageStore : IImageStore
     /// <summary>
     /// This assumes the imageType equals the file extension. True for jpeg/png/webp.
     /// </summary>
-    private static string GetFileName(string id, string extension, Resolution? resolution)
+    private static string GetFileName(string identifier, string extension, Resolution? resolution)
     {
         string? infix = null;
 
@@ -123,6 +116,6 @@ internal class DiskImageStore : IImageStore
             infix = "_" + resolution.Width + "x" + resolution.Height;
         }
 
-        return id.ToLower() + infix + "." + extension.ToLower();
+        return identifier.ToLower() + infix + "." + extension.ToLower();
     }
 }
