@@ -24,6 +24,16 @@ public abstract class ImageBase<TCategory> : GuidIdEntity
     public string? Name { get; set; }
 
     /// <summary>
+    /// The width in pixels.
+    /// </summary>
+    public int Width { get; set; }
+
+    /// <summary>
+    /// The height in pixels.
+    /// </summary>
+    public int Height { get; set; }
+
+    /// <summary>
     /// A developer-specified string indicating the file type, e.g. "png"", "jpeg", ...
     /// </summary>
     [Required]

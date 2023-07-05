@@ -13,7 +13,7 @@ public interface IImageStore
     /// <summary>
     /// Saves an image to storage.
     /// </summary>
-    Task<ImageInfo> SaveImageAsync(Stream imageStream, string locationIdentifier, string imageIdentifier, string extension);
+    Task SaveImageAsync(Stream imageStream, string locationIdentifier, string imageIdentifier, string extension);
 
     /// <summary>
     /// Deletes an original image, and the specified resized ones (<paramref name="sizesToRemove"/>). When <paramref name="moveToTrash"/> is <c>true</c>, the original will be moved to a location from where it can be (manually) restored.

@@ -5,15 +5,10 @@
 /// </summary>
 internal class DiskImageStore : IImageStore
 {
-    private readonly IImageInspector _imageInspector;
     private const string TrashDirectory = "_Trash";
+    
 
-    public DiskImageStore(IImageInspector imageInspector)
-    {
-        _imageInspector = imageInspector;
-    }
-
-    public async Task<ImageInfo> SaveImageAsync(Stream imageStream, string locationIdentifier, string imageIdentifier, string extension)
+    public async Task SaveImageAsync(Stream imageStream, string locationIdentifier, string imageIdentifier, string extension)
     {
         // Pre-emptively rewind.
         imageStream.Position = 0;
@@ -26,14 +21,8 @@ internal class DiskImageStore : IImageStore
         var diskFileName = Path.Combine(filePath, GetFileName(imageIdentifier, extension, resolution: null));
 
         await using var fileStream = File.OpenWrite(diskFileName);
-
+        
         await imageStream.CopyToAsync(fileStream);
-
-        fileStream.Position = 0;
-
-        var imageInfo = await _imageInspector.GetImageInfoAsync(fileStream);
-
-        return imageInfo!;
     }
 
     public Task DeleteAsync(string locationIdentifier, string imageIdentifier, string extension, ICollection<Resolution>? sizesToRemove = null, bool moveToTrash = true)
