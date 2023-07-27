@@ -10,9 +10,23 @@ namespace NetEnhancements.Services
     /// </summary>
     public abstract class ScheduledBackgroundService : BackgroundService
     {
-        protected readonly ILogger<ScheduledBackgroundService> Logger;
         private readonly IServiceProvider _services;
+        private readonly Lazy<CrontabSchedule> _crontabSchedule;
 
+        /// <summary>
+        /// The logger.
+        /// </summary>
+        protected readonly ILogger<ScheduledBackgroundService> Logger;
+
+        /// <summary>
+        /// When the service starts, it will by default run <see cref="ExecuteAsync"/> once.
+        /// Set this property to <c>true</c> in the constructor to skip that initial run on service startup, so it only runs on the scheduled time.
+        /// </summary>
+        protected bool SkipInitialRun = false;
+
+        /// <summary>
+        /// The cron schedule pattern, including seconds.
+        /// </summary>
         protected abstract string CronSchedule { get; }
 
         /// <summary>
@@ -22,13 +36,25 @@ namespace NetEnhancements.Services
         {
             Logger = logger;
             _services = services;
+
+            _crontabSchedule = new Lazy<CrontabSchedule>(() =>
+            {
+                var crontabSchedule = CrontabSchedule.TryParse(CronSchedule, new CrontabSchedule.ParseOptions { IncludingSeconds = true });
+
+                if (crontabSchedule == null)
+                {
+                    throw new InvalidOperationException($"Could not parse cron schedule '{CronSchedule}'");
+                }
+
+                return crontabSchedule;
+            });
         }
 
         private TimeSpan GetDelay()
         {
             var now = DateTime.Now;
-            var crontabSchedule = CrontabSchedule.TryParse(CronSchedule, new CrontabSchedule.ParseOptions { IncludingSeconds = true });
-            var nextOccurrence = crontabSchedule.GetNextOccurrence(now, now.AddMonths(3));
+            
+            var nextOccurrence = _crontabSchedule.Value.GetNextOccurrence(now, now.AddMonths(3));
 
             return nextOccurrence - now;
         }
@@ -38,14 +64,20 @@ namespace NetEnhancements.Services
         {
             Logger.LogInformation("Scheduled service {serviceName} running on schedule {schedule}", GetType().FullName, CronSchedule);
 
+            var isInitialRun = true;
+
             while (!stoppingToken.IsCancellationRequested)
             {
                 try
                 {
-                    using (var scope = _services.CreateScope())
+                    if (!isInitialRun || !SkipInitialRun)
                     {
+                        using var scope = _services.CreateScope();
+                        
                         await ExecuteScheduledTaskAsync(scope.ServiceProvider, stoppingToken);
                     }
+
+                    isInitialRun = false;
 
                     await Task.Delay(GetDelay(), stoppingToken);
                 }
