@@ -1,10 +1,9 @@
 ﻿using ClosedXML.Excel;
-using DocumentFormat.OpenXml.Spreadsheet;
 
 namespace NetEnhancements.ClosedXML
 {
     /// <summary>
-    /// Provides extension methods for working with Excel worksheets and workbooks.
+    /// Provides extension methods for working with Excel worksheets.
     /// </summary>
     public static class WorksheetExtensions
     {
@@ -25,45 +24,16 @@ namespace NetEnhancements.ClosedXML
         }
 
         /// <summary>
-        /// Saves the workbook as a byte array in the Excel file format.
-        /// </summary>
-        /// <param name="workbook">The workbook to save.</param>
-        /// <returns>A <see cref="byte"/> array representing the Excel file.</returns>
-        public static byte[] ToBytes(this XLWorkbook workbook)
-        {
-            using var stream = new MemoryStream();
-            workbook.SaveAs(stream);
-            return stream.ToArray();
-        }
-
-        /// <summary>
-        /// Adds a new worksheet to the workbook containing the data from a collection of objects.
+        /// Populates a worksheet with the data from a collection of objects.
         /// </summary>
         /// <typeparam name="T">The type of the objects in the collection.</typeparam>
-        /// <param name="workbook">The workbook to add the worksheet to.</param>
+        /// <param name="sheet">The workbook to add the worksheet to.</param>
         /// <param name="dataList">The collection of objects to add to the worksheet.</param>
+        /// <param name="printHeaders">Whether to print the column header names above the data.</param>
         /// <param name="startingRow">The row where the data table should start</param>
         /// <param name="startingColumn">The column where the data table should start</param>
-        /// <param name="sheetName">The name to give to the new worksheet.</param>
-        /// <returns>A <see cref="XLWorkbook" /> workbook with the new worksheet added.</returns>
-        public static XLWorkbook AddSheet<T>(
-            this XLWorkbook workbook,
-            IReadOnlyCollection<T> dataList,
-            int startingRow = 1,
-            int startingColumn = 1,
-            string sheetName = "")
+        public static void Populate<T>(this IXLWorksheet sheet, IReadOnlyCollection<T> dataList, bool printHeaders, int startingRow = 1, int startingColumn = 1)
         {
-            return BuildAndFillWorksheet(workbook, dataList, sheetName, startingRow, startingColumn);
-        }
-
-        private static XLWorkbook BuildAndFillWorksheet<T>(XLWorkbook workbook, IReadOnlyCollection<T> dataList, string sheetName, int startingRow, int startingColumn)
-        {
-            workbook.Worksheets.Add();
-            var sheet = workbook.Worksheets.Last();
-            if (!string.IsNullOrWhiteSpace(sheetName))
-            {
-                sheet.Name = sheetName;
-            }
             var columns = PropertyParser.ParseWriteProperties<T>();
 
             var currentRowNumber = startingRow;
@@ -71,42 +41,42 @@ namespace NetEnhancements.ClosedXML
             var maximumColumnNumber = currentColumnNumber;
             var maximumRowNumber = currentRowNumber;
 
-            maximumColumnNumber += dataList.Count() - 1;
+            maximumColumnNumber += dataList.Count - 1;
             maximumRowNumber += columns.Count - 1;
 
-            // Inline functions to handle looping with transposing
-            //////////////////////////////////////////////////////
-            void incrementFieldPosition()
+            void IncrementFieldPosition()
             {
                 maximumColumnNumber = Math.Max(maximumColumnNumber, currentColumnNumber);
                 currentColumnNumber++;
             }
 
-            void incrementRecordPosition()
+            void IncrementRecordPosition()
             {
                 maximumRowNumber = Math.Max(maximumRowNumber, currentRowNumber);
                 currentRowNumber++;
             }
 
-            void resetRecordPosition()
+            void ResetRecordPosition()
             {
                 currentColumnNumber = startingColumn;
             }
 
             // Set Headers
-            foreach (var propertyTypeInfo in columns)
+            if (printHeaders)
             {
-                var propertyName = propertyTypeInfo.Key;
-                sheet.Cell(currentRowNumber, currentColumnNumber).Value = propertyName;
-                incrementFieldPosition();
+                foreach (var (propertyName, _) in columns)
+                {
+                    sheet.Cell(currentRowNumber, currentColumnNumber).Value = propertyName;
+                    IncrementFieldPosition();
+                }
             }
 
-            incrementRecordPosition();
+            IncrementRecordPosition();
 
             // Set Values
             foreach (var item in dataList)
             {
-                resetRecordPosition();
+                ResetRecordPosition();
                 foreach (var column in columns)
                 {
                     var cell = sheet.Cell(currentRowNumber, currentColumnNumber);
@@ -114,83 +84,86 @@ namespace NetEnhancements.ClosedXML
                     var cellValue = GetCellValue(column.Value.PropertyInfo.GetValue(item));
 
                     cell.Value = cellValue;
+                    
+                    SetCellStyle(cell, column);
 
-                    if (!string.IsNullOrEmpty(column.Value.NumberFormat))
-                    {
-                        cell.Style.NumberFormat.Format = column.Value.NumberFormat;
-                    }
-
-                    if (!string.IsNullOrEmpty(column.Value.DateFormat))
-                    {
-                        cell.Style.DateFormat.Format = column.Value.DateFormat;
-                    }
-
-                    if (column.Value.HorizontalAlignment.HasValue)
-                    {
-                        cell.Style.Alignment.Horizontal = column.Value.HorizontalAlignment.Value;
-                    }
-
-                    if (column.Value.VerticalAlignment.HasValue)
-                    {
-                        cell.Style.Alignment.Vertical = column.Value.VerticalAlignment.Value;
-                    }
-
-                    if (column.Value.TopBorder.HasValue)
-                    {
-                        cell.Style.Border.TopBorder = column.Value.TopBorder.Value;
-                    }
-                    if (column.Value.BottomBorder.HasValue)
-                    {
-                        cell.Style.Border.BottomBorder = column.Value.BottomBorder.Value;
-                    }
-                    if (column.Value.LeftBorder.HasValue)
-                    {
-                        cell.Style.Border.LeftBorder = column.Value.LeftBorder.Value;
-                    }
-                    if (column.Value.RightBorder.HasValue)
-                    {
-                        cell.Style.Border.RightBorder = column.Value.RightBorder.Value;
-                    }
-
-                    if (!string.IsNullOrEmpty(column.Value.TopBorderColor))
-                    {
-                        cell.Style.Border.TopBorderColor = XLColor.FromHtml(column.Value.TopBorderColor);
-                    }
-                    if (!string.IsNullOrEmpty(column.Value.BottomBorderColor))
-                    {
-                        cell.Style.Border.BottomBorderColor = XLColor.FromHtml(column.Value.BottomBorderColor);
-                    }
-                    if (!string.IsNullOrEmpty(column.Value.LeftBorderColor))
-                    {
-                        cell.Style.Border.LeftBorderColor = XLColor.FromHtml(column.Value.LeftBorderColor);
-                    }
-                    if (!string.IsNullOrEmpty(column.Value.RightBorderColor))
-                    {
-                        cell.Style.Border.RightBorderColor = XLColor.FromHtml(column.Value.RightBorderColor);
-                    }
-
-                    if (!string.IsNullOrEmpty(column.Value.FillColor))
-                    {
-                        cell.Style.Fill.BackgroundColor = XLColor.FromHtml(column.Value.FillColor);
-                    }
-                    if (!string.IsNullOrEmpty(column.Value.FontColor))
-                    {
-                        cell.Style.Font.FontColor = XLColor.FromHtml(column.Value.FontColor);
-                    }
-
-                    cell.Style.Font.Bold = column.Value.FontBold;
-
-                    cell.Style.IncludeQuotePrefix = column.Value.IncludeQuotePrefix;
-                    cell.Style.SetIncludeQuotePrefix(column.Value.SetIncludeQuotePrefix);
-                    cell.Style.Protection.Locked = column.Value.IsProtected;
-
-                    incrementFieldPosition();
+                    IncrementFieldPosition();
                 }
 
-                incrementRecordPosition();
+                IncrementRecordPosition();
+            }
+        }
+
+        private static void SetCellStyle(IXLCell cell, KeyValuePair<string, WritePropertyTypeInfo> column)
+        {
+            if (!string.IsNullOrEmpty(column.Value.NumberFormat))
+            {
+                cell.Style.NumberFormat.Format = column.Value.NumberFormat;
             }
 
-            return workbook;
+            if (!string.IsNullOrEmpty(column.Value.DateFormat))
+            {
+                cell.Style.DateFormat.Format = column.Value.DateFormat;
+            }
+
+            if (column.Value.HorizontalAlignment.HasValue)
+            {
+                cell.Style.Alignment.Horizontal = column.Value.HorizontalAlignment.Value;
+            }
+
+            if (column.Value.VerticalAlignment.HasValue)
+            {
+                cell.Style.Alignment.Vertical = column.Value.VerticalAlignment.Value;
+            }
+
+            if (column.Value.TopBorder.HasValue)
+            {
+                cell.Style.Border.TopBorder = column.Value.TopBorder.Value;
+            }
+            if (column.Value.BottomBorder.HasValue)
+            {
+                cell.Style.Border.BottomBorder = column.Value.BottomBorder.Value;
+            }
+            if (column.Value.LeftBorder.HasValue)
+            {
+                cell.Style.Border.LeftBorder = column.Value.LeftBorder.Value;
+            }
+            if (column.Value.RightBorder.HasValue)
+            {
+                cell.Style.Border.RightBorder = column.Value.RightBorder.Value;
+            }
+
+            if (!string.IsNullOrEmpty(column.Value.TopBorderColor))
+            {
+                cell.Style.Border.TopBorderColor = XLColor.FromHtml(column.Value.TopBorderColor);
+            }
+            if (!string.IsNullOrEmpty(column.Value.BottomBorderColor))
+            {
+                cell.Style.Border.BottomBorderColor = XLColor.FromHtml(column.Value.BottomBorderColor);
+            }
+            if (!string.IsNullOrEmpty(column.Value.LeftBorderColor))
+            {
+                cell.Style.Border.LeftBorderColor = XLColor.FromHtml(column.Value.LeftBorderColor);
+            }
+            if (!string.IsNullOrEmpty(column.Value.RightBorderColor))
+            {
+                cell.Style.Border.RightBorderColor = XLColor.FromHtml(column.Value.RightBorderColor);
+            }
+
+            if (!string.IsNullOrEmpty(column.Value.FillColor))
+            {
+                cell.Style.Fill.BackgroundColor = XLColor.FromHtml(column.Value.FillColor);
+            }
+            if (!string.IsNullOrEmpty(column.Value.FontColor))
+            {
+                cell.Style.Font.FontColor = XLColor.FromHtml(column.Value.FontColor);
+            }
+
+            cell.Style.Font.Bold = column.Value.FontBold;
+
+            cell.Style.IncludeQuotePrefix = column.Value.IncludeQuotePrefix;
+            cell.Style.SetIncludeQuotePrefix(column.Value.SetIncludeQuotePrefix);
+            cell.Style.Protection.Locked = column.Value.IsProtected;
         }
 
         private static XLCellValue GetCellValue(object? value)
