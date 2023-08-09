@@ -1,4 +1,5 @@
 ﻿using ClosedXML.Excel;
+using DocumentFormat.OpenXml.Spreadsheet;
 
 namespace NetEnhancements.ClosedXML
 {
@@ -93,10 +94,12 @@ namespace NetEnhancements.ClosedXML
                 resetRecordPosition();
                 foreach (var column in columns)
                 {
-                    var value = column.Value.PropertyInfo.GetValue(item) ?? DBNull.Value;
-
                     var cell = sheet.Cell(currentRowNumber, currentColumnNumber);
-                    cell.Value = value.ToString();
+                    
+                    var cellValue = GetCellValue(column.Value.PropertyInfo.GetValue(item));
+
+                    cell.Value = cellValue;
+
                     if (!string.IsNullOrEmpty(column.Value.NumberFormat))
                     {
                         cell.Style.NumberFormat.Format = column.Value.NumberFormat;
@@ -142,6 +145,40 @@ namespace NetEnhancements.ClosedXML
 
             range.CreateTable("DT");
             return workbook;
+        }
+
+        private static XLCellValue GetCellValue(object? value)
+        {
+            // Thanks to magic of JIT compiler, generic method is compiled as a separate method
+            // for each T, so the whole switch removes types that don't match T and the whole
+            // switch is actually reduced only to the code for specific T (=no switch for value types).
+            XLCellValue newValue = value switch
+            {
+                null => Blank.Value,
+                Blank blankValue => blankValue,
+                Boolean logical => logical,
+                SByte number => number,
+                Byte number => number,
+                Int16 number => number,
+                UInt16 number => number,
+                Int32 number => number,
+                UInt32 number => number,
+                Int64 number => number,
+                UInt64 number => number,
+                Single number => number,
+                Double number => number,
+                Decimal number => number,
+                String text => text,
+                XLError error => error,
+                DateTime date => date,
+                DateOnly date => date.ToDateTime(default),
+                DateTimeOffset dateOfs => dateOfs.DateTime,
+                TimeSpan timeSpan => timeSpan,
+                TimeOnly time => time.ToTimeSpan(),
+                _ => value.ToString() // Other things, like chars ect are just turned to string
+            };
+
+            return newValue;
         }
     }
 }
