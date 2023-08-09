@@ -6,7 +6,10 @@ apiRules:
 - exclude:
     uidRegex: NetEnhancements\.Util\.CollectionExtensions\.In``1\(System.Collections.Generic.IEnumerable{NetEnhancements
     type: Method
-
+    
 - exclude:
     uidRegex: ^System\.Object
+    type: Type
+- exclude:
+    uidRegex: ^System\.Attribute
     type: Type
