@@ -1,4 +1,11 @@
-﻿using ClosedXML.Excel;
+﻿using System;
+using System.Collections;
+using System.Data;
+using System.Diagnostics.CodeAnalysis;
+
+using ClosedXML.Excel;
+using DocumentFormat.OpenXml.Spreadsheet;
+using DocumentFormat.OpenXml.Wordprocessing;
 
 namespace NetEnhancements.ClosedXML
 {
@@ -36,7 +43,6 @@ namespace NetEnhancements.ClosedXML
         {
             var dataSet = ExcelGenerator.ToDataSet(dataList);
             workbook.Worksheets.Add(dataSet);
-            workbook.Worksheets.Last().Name = sheetName;
             return workbook;
         }
 
@@ -50,6 +56,83 @@ namespace NetEnhancements.ClosedXML
             using var stream = new MemoryStream();
             workbook.SaveAs(stream);
             return stream.ToArray();
+        }
+
+
+        public static IXLWorksheet InsertDataInternal<T>(this IXLWorksheet work, IEnumerable<T> d)
+            where T : class, new()
+        {
+            var columns = PropertyParser.ParseWriteProperties<T>();
+
+            var currentRowNumber = 1;
+            var currentColumnNumber = 1;
+            var maximumColumnNumber = currentColumnNumber;
+            var maximumRowNumber = currentRowNumber;
+
+            maximumColumnNumber += d.Count() - 1;
+            maximumRowNumber += columns.Count - 1;
+
+            // Inline functions to handle looping with transposing
+            //////////////////////////////////////////////////////
+            void incrementFieldPosition()
+            {
+
+                maximumColumnNumber = Math.Max(maximumColumnNumber, currentColumnNumber);
+                currentColumnNumber++;
+            }
+
+            void incrementRecordPosition()
+            {
+                maximumRowNumber = Math.Max(maximumRowNumber, currentRowNumber);
+                currentRowNumber++;
+            }
+
+            void resetRecordPosition()
+            {
+                currentColumnNumber = 1;
+            }
+
+            // Set Headers
+            foreach (var propertyTypeInfo in columns)
+            {
+                var propertyName = propertyTypeInfo.Key;
+                work.Cell(currentRowNumber, currentColumnNumber).Value = propertyName;
+                incrementFieldPosition();
+            }
+
+            incrementRecordPosition();
+
+            // Set Values
+            foreach (var item in d)
+            {
+                resetRecordPosition();
+                foreach (var column in columns)
+                {
+                    var value = column.Value.PropertyInfo.GetValue(item) ?? DBNull.Value;
+
+                    var cell = work.Cell(currentRowNumber, currentColumnNumber);
+                    cell.Value = value.ToString();
+                    if (!string.IsNullOrEmpty(column.Value.NumberFormat))
+                    {
+                        cell.Style.NumberFormat.Format = column.Value.NumberFormat;
+                    }
+
+                    cell.Style.Alignment.Horizontal = column.Value.HorizontalAlignment;
+
+
+                    incrementFieldPosition();
+                }
+                incrementRecordPosition();
+            }
+
+            var range = work.Range(
+                1,
+                1,
+                maximumRowNumber,
+                maximumColumnNumber);
+
+            range.CreateTable("DT");
+            return work;
         }
     }
 }

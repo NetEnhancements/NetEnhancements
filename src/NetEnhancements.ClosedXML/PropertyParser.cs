@@ -1,6 +1,8 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Reflection;
-using DocumentFormat.OpenXml.EMMA;
+
+using ClosedXML.Excel;
+
 using NetEnhancements.Util;
 
 namespace NetEnhancements.ClosedXML;
@@ -53,10 +55,13 @@ internal static class PropertyParser
         return cache;
     }
 
-    public static Dictionary<string, PropertyInfo> ParsePropertiesToColumnNames<TRow>()
+    /// <summary>
+    /// Parse a class's properties' <see cref="ExcelColumnNameAttribute"/> to determine into which Excel column name to write its data.
+    /// </summary>
+    public static Dictionary<string, WritePropertyTypeInfo> ParseWriteProperties<TRow>()
         where TRow : class, new()
     {
-        var cache = new Dictionary<string, PropertyInfo>();
+        var cache = new Dictionary<string, WritePropertyTypeInfo>();
 
         var rowObjectTypeName = typeof(TRow).FullName;
         var columnAttributeName = nameof(ColumnAttribute).RemoveEnd(nameof(Attribute));
@@ -74,14 +79,7 @@ internal static class PropertyParser
 
             var attrs = property.GetCustomAttributes(typeof(ExcelColumnName), true).FirstOrDefault();
 
-            if (attrs is ExcelColumnName excelColumnName)
-            {
-                cache.Add(excelColumnName.ColumnName, property);
-            }
-            else
-            {
-                cache.Add(property.Name, property);
-            }
+            cache.Add(columnAttribute?.ColumnName ?? property.Name, GetWritePropertyTypeInfo(property));
         }
 
         if (!cache.Any())
@@ -97,6 +95,21 @@ internal static class PropertyParser
         var (type, nullable) = GetPropertyType(property);
 
         return new PropertyTypeInfo(property, type, nullable);
+    }
+    private static WritePropertyTypeInfo GetWritePropertyTypeInfo(PropertyInfo property)
+    {
+        var (type, nullable) = GetPropertyType(property);
+        
+        var columnFormat = property.GetCustomAttribute<ExcelColumnStyleAttribute>(inherit: true);
+
+        if (columnFormat != null)
+        {
+            return new WritePropertyTypeInfo(property, type, nullable, columnFormat.HorizontalAlignment, columnFormat.VerticalAlignment, columnFormat.TopBorder, columnFormat.BottomBorder, columnFormat.LeftBorder, columnFormat.RightBorder, columnFormat.TopBorderColor, columnFormat.BottomBorderColor, columnFormat.LeftBorderColor, columnFormat.RightBorderColor, columnFormat.FillColor, columnFormat.FontBold, columnFormat.DateFormat, columnFormat.IncludeQuotePrefix, columnFormat.NumberFormat, columnFormat.Protection, columnFormat.SetIncludeQuotePrefix);
+
+        }
+
+
+        return new WritePropertyTypeInfo(property, type, nullable);
     }
 
     /// <summary>

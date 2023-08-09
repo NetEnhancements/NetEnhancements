@@ -2,6 +2,8 @@ using ClosedXML.Excel;
 
 using System.Data;
 
+using DocumentFormat.OpenXml.Spreadsheet;
+
 namespace NetEnhancements.ClosedXML.Tests
 {
     public class ExcelGeneratorTests
@@ -74,14 +76,18 @@ namespace NetEnhancements.ClosedXML.Tests
             // Arrange
             var dataList = new List<MyClassWithAttribute>
                                {
-                                   new() { Prop1 = "A", Prop2 = 1, Prop3 = "Disabled" },
-                                   new() { Prop1 = "B", Prop2 = 2, Prop3 = "Disabled" },
-                                   new() { Prop1 = "C", Prop2 = 3, Prop3 = "Disabled" }
+                                   new() { Prop1 = "A", MagicNumber = 12345789.123456789m, Prop2 = 1, Prop3 = "Disabled" },
+                                   new() { Prop1 = "B", MagicNumber = 12345789.123456789m, Prop2 = 2, Prop3 = "Disabled" },
+                                   new() { Prop1 = "C", MagicNumber = 12345789.123456789m, Prop2 = 3, Prop3 = "Disabled" }
                                };
 
             // Act
             var workbook = ExcelGenerator.GenerateExcel(dataList);
 
+            var wb = new XLWorkbook();
+            wb.Worksheets.Add().InsertDataInternal(dataList);
+
+            wb.SaveAs("D:\\Test.xlsx");
             // Assert
             Assert.IsInstanceOf<XLWorkbook>(workbook);
             Assert.AreEqual(1, workbook.Worksheets.Count);
@@ -146,7 +152,12 @@ namespace NetEnhancements.ClosedXML.Tests
         private class MyClassWithAttribute
         {
             [ExcelColumnName("Property 1")]
+            [ExcelColumnStyle(HorizontalAlignment = XLAlignmentHorizontalValues.Right)]
+
             public string Prop1 { get; set; }
+
+            [ExcelColumnStyle(NumberFormat = "#,##0.00")]
+            public decimal MagicNumber { get; set; }
             public int Prop2 { get; set; }
             [ExcelColumnDisabled]
             public string Prop3 { get; set; }
