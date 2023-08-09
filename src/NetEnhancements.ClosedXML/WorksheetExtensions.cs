@@ -38,7 +38,7 @@ namespace NetEnhancements.ClosedXML
 
         public static XLWorkbook AddSheet<T>(
             this XLWorkbook workbook,
-            IEnumerable<T> dataList,
+            IReadOnlyCollection<T> dataList,
             int startingRow,
             int startingColumn,
             string sheetName = "")
@@ -54,12 +54,12 @@ namespace NetEnhancements.ClosedXML
         /// <param name="dataList">The collection of objects to add to the worksheet.</param>
         /// <param name="sheetName">The name to give to the new worksheet.</param>
         /// <returns>A <see cref="XLWorkbook" /> workbook with the new worksheet added.</returns>
-        public static XLWorkbook AddSheet<T>(this XLWorkbook workbook, IEnumerable<T> dataList, string sheetName = "")
+        public static XLWorkbook AddSheet<T>(this XLWorkbook workbook, IReadOnlyCollection<T> dataList, string sheetName = "")
         {
             return BuildAndFillWorksheet(workbook, dataList, sheetName, 1, 1);
         }
 
-        private static XLWorkbook BuildAndFillWorksheet<T>(XLWorkbook workbook, IEnumerable<T> dataList, string sheetName, int startingRow, int startingColumn)
+        private static XLWorkbook BuildAndFillWorksheet<T>(XLWorkbook workbook, IReadOnlyCollection<T> dataList, string sheetName, int startingRow, int startingColumn)
         {
             workbook.Worksheets.Add();
             var sheet = workbook.Worksheets.Last();
