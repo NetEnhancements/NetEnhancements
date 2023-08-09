@@ -99,8 +99,6 @@ namespace NetEnhancements.ClosedXML.Tests
             // Act
             var wb = new XLWorkbook();
             wb.AddSheet(dataList, sheetName: "Fancy");
-            wb.SaveAs("D:\\meh.xlsx");
-            //wb.Worksheets.Add().InsertDataInternal(dataList);
 
             // Assert
             Assert.IsInstanceOf<XLWorkbook>(wb);
