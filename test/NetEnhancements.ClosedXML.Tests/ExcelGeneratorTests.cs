@@ -76,18 +76,14 @@ namespace NetEnhancements.ClosedXML.Tests
             // Arrange
             var dataList = new List<MyClassWithAttribute>
                                {
-                                   new() { Prop1 = "A", MagicNumber = 12345789.123456789m, Prop2 = 1, Prop3 = "Disabled" },
-                                   new() { Prop1 = "B", MagicNumber = 12345789.123456789m, Prop2 = 2, Prop3 = "Disabled" },
-                                   new() { Prop1 = "C", MagicNumber = 12345789.123456789m, Prop2 = 3, Prop3 = "Disabled" }
+                                   new() { Prop1 = "A", Prop2 = 1, Prop3 = "Disabled" },
+                                   new() { Prop1 = "B", Prop2 = 2, Prop3 = "Disabled" },
+                                   new() { Prop1 = "C", Prop2 = 3, Prop3 = "Disabled" }
                                };
 
             // Act
             var workbook = ExcelGenerator.GenerateExcel(dataList);
 
-            var wb = new XLWorkbook();
-            wb.Worksheets.Add().InsertDataInternal(dataList);
-
-            wb.SaveAs("D:\\Test.xlsx");
             // Assert
             Assert.IsInstanceOf<XLWorkbook>(workbook);
             Assert.That(workbook.Worksheets.Count, Is.EqualTo(1));
@@ -100,6 +96,37 @@ namespace NetEnhancements.ClosedXML.Tests
             {
                 Assert.That(workbook.Worksheets.First().Row(i + 2).Cell(1).Value.ToString(), Is.EqualTo(dataList[i].Prop1));
                 Assert.That(workbook.Worksheets.First().Row(i + 2).Cell(2).Value.ToString(), Is.EqualTo(dataList[i].Prop2.ToString()));
+            }
+        } 
+        
+        [Test]
+        public void InsertDataInternal_NonEmptyList_ReturnsWorkbookWithOneWorksheet_WithExcelAttributes()
+        {
+            // Arrange
+            var dataList = new List<MyClassWithStyleAttribute>
+                               {
+                                   new() { Prop1 = "A", MagicNumber = 12345789.123456789m, Prop2 = 1, Prop3 = "Disabled" },
+                                   new() { Prop1 = "B", MagicNumber = 12345789.123456789m, Prop2 = 2, Prop3 = "Disabled" },
+                                   new() { Prop1 = "C", MagicNumber = 12345789.123456789m, Prop2 = 3, Prop3 = "Disabled" }
+                               };
+
+            // Act
+            var wb = new XLWorkbook();
+            wb.Worksheets.Add().InsertDataInternal(dataList);
+
+            // Assert
+            Assert.IsInstanceOf<XLWorkbook>(wb);
+            Assert.That(wb.Worksheets.Count, Is.EqualTo(1));
+            Assert.That(wb.Worksheets.First().Rows().Count(), Is.EqualTo(dataList.Count + 1));
+            Assert.That(wb.Worksheets.First().Columns().Count(), Is.EqualTo(3));
+            Assert.That(wb.Worksheets.First().Row(1).Cell(1).Value.ToString(), Is.EqualTo("Prop1"));
+            Assert.That(wb.Worksheets.First().Row(1).Cell(2).Value.ToString(), Is.EqualTo("MagicNumber"));
+
+            for (int i = 0; i < dataList.Count; i++)
+            {
+                Assert.That(wb.Worksheets.First().Row(i + 2).Cell(1).Style.Alignment.Horizontal, Is.EqualTo(XLAlignmentHorizontalValues.Right));
+                Assert.That(wb.Worksheets.First().Row(i + 2).Cell(2).Style.Alignment.Horizontal, Is.EqualTo(XLAlignmentHorizontalValues.Left));
+                Assert.That(wb.Worksheets.First().Row(i + 2).Cell(2).Style.NumberFormat.Format, Is.EqualTo("#,##0.00"));
             }
         }
 
@@ -158,6 +185,14 @@ namespace NetEnhancements.ClosedXML.Tests
         private class MyClassWithAttribute
         {
             [ExcelColumnName("Property 1")]
+            public string Prop1 { get; set; }
+            public int Prop2 { get; set; }
+            [ExcelColumnDisabled]
+            public string Prop3 { get; set; }
+        }  
+        
+        private class MyClassWithStyleAttribute
+        {
             [ExcelColumnStyle(HorizontalAlignment = XLAlignmentHorizontalValues.Right)]
             public string Prop1 { get; set; }
 
