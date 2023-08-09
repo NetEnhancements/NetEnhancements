@@ -41,12 +41,7 @@ namespace NetEnhancements.Services
             {
                 var crontabSchedule = CrontabSchedule.TryParse(CronSchedule, new CrontabSchedule.ParseOptions { IncludingSeconds = true });
 
-                if (crontabSchedule == null)
-                {
-                    throw new InvalidOperationException($"Could not parse cron schedule '{CronSchedule}'");
-                }
-
-                return crontabSchedule;
+                return crontabSchedule ?? throw new InvalidOperationException($"Could not parse cron schedule '{CronSchedule}'");
             });
         }
 
