@@ -14,17 +14,13 @@ namespace NetEnhancements.ClosedXML
         /// <typeparam name="T">The type of the objects in the collection.</typeparam>
         /// <param name="dataList">The collection of objects to add to the worksheet.</param>
         /// <returns>A <see cref="XLWorkbook" /> workbook containing one worksheet with the data from the collection, or an empty workbook if the collection is empty.</returns>
-        public static XLWorkbook GenerateExcel<T>(IEnumerable<T> dataList)
+        public static XLWorkbook GenerateExcel<T>(IReadOnlyCollection<T> dataList,
+                                                  int startingRow = 1,
+                                                  int startingColumn = 1,
+                                                  string sheetName = "")
         {
-            var dataSet = ToDataSet(dataList);
-
-            if (dataSet.Tables[0].Rows.Count == 0)
-            {
-                return new XLWorkbook();
-            }
-
             var workbook = new XLWorkbook();
-            workbook.Worksheets.Add(dataSet);
+            workbook.AddSheet(dataList, startingRow, startingColumn, sheetName);
             return workbook;
         }
 
@@ -35,7 +31,6 @@ namespace NetEnhancements.ClosedXML
         /// <param name="list">The collection of objects to convert to a dataset.</param>
         /// <returns>A <see cref="DataSet" /> dataset containing one table with the object data.</returns>
         public static DataSet ToDataSet<T>(IEnumerable<T> list)
-            
         {
             var columns = PropertyParser.ParseWriteProperties<T>();
             var dataTable = new DataTable();

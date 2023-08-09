@@ -9,20 +9,6 @@ namespace NetEnhancements.ClosedXML.Tests
     public class ExcelGeneratorTests
     {
         [Test]
-        public void GenerateExcel_EmptyList_ReturnsEmptyWorkbook()
-        {
-            // Arrange
-            var dataList = new List<MyClass>();
-
-            // Act
-            var workbook = ExcelGenerator.GenerateExcel(dataList);
-
-            // Assert
-            Assert.IsInstanceOf<XLWorkbook>(workbook);
-            Assert.That(workbook.Worksheets.Count, Is.EqualTo(0));
-        }
-
-        [Test]
         public void GenerateExcel_NonEmptyList_ReturnsWorkbookWithOneWorksheet()
         {
             // Arrange
@@ -97,8 +83,8 @@ namespace NetEnhancements.ClosedXML.Tests
                 Assert.That(workbook.Worksheets.First().Row(i + 2).Cell(1).Value.ToString(), Is.EqualTo(dataList[i].Prop1));
                 Assert.That(workbook.Worksheets.First().Row(i + 2).Cell(2).Value.ToString(), Is.EqualTo(dataList[i].Prop2.ToString()));
             }
-        } 
-        
+        }
+
         [Test]
         public void InsertDataInternal_NonEmptyList_ReturnsWorkbookWithOneWorksheet_WithExcelAttributes()
         {
@@ -112,7 +98,7 @@ namespace NetEnhancements.ClosedXML.Tests
 
             // Act
             var wb = new XLWorkbook();
-            wb.AddSheet(dataList, "Fancy");
+            wb.AddSheet(dataList, sheetName: "Fancy");
             //wb.Worksheets.Add().InsertDataInternal(dataList);
 
             // Assert
@@ -190,8 +176,8 @@ namespace NetEnhancements.ClosedXML.Tests
             public int Prop2 { get; set; }
             [ExcelColumnDisabled]
             public string Prop3 { get; set; }
-        }  
-        
+        }
+
         private class MyClassWithStyleAttribute
         {
             [ExcelColumnStyle(HorizontalAlignment = XLAlignmentHorizontalValues.Right)]

@@ -36,16 +36,6 @@ namespace NetEnhancements.ClosedXML
             return stream.ToArray();
         }
 
-        public static XLWorkbook AddSheet<T>(
-            this XLWorkbook workbook,
-            IReadOnlyCollection<T> dataList,
-            int startingRow,
-            int startingColumn,
-            string sheetName = "")
-        {
-            return BuildAndFillWorksheet(workbook, dataList, sheetName, startingRow, startingColumn);
-        }
-
         /// <summary>
         /// Adds a new worksheet to the workbook containing the data from a collection of objects.
         /// </summary>
@@ -54,16 +44,24 @@ namespace NetEnhancements.ClosedXML
         /// <param name="dataList">The collection of objects to add to the worksheet.</param>
         /// <param name="sheetName">The name to give to the new worksheet.</param>
         /// <returns>A <see cref="XLWorkbook" /> workbook with the new worksheet added.</returns>
-        public static XLWorkbook AddSheet<T>(this XLWorkbook workbook, IReadOnlyCollection<T> dataList, string sheetName = "")
+        public static XLWorkbook AddSheet<T>(
+            this XLWorkbook workbook,
+            IReadOnlyCollection<T> dataList,
+            int startingRow = 1,
+            int startingColumn = 1,
+            string sheetName = "")
         {
-            return BuildAndFillWorksheet(workbook, dataList, sheetName, 1, 1);
+            return BuildAndFillWorksheet(workbook, dataList, sheetName, startingRow, startingColumn);
         }
 
         private static XLWorkbook BuildAndFillWorksheet<T>(XLWorkbook workbook, IReadOnlyCollection<T> dataList, string sheetName, int startingRow, int startingColumn)
         {
             workbook.Worksheets.Add();
             var sheet = workbook.Worksheets.Last();
-            sheet.Name = sheetName;
+            if (!string.IsNullOrWhiteSpace(sheetName))
+            {
+                sheet.Name = sheetName;
+            }
             var columns = PropertyParser.ParseWriteProperties<T>();
 
             var currentRowNumber = startingRow;
