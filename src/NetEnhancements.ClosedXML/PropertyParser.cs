@@ -1,7 +1,5 @@
 ﻿using System.Reflection;
 
-using ClosedXML.Excel;
-
 using NetEnhancements.Util;
 
 namespace NetEnhancements.ClosedXML;
@@ -100,12 +98,12 @@ internal static class PropertyParser
         
         var columnFormat = property.GetCustomAttribute<ExcelColumnStyleAttribute>(inherit: true);
 
+        // Maybe just toss the entire attribute in a ctor?
         if (columnFormat != null)
         {
-            return new WritePropertyTypeInfo(property, type, nullable, columnFormat.HorizontalAlignment, columnFormat.VerticalAlignment, columnFormat.TopBorder, columnFormat.BottomBorder, columnFormat.LeftBorder, columnFormat.RightBorder, columnFormat.TopBorderColor, columnFormat.BottomBorderColor, columnFormat.LeftBorderColor, columnFormat.RightBorderColor, columnFormat.FillColor, columnFormat.FontBold, columnFormat.DateFormat, columnFormat.IncludeQuotePrefix, columnFormat.NumberFormat, columnFormat.Protection, columnFormat.SetIncludeQuotePrefix);
+            return new WritePropertyTypeInfo(property, type, nullable, columnFormat.HorizontalAlignment, columnFormat.VerticalAlignment, columnFormat.TopBorder, columnFormat.BottomBorder, columnFormat.LeftBorder, columnFormat.RightBorder, columnFormat.TopBorderColor, columnFormat.BottomBorderColor, columnFormat.LeftBorderColor, columnFormat.RightBorderColor, columnFormat.FillColor, columnFormat.FontColor, columnFormat.FontBold, columnFormat.DateFormat, columnFormat.IncludeQuotePrefix, columnFormat.NumberFormat, columnFormat.IsProtected, columnFormat.SetIncludeQuotePrefix);
 
         }
-
 
         return new WritePropertyTypeInfo(property, type, nullable);
     }

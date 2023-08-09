@@ -20,14 +20,6 @@ internal class PropertyTypeInfo
     public bool IsNullable { get; init; }
 
     public IXLStyle Style { get; init; }
-
-    public void Deconstruct(out PropertyInfo propertyInfo, out CellType cellType, out bool isNullable, out IXLStyle style)
-    {
-        propertyInfo = this.PropertyInfo;
-        cellType = this.CellType;
-        isNullable = this.IsNullable;
-        style = this.Style;
-    }
 }
 
 internal class WritePropertyTypeInfo : PropertyTypeInfo
@@ -45,17 +37,18 @@ internal class WritePropertyTypeInfo : PropertyTypeInfo
     public XLColor LeftBorderColor { get; set; } = XLColor.FromArgb(255, 0, 0, 0);
     public XLColor RightBorderColor { get; set; } = XLColor.FromArgb(255, 0, 0, 0);
 
-    public string DateFormat { get; }
+    public string? DateFormat { get; }
 
     public XLColor FillColor { get; set; } = XLColor.FromArgb(255, 0, 0, 0);
+    public XLColor FontColor { get; set; } = XLColor.Black;
 
     public bool FontBold { get; set; }
 
     public bool IncludeQuotePrefix { get; set; }
 
-    public string NumberFormat { get; set; }
+    public string? NumberFormat { get; set; }
 
-    public IXLProtection Protection { get; set; }
+    public bool IsProtected { get; set; }
 
     public bool SetIncludeQuotePrefix { get; set; } = true;
 
@@ -71,11 +64,12 @@ internal class WritePropertyTypeInfo : PropertyTypeInfo
                                  XLColor leftBorderColor,
                                  XLColor rightBorderColor,
                                  XLColor fillColor,
+                                 XLColor fontColor,
                                  bool fontBold,
-                                 string dateFormat,
+                                 string? dateFormat,
                                  bool includeQuotePrefix,
-                                 string numberFormat,
-                                 IXLProtection protection,
+                                 string? numberFormat,
+                                 bool isProtected,
                                  bool setIncludeQuotePrefix)
         : base(propertyInfo, cellType, isNullable)
     {
@@ -91,23 +85,16 @@ internal class WritePropertyTypeInfo : PropertyTypeInfo
         this.RightBorderColor = rightBorderColor;
         this.DateFormat = dateFormat;
         this.FillColor = fillColor;
+        this.FontColor = fontColor;
         this.FontBold = fontBold;
         this.IncludeQuotePrefix = includeQuotePrefix;
         this.NumberFormat = numberFormat;
-        this.Protection = protection;
+        this.IsProtected = isProtected;
         this.SetIncludeQuotePrefix = setIncludeQuotePrefix;
     }
 
     public WritePropertyTypeInfo(PropertyInfo propertyInfo, CellType cellType, bool isNullable)
         : base(propertyInfo, cellType, isNullable)
     {
-    }
-
-    public void Deconstruct(out PropertyInfo propertyInfo, out CellType cellType, out bool isNullable, out IXLStyle style)
-    {
-        propertyInfo = this.PropertyInfo;
-        cellType = this.CellType;
-        isNullable = this.IsNullable;
-        style = this.Style;
     }
 }

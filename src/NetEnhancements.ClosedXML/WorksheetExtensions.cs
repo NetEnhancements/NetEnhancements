@@ -57,8 +57,7 @@ namespace NetEnhancements.ClosedXML
             workbook.SaveAs(stream);
             return stream.ToArray();
         }
-
-
+        
         public static IXLWorksheet InsertDataInternal<T>(this IXLWorksheet work, IEnumerable<T> d)
             where T : class, new()
         {
@@ -115,10 +114,34 @@ namespace NetEnhancements.ClosedXML
                     if (!string.IsNullOrEmpty(column.Value.NumberFormat))
                     {
                         cell.Style.NumberFormat.Format = column.Value.NumberFormat;
+                    } 
+                    
+                    if (!string.IsNullOrEmpty(column.Value.DateFormat))
+                    {
+                        cell.Style.DateFormat.Format = column.Value.DateFormat;
                     }
 
                     cell.Style.Alignment.Horizontal = column.Value.HorizontalAlignment;
+                    cell.Style.Alignment.Vertical = column.Value.VerticalAlignment;
 
+                    cell.Style.Border.TopBorder = column.Value.TopBorder;
+                    cell.Style.Border.BottomBorder = column.Value.BottomBorder;
+                    cell.Style.Border.LeftBorder = column.Value.LeftBorder;
+                    cell.Style.Border.RightBorder = column.Value.RightBorder;     
+                    
+                    cell.Style.Border.TopBorderColor = column.Value.TopBorderColor;
+                    cell.Style.Border.BottomBorderColor = column.Value.BottomBorderColor;
+                    cell.Style.Border.LeftBorderColor = column.Value.LeftBorderColor;
+                    cell.Style.Border.RightBorderColor = column.Value.RightBorderColor;
+
+                    cell.Style.Fill.BackgroundColor = column.Value.FillColor;
+                    
+                    cell.Style.Font.FontColor = column.Value.FontColor;
+                    cell.Style.Font.Bold = column.Value.FontBold;
+
+                    cell.Style.IncludeQuotePrefix = column.Value.IncludeQuotePrefix;
+                    cell.Style.SetIncludeQuotePrefix(column.Value.SetIncludeQuotePrefix);
+                    cell.Style.Protection.Locked = column.Value.IsProtected;
 
                     incrementFieldPosition();
                 }

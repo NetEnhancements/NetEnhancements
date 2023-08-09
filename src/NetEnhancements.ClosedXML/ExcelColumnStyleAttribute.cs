@@ -21,17 +21,18 @@ namespace NetEnhancements.ClosedXML
         public XLColor LeftBorderColor { get; set; } = XLColor.FromArgb(255, 0, 0, 0);
         public XLColor RightBorderColor { get; set; } = XLColor.FromArgb(255, 0, 0, 0);
 
-        public string DateFormat { get; }
+        public string? DateFormat { get; }
 
         public XLColor FillColor { get; set; } = XLColor.FromArgb(255, 0, 0, 0);
+        public XLColor FontColor { get; set; } = XLColor.Black;
 
         public bool FontBold { get; set; }
 
         public bool IncludeQuotePrefix { get; set; }
 
-        public string NumberFormat { get; set; }
+        public string? NumberFormat { get; set; }
 
-        public IXLProtection Protection { get; set; }
+        public bool IsProtected { get; set; }
 
         public bool SetIncludeQuotePrefix { get; set; } = true;
     }
