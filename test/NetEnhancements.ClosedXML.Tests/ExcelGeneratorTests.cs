@@ -112,7 +112,7 @@ namespace NetEnhancements.ClosedXML.Tests
             for (int i = 0; i < dataList.Count; i++)
             {
                 Assert.That(wb.Worksheets.First().Row(i + 2).Cell(1).Style.Alignment.Horizontal, Is.EqualTo(XLAlignmentHorizontalValues.Right));
-                Assert.That(wb.Worksheets.First().Row(i + 2).Cell(2).Style.Alignment.Horizontal, Is.EqualTo(XLAlignmentHorizontalValues.Left));
+                Assert.That(wb.Worksheets.First().Row(i + 2).Cell(2).Style.Alignment.Horizontal, Is.EqualTo(XLAlignmentHorizontalValues.General));
                 Assert.That(wb.Worksheets.First().Row(i + 2).Cell(2).Style.NumberFormat.Format, Is.EqualTo("#,##0.00"));
             }
         }

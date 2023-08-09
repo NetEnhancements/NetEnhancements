@@ -22,13 +22,13 @@ internal class PropertyTypeInfo
 
 internal class WritePropertyTypeInfo : PropertyTypeInfo
 {
-    public XLAlignmentHorizontalValues HorizontalAlignment { get; set; } = XLAlignmentHorizontalValues.Left;
-    public XLAlignmentVerticalValues VerticalAlignment { get; set; } = XLAlignmentVerticalValues.Top;
+    public XLAlignmentHorizontalValues? HorizontalAlignment { get; set; }
+    public XLAlignmentVerticalValues? VerticalAlignment { get; set; }
 
-    public XLBorderStyleValues TopBorder { get; set; } = XLBorderStyleValues.None;
-    public XLBorderStyleValues BottomBorder { get; set; } = XLBorderStyleValues.None;
-    public XLBorderStyleValues LeftBorder { get; set; } = XLBorderStyleValues.None;
-    public XLBorderStyleValues RightBorder { get; set; } = XLBorderStyleValues.None;
+    public XLBorderStyleValues? TopBorder { get; set; } 
+    public XLBorderStyleValues? BottomBorder { get; set; }
+    public XLBorderStyleValues? LeftBorder { get; set; } 
+    public XLBorderStyleValues? RightBorder { get; set; }
 
     public string? TopBorderColor { get; set; } 
     public string? BottomBorderColor { get; set; } 
@@ -38,7 +38,7 @@ internal class WritePropertyTypeInfo : PropertyTypeInfo
     public string? DateFormat { get; }
 
     public string? FillColor { get; set; } 
-    public string? FontColor { get; set; }
+    public string? FontColor { get; set; } 
 
     public bool FontBold { get; set; }
 
@@ -51,12 +51,12 @@ internal class WritePropertyTypeInfo : PropertyTypeInfo
     public bool SetIncludeQuotePrefix { get; set; } = true;
 
     public WritePropertyTypeInfo(PropertyInfo propertyInfo, CellType cellType, bool isNullable,
-                                 XLAlignmentHorizontalValues horizontalAlignment,
-                                 XLAlignmentVerticalValues verticalAlignment,
-                                 XLBorderStyleValues topBorder,
-                                 XLBorderStyleValues bottomBorder,
-                                 XLBorderStyleValues leftBorder,
-                                 XLBorderStyleValues rightBorder,
+                                 XLAlignmentHorizontalValues? horizontalAlignment,
+                                 XLAlignmentVerticalValues? verticalAlignment,
+                                 XLBorderStyleValues? topBorder,
+                                 XLBorderStyleValues? bottomBorder,
+                                 XLBorderStyleValues? leftBorder,
+                                 XLBorderStyleValues? rightBorder,
                                  string? topBorderColor,
                                  string? bottomBorderColor,
                                  string? leftBorderColor,

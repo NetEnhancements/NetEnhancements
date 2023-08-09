@@ -123,13 +123,32 @@ namespace NetEnhancements.ClosedXML
                         cell.Style.DateFormat.Format = column.Value.DateFormat;
                     }
 
-                    cell.Style.Alignment.Horizontal = column.Value.HorizontalAlignment;
-                    cell.Style.Alignment.Vertical = column.Value.VerticalAlignment;
+                    if (column.Value.HorizontalAlignment.HasValue)
+                    {
+                        cell.Style.Alignment.Horizontal = column.Value.HorizontalAlignment.Value;
+                    }
 
-                    cell.Style.Border.TopBorder = column.Value.TopBorder;
-                    cell.Style.Border.BottomBorder = column.Value.BottomBorder;
-                    cell.Style.Border.LeftBorder = column.Value.LeftBorder;
-                    cell.Style.Border.RightBorder = column.Value.RightBorder;
+                    if (column.Value.VerticalAlignment.HasValue)
+                    {
+                        cell.Style.Alignment.Vertical = column.Value.VerticalAlignment.Value;
+                    }
+
+                    if (column.Value.TopBorder.HasValue)
+                    {
+                        cell.Style.Border.TopBorder = column.Value.TopBorder.Value;
+                    }
+                    if (column.Value.BottomBorder.HasValue)
+                    {
+                        cell.Style.Border.BottomBorder = column.Value.BottomBorder.Value;
+                    }
+                    if (column.Value.LeftBorder.HasValue)
+                    {
+                        cell.Style.Border.LeftBorder = column.Value.LeftBorder.Value;
+                    }
+                    if (column.Value.RightBorder.HasValue)
+                    {
+                        cell.Style.Border.RightBorder = column.Value.RightBorder.Value;
+                    }
 
                     if (!string.IsNullOrEmpty(column.Value.TopBorderColor))
                     {

@@ -101,7 +101,25 @@ internal static class PropertyParser
         // Maybe just toss the entire attribute in a ctor?
         if (columnFormat != null)
         {
-            return new WritePropertyTypeInfo(property, type, nullable, columnFormat.HorizontalAlignment, columnFormat.VerticalAlignment, columnFormat.TopBorder, columnFormat.BottomBorder, columnFormat.LeftBorder, columnFormat.RightBorder, columnFormat.TopBorderColor, columnFormat.BottomBorderColor, columnFormat.LeftBorderColor, columnFormat.RightBorderColor, columnFormat.FillColor, columnFormat.FontColor, columnFormat.FontBold, columnFormat.DateFormat, columnFormat.IncludeQuotePrefix, columnFormat.NumberFormat, columnFormat.IsProtected, columnFormat.SetIncludeQuotePrefix);
+            return new WritePropertyTypeInfo(property, type, nullable, 
+                columnFormat.IsHorizontalAlignmentSet ? columnFormat.HorizontalAlignment : null, 
+                columnFormat.IsVerticalAlignmentSet ? columnFormat.VerticalAlignment : null, 
+                columnFormat.IsTopBorderSet ? columnFormat.TopBorder : null, 
+                columnFormat.IsBottomBorderSet ? columnFormat.BottomBorder : null,
+                columnFormat.IsLeftBorderSet ? columnFormat.LeftBorder : null,
+                columnFormat.IsRightBorderSet ? columnFormat.RightBorder : null,
+                columnFormat.TopBorderColor, 
+                columnFormat.BottomBorderColor, 
+                columnFormat.LeftBorderColor, 
+                columnFormat.RightBorderColor, 
+                columnFormat.FillColor, 
+                columnFormat.FontColor, 
+                columnFormat.FontBold, 
+                columnFormat.DateFormat, 
+                columnFormat.IncludeQuotePrefix, 
+                columnFormat.NumberFormat, 
+                columnFormat.IsProtected, 
+                columnFormat.SetIncludeQuotePrefix);
 
         }
 

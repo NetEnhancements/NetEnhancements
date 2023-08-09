@@ -8,13 +8,105 @@ namespace NetEnhancements.ClosedXML
     [AttributeUsage(AttributeTargets.Property)]
     public class ExcelColumnStyleAttribute : Attribute
     {
-        public XLAlignmentHorizontalValues HorizontalAlignment { get; set; } = XLAlignmentHorizontalValues.Left;
-        public XLAlignmentVerticalValues VerticalAlignment { get; set; } = XLAlignmentVerticalValues.Top;
 
-        public XLBorderStyleValues TopBorder { get; set; } = XLBorderStyleValues.None;
-        public XLBorderStyleValues BottomBorder { get; set; } = XLBorderStyleValues.None;
-        public XLBorderStyleValues LeftBorder { get; set; } = XLBorderStyleValues.None;
-        public XLBorderStyleValues RightBorder { get; set; } = XLBorderStyleValues.None;
+        public XLAlignmentHorizontalValues HorizontalAlignment
+        {
+            get
+            {
+                return _internalHorizontalAlignment.HasValue
+                           ? (XLAlignmentHorizontalValues)_internalHorizontalAlignment.Value
+                           : default; // Default value representing the absence of a value
+            }
+            init => _internalHorizontalAlignment = (int)value;
+        }
+
+        private readonly int? _internalHorizontalAlignment;
+
+        public bool IsHorizontalAlignmentSet => _internalHorizontalAlignment.HasValue;
+
+        public XLAlignmentVerticalValues VerticalAlignment
+        {
+            get
+            {
+                return _internalVerticalAlignment.HasValue
+                           ? (XLAlignmentVerticalValues)_internalVerticalAlignment.Value
+                           : default; // Default value representing the absence of a value
+            }
+            init => _internalVerticalAlignment = (int)value;
+        }
+
+        private readonly int? _internalVerticalAlignment;
+
+        public bool IsVerticalAlignmentSet => _internalVerticalAlignment.HasValue;
+
+
+
+        public XLBorderStyleValues TopBorder
+        {
+            get
+            {
+                return _internalTopBorder.HasValue
+                           ? (XLBorderStyleValues)_internalTopBorder.Value
+                           : default; // Default value representing the absence of a value
+            }
+            init => _internalTopBorder = (int)value;
+        }
+
+        private readonly int? _internalTopBorder;
+
+        public bool IsTopBorderSet => _internalTopBorder.HasValue;
+
+
+
+
+        public XLBorderStyleValues BottomBorder
+        {
+            get
+            {
+                return _internalBottomBorder.HasValue
+                           ? (XLBorderStyleValues)_internalBottomBorder.Value
+                           : default; // Default value representing the absence of a value
+            }
+            init => _internalBottomBorder = (int)value;
+        }
+
+        private readonly int? _internalBottomBorder;
+
+        public bool IsBottomBorderSet => _internalBottomBorder.HasValue;
+
+
+
+        public XLBorderStyleValues LeftBorder
+        {
+            get
+            {
+                return _internalLeftBorder.HasValue
+                           ? (XLBorderStyleValues)_internalLeftBorder.Value
+                           : default; // Default value representing the absence of a value
+            }
+            init => _internalLeftBorder = (int)value;
+        }
+
+        private readonly int? _internalLeftBorder;
+
+        public bool IsLeftBorderSet => _internalLeftBorder.HasValue;
+
+
+        public XLBorderStyleValues RightBorder
+        {
+            get
+            {
+                return _internalRightBorder.HasValue
+                           ? (XLBorderStyleValues)_internalRightBorder.Value
+                           : default; // Default value representing the absence of a value
+            }
+            init => _internalRightBorder = (int)value;
+        }
+
+        private readonly int? _internalRightBorder;
+
+        public bool IsRightBorderSet => _internalRightBorder.HasValue;
+
 
         public string? TopBorderColor { get; set; }
         public string? BottomBorderColor { get; set; }
