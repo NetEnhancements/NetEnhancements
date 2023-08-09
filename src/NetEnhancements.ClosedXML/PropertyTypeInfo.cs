@@ -71,7 +71,7 @@ internal class WritePropertyTypeInfo : PropertyTypeInfo
                                  XLColor leftBorderColor,
                                  XLColor rightBorderColor,
                                  XLColor fillColor,
-                                 bool FontBold,
+                                 bool fontBold,
                                  string dateFormat,
                                  bool includeQuotePrefix,
                                  string numberFormat,
@@ -91,7 +91,7 @@ internal class WritePropertyTypeInfo : PropertyTypeInfo
         this.RightBorderColor = rightBorderColor;
         this.DateFormat = dateFormat;
         this.FillColor = fillColor;
-        this.FontBold = FontBold;
+        this.FontBold = fontBold;
         this.IncludeQuotePrefix = includeQuotePrefix;
         this.NumberFormat = numberFormat;
         this.Protection = protection;

@@ -1,4 +1,7 @@
 ﻿using System.Reflection;
+
+using ClosedXML.Excel;
+
 using NetEnhancements.Util;
 
 namespace NetEnhancements.ClosedXML;
@@ -54,10 +57,10 @@ internal static class PropertyParser
     /// <summary>
     /// Parse a class's properties' <see cref="ExcelColumnNameAttribute"/> to determine into which Excel column name to write its data.
     /// </summary>
-    public static Dictionary<string, PropertyTypeInfo> ParseWriteProperties<TRow>()
+    public static Dictionary<string, WritePropertyTypeInfo> ParseWriteProperties<TRow>()
         where TRow : class, new()
     {
-        var cache = new Dictionary<string, PropertyTypeInfo>();
+        var cache = new Dictionary<string, WritePropertyTypeInfo>();
 
         var properties = typeof(TRow).GetProperties();
 
@@ -72,7 +75,7 @@ internal static class PropertyParser
 
             var columnAttribute = property.GetCustomAttribute<ExcelColumnNameAttribute>(inherit: true);
 
-            cache.Add(columnAttribute?.ColumnName ?? property.Name, GetPropertyTypeInfo(property));
+            cache.Add(columnAttribute?.ColumnName ?? property.Name, GetWritePropertyTypeInfo(property));
         }
 
         if (cache.Any())
@@ -90,6 +93,21 @@ internal static class PropertyParser
         var (type, nullable) = GetPropertyType(property);
 
         return new PropertyTypeInfo(property, type, nullable);
+    }
+    private static WritePropertyTypeInfo GetWritePropertyTypeInfo(PropertyInfo property)
+    {
+        var (type, nullable) = GetPropertyType(property);
+        
+        var columnFormat = property.GetCustomAttribute<ExcelColumnStyleAttribute>(inherit: true);
+
+        if (columnFormat != null)
+        {
+            return new WritePropertyTypeInfo(property, type, nullable, columnFormat.HorizontalAlignment, columnFormat.VerticalAlignment, columnFormat.TopBorder, columnFormat.BottomBorder, columnFormat.LeftBorder, columnFormat.RightBorder, columnFormat.TopBorderColor, columnFormat.BottomBorderColor, columnFormat.LeftBorderColor, columnFormat.RightBorderColor, columnFormat.FillColor, columnFormat.FontBold, columnFormat.DateFormat, columnFormat.IncludeQuotePrefix, columnFormat.NumberFormat, columnFormat.Protection, columnFormat.SetIncludeQuotePrefix);
+
+        }
+
+
+        return new WritePropertyTypeInfo(property, type, nullable);
     }
 
     /// <summary>
