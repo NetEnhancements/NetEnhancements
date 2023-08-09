@@ -13,6 +13,9 @@ namespace NetEnhancements.ClosedXML
         /// </summary>
         /// <typeparam name="T">The type of the objects in the collection.</typeparam>
         /// <param name="dataList">The collection of objects to add to the worksheet.</param>
+        /// <param name="startingRow">The row where the data table should start</param>
+        /// <param name="startingColumn">The column where the data table should start</param>
+        /// <param name="sheetName">The name to give to the new worksheet.</param>
         /// <returns>A <see cref="XLWorkbook" /> workbook containing one worksheet with the data from the collection, or an empty workbook if the collection is empty.</returns>
         public static XLWorkbook GenerateExcel<T>(IReadOnlyCollection<T> dataList,
                                                   int startingRow = 1,

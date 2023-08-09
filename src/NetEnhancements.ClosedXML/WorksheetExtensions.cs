@@ -42,6 +42,8 @@ namespace NetEnhancements.ClosedXML
         /// <typeparam name="T">The type of the objects in the collection.</typeparam>
         /// <param name="workbook">The workbook to add the worksheet to.</param>
         /// <param name="dataList">The collection of objects to add to the worksheet.</param>
+        /// <param name="startingRow">The row where the data table should start</param>
+        /// <param name="startingColumn">The column where the data table should start</param>
         /// <param name="sheetName">The name to give to the new worksheet.</param>
         /// <returns>A <see cref="XLWorkbook" /> workbook with the new worksheet added.</returns>
         public static XLWorkbook AddSheet<T>(
