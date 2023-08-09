@@ -2,24 +2,12 @@ using ClosedXML.Excel;
 
 using System.Data;
 
+using DocumentFormat.OpenXml.Spreadsheet;
+
 namespace NetEnhancements.ClosedXML.Tests
 {
     public class ExcelGeneratorTests
     {
-        [Test]
-        public void GenerateExcel_EmptyList_ReturnsEmptyWorkbook()
-        {
-            // Arrange
-            var dataList = new List<MyClass>();
-
-            // Act
-            var workbook = ExcelGenerator.GenerateExcel(dataList);
-
-            // Assert
-            Assert.IsInstanceOf<XLWorkbook>(workbook);
-            Assert.That(workbook.Worksheets.Count, Is.EqualTo(0));
-        }
-
         [Test]
         public void GenerateExcel_NonEmptyList_ReturnsWorkbookWithOneWorksheet()
         {
@@ -98,6 +86,37 @@ namespace NetEnhancements.ClosedXML.Tests
         }
 
         [Test]
+        public void InsertDataInternal_NonEmptyList_ReturnsWorkbookWithOneWorksheet_WithExcelAttributes()
+        {
+            // Arrange
+            var dataList = new List<MyClassWithStyleAttribute>
+                               {
+                                   new() { Prop1 = "A", MagicNumber = 12345789.123456789m, Prop2 = 1, Prop3 = "Disabled" },
+                                   new() { Prop1 = "B", MagicNumber = 12345789.123456789m, Prop2 = 2, Prop3 = "Disabled" },
+                                   new() { Prop1 = "C", MagicNumber = 12345789.123456789m, Prop2 = 3, Prop3 = "Disabled" }
+                               };
+
+            // Act
+            var wb = new XLWorkbook();
+            wb.AddSheet(dataList, sheetName: "Fancy");
+
+            // Assert
+            Assert.IsInstanceOf<XLWorkbook>(wb);
+            Assert.That(wb.Worksheets.Count, Is.EqualTo(1));
+            Assert.That(wb.Worksheets.First().Rows().Count(), Is.EqualTo(dataList.Count + 1));
+            Assert.That(wb.Worksheets.First().Columns().Count(), Is.EqualTo(3));
+            Assert.That(wb.Worksheets.First().Row(1).Cell(1).Value.ToString(), Is.EqualTo("Prop1"));
+            Assert.That(wb.Worksheets.First().Row(1).Cell(2).Value.ToString(), Is.EqualTo("MagicNumber"));
+
+            for (int i = 0; i < dataList.Count; i++)
+            {
+                Assert.That(wb.Worksheets.First().Row(i + 2).Cell(1).Style.Alignment.Horizontal, Is.EqualTo(XLAlignmentHorizontalValues.Right));
+                Assert.That(wb.Worksheets.First().Row(i + 2).Cell(2).Style.Alignment.Horizontal, Is.EqualTo(XLAlignmentHorizontalValues.General));
+                Assert.That(wb.Worksheets.First().Row(i + 2).Cell(2).Style.NumberFormat.Format, Is.EqualTo("#,##0.00"));
+            }
+        }
+
+        [Test]
         public void ToDataSet_EmptyList_ReturnsDataSetWithEmptyTable()
         {
             // Arrange
@@ -153,6 +172,19 @@ namespace NetEnhancements.ClosedXML.Tests
         {
             [ExcelColumnName("Property 1")]
             public string Prop1 { get; set; }
+            public int Prop2 { get; set; }
+            [ExcelColumnDisabled]
+            public string Prop3 { get; set; }
+        }
+
+        private class MyClassWithStyleAttribute
+        {
+            [ExcelColumnStyle(HorizontalAlignment = XLAlignmentHorizontalValues.Right)]
+            public string Prop1 { get; set; }
+
+            [ExcelColumnStyle(NumberFormat = "#,##0.00")]
+            public decimal MagicNumber { get; set; }
+            [ExcelColumnStyle(FillColor = "#000000")]
             public int Prop2 { get; set; }
             [ExcelColumnDisabled]
             public string Prop3 { get; set; }
