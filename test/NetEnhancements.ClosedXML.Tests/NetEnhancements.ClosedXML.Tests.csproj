@@ -27,4 +27,14 @@
     <ProjectReference Include="..\..\src\NetEnhancements.ClosedXML\NetEnhancements.ClosedXML.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Data\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="Data\OrderData.xlsx">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
 </Project>
