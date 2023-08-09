@@ -59,8 +59,7 @@ namespace NetEnhancements.ClosedXML
             return BuildAndFillWorksheet(workbook, dataList, sheetName, 1, 1);
         }
 
-        private static XLWorkbook BuildAndFillWorksheet<T>(XLWorkbook workbook, IEnumerable<T> dataList, string sheetName, int startingRow,
-                                                           int startingColumn)
+        private static XLWorkbook BuildAndFillWorksheet<T>(XLWorkbook workbook, IEnumerable<T> dataList, string sheetName, int startingRow, int startingColumn)
         {
             workbook.Worksheets.Add();
             var sheet = workbook.Worksheets.Last();
@@ -111,7 +110,7 @@ namespace NetEnhancements.ClosedXML
                 foreach (var column in columns)
                 {
                     var cell = sheet.Cell(currentRowNumber, currentColumnNumber);
-                    
+
                     var cellValue = GetCellValue(column.Value.PropertyInfo.GetValue(item));
 
                     cell.Value = cellValue;
