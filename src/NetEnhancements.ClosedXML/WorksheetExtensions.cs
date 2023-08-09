@@ -36,6 +36,16 @@ namespace NetEnhancements.ClosedXML
             return stream.ToArray();
         }
 
+        public static XLWorkbook AddSheet<T>(
+            this XLWorkbook workbook,
+            IEnumerable<T> dataList,
+            int startingRow,
+            int startingColumn,
+            string sheetName = "")
+        {
+            return BuildAndFillWorksheet(workbook, dataList, sheetName, startingRow, startingColumn);
+        }
+
         /// <summary>
         /// Adds a new worksheet to the workbook containing the data from a collection of objects.
         /// </summary>
@@ -46,13 +56,19 @@ namespace NetEnhancements.ClosedXML
         /// <returns>A <see cref="XLWorkbook" /> workbook with the new worksheet added.</returns>
         public static XLWorkbook AddSheet<T>(this XLWorkbook workbook, IEnumerable<T> dataList, string sheetName = "")
         {
+            return BuildAndFillWorksheet(workbook, dataList, sheetName, 1, 1);
+        }
+
+        private static XLWorkbook BuildAndFillWorksheet<T>(XLWorkbook workbook, IEnumerable<T> dataList, string sheetName, int startingRow,
+                                                           int startingColumn)
+        {
             workbook.Worksheets.Add();
             var sheet = workbook.Worksheets.Last();
             sheet.Name = sheetName;
             var columns = PropertyParser.ParseWriteProperties<T>();
 
-            var currentRowNumber = 1;
-            var currentColumnNumber = 1;
+            var currentRowNumber = startingRow;
+            var currentColumnNumber = startingColumn;
             var maximumColumnNumber = currentColumnNumber;
             var maximumRowNumber = currentRowNumber;
 
@@ -75,7 +91,7 @@ namespace NetEnhancements.ClosedXML
 
             void resetRecordPosition()
             {
-                currentColumnNumber = 1;
+                currentColumnNumber = startingColumn;
             }
 
             // Set Headers
@@ -134,16 +150,10 @@ namespace NetEnhancements.ClosedXML
 
                     incrementFieldPosition();
                 }
+
                 incrementRecordPosition();
             }
 
-            var range = sheet.Range(
-                1,
-                1,
-                maximumRowNumber,
-                maximumColumnNumber);
-
-            range.CreateTable("DT");
             return workbook;
         }
 
