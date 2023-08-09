@@ -8,9 +8,9 @@ internal class PropertyTypeInfo
 {
     public PropertyTypeInfo(PropertyInfo propertyInfo, CellType cellType, bool isNullable)
     {
-        this.PropertyInfo = propertyInfo;
-        this.CellType = cellType;
-        this.IsNullable = isNullable;
+        PropertyInfo = propertyInfo;
+        CellType = cellType;
+        IsNullable = isNullable;
     }
 
     public PropertyInfo PropertyInfo { get; init; }
@@ -71,24 +71,24 @@ internal class WritePropertyTypeInfo : PropertyTypeInfo
                                  bool setIncludeQuotePrefix)
         : base(propertyInfo, cellType, isNullable)
     {
-        this.HorizontalAlignment = horizontalAlignment;
-        this.VerticalAlignment = verticalAlignment;
-        this.TopBorder = topBorder;
-        this.BottomBorder = bottomBorder;
-        this.LeftBorder = leftBorder;
-        this.RightBorder = rightBorder;
-        this.TopBorderColor = topBorderColor;
-        this.BottomBorderColor = bottomBorderColor;
-        this.LeftBorderColor = leftBorderColor;
-        this.RightBorderColor = rightBorderColor;
-        this.DateFormat = dateFormat;
-        this.FillColor = fillColor;
-        this.FontColor = fontColor;
-        this.FontBold = fontBold;
-        this.IncludeQuotePrefix = includeQuotePrefix;
-        this.NumberFormat = numberFormat;
-        this.IsProtected = isProtected;
-        this.SetIncludeQuotePrefix = setIncludeQuotePrefix;
+        HorizontalAlignment = horizontalAlignment;
+        VerticalAlignment = verticalAlignment;
+        TopBorder = topBorder;
+        BottomBorder = bottomBorder;
+        LeftBorder = leftBorder;
+        RightBorder = rightBorder;
+        TopBorderColor = topBorderColor;
+        BottomBorderColor = bottomBorderColor;
+        LeftBorderColor = leftBorderColor;
+        RightBorderColor = rightBorderColor;
+        DateFormat = dateFormat;
+        FillColor = fillColor;
+        FontColor = fontColor;
+        FontBold = fontBold;
+        IncludeQuotePrefix = includeQuotePrefix;
+        NumberFormat = numberFormat;
+        IsProtected = isProtected;
+        SetIncludeQuotePrefix = setIncludeQuotePrefix;
     }
 
     public WritePropertyTypeInfo(PropertyInfo propertyInfo, CellType cellType, bool isNullable)

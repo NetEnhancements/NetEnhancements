@@ -8,7 +8,6 @@ namespace NetEnhancements.ClosedXML
     [AttributeUsage(AttributeTargets.Property)]
     public class ExcelColumnStyleAttribute : Attribute
     {
-
         public XLAlignmentHorizontalValues HorizontalAlignment
         {
             get
@@ -22,7 +21,7 @@ namespace NetEnhancements.ClosedXML
 
         private readonly int? _internalHorizontalAlignment;
 
-        public bool IsHorizontalAlignmentSet => _internalHorizontalAlignment.HasValue;
+        internal bool IsHorizontalAlignmentSet => _internalHorizontalAlignment.HasValue;
 
         public XLAlignmentVerticalValues VerticalAlignment
         {
@@ -37,9 +36,7 @@ namespace NetEnhancements.ClosedXML
 
         private readonly int? _internalVerticalAlignment;
 
-        public bool IsVerticalAlignmentSet => _internalVerticalAlignment.HasValue;
-
-
+        internal bool IsVerticalAlignmentSet => _internalVerticalAlignment.HasValue;
 
         public XLBorderStyleValues TopBorder
         {
@@ -54,10 +51,7 @@ namespace NetEnhancements.ClosedXML
 
         private readonly int? _internalTopBorder;
 
-        public bool IsTopBorderSet => _internalTopBorder.HasValue;
-
-
-
+        internal bool IsTopBorderSet => _internalTopBorder.HasValue;
 
         public XLBorderStyleValues BottomBorder
         {
@@ -72,9 +66,7 @@ namespace NetEnhancements.ClosedXML
 
         private readonly int? _internalBottomBorder;
 
-        public bool IsBottomBorderSet => _internalBottomBorder.HasValue;
-
-
+        internal bool IsBottomBorderSet => _internalBottomBorder.HasValue;
 
         public XLBorderStyleValues LeftBorder
         {
@@ -89,8 +81,7 @@ namespace NetEnhancements.ClosedXML
 
         private readonly int? _internalLeftBorder;
 
-        public bool IsLeftBorderSet => _internalLeftBorder.HasValue;
-
+        internal bool IsLeftBorderSet => _internalLeftBorder.HasValue;
 
         public XLBorderStyleValues RightBorder
         {
@@ -105,8 +96,7 @@ namespace NetEnhancements.ClosedXML
 
         private readonly int? _internalRightBorder;
 
-        public bool IsRightBorderSet => _internalRightBorder.HasValue;
-
+        internal bool IsRightBorderSet => _internalRightBorder.HasValue;
 
         public string? TopBorderColor { get; set; }
         public string? BottomBorderColor { get; set; }
