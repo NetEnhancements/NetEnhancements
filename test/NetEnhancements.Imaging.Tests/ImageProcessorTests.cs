@@ -3,23 +3,31 @@ namespace NetEnhancements.Imaging.Tests
     public class ImageProcessorTests
     {
         [Test]
-        public async Task GetImageInfoAsync_Gets_ImageInfo()
+        public async Task ResizeAsync_Uses_ImageFormat_And_Resolution()
         {
             // Arrange
             var imageProcessor = new SkiaImageProcessor();
             var imageStream = File.OpenRead("TestImage.png");
 
             // Act
-            var imageInfo = await imageProcessor.GetImageInfoAsync(imageStream);
+            var resizedStream = await imageProcessor.ResizeAsync(imageStream, new Resolution(20, 19), ImageFormat.WebP);
+
+            await using (var outStream = File.OpenWrite("a.webp"))
+            {
+                await resizedStream.CopyToAsync(outStream);
+            }
+
+            await using var inStream = File.OpenRead("a.webp");
+
+            var resizedImageInfo = await imageProcessor.GetImageInfoAsync(inStream);
 
             // Assert
-            Assert.That(imageInfo, Is.Not.Null);
+            Assert.That(resizedImageInfo, Is.Not.Null);
             Assert.Multiple(() =>
             {
-                Assert.That(imageInfo!.Format, Is.EqualTo("png"));
-                Assert.That(imageInfo.Width, Is.EqualTo(42));
-                Assert.That(imageInfo.Height, Is.EqualTo(21));
-                Assert.That(imageInfo.FileSize, Is.EqualTo(643));
+                Assert.That(resizedImageInfo!.Format, Is.EqualTo(ImageFormat.WebP));
+                Assert.That(resizedImageInfo.Width, Is.EqualTo(38));
+                Assert.That(resizedImageInfo.Height, Is.EqualTo(19));
             });
         }
     }

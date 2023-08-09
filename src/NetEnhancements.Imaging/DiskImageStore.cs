@@ -6,7 +6,6 @@
 internal class DiskImageStore : IImageStore
 {
     private const string TrashDirectory = "_Trash";
-    
 
     public async Task SaveImageAsync(Stream imageStream, string locationIdentifier, string imageIdentifier, string extension)
     {
