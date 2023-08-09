@@ -68,7 +68,6 @@ namespace NetEnhancements.ClosedXML
             //////////////////////////////////////////////////////
             void incrementFieldPosition()
             {
-
                 maximumColumnNumber = Math.Max(maximumColumnNumber, currentColumnNumber);
                 currentColumnNumber++;
             }

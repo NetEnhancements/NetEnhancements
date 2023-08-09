@@ -3,7 +3,7 @@
 namespace NetEnhancements.ClosedXML
 {
     /// <summary>
-    /// Gives the property a custom column name when writing to Excel.
+    /// Gives the property a custom style name when writing to Excel.
     /// </summary>
     [AttributeUsage(AttributeTargets.Property)]
     public class ExcelColumnStyleAttribute : Attribute

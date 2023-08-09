@@ -91,6 +91,7 @@ internal static class PropertyParser
 
         return new PropertyTypeInfo(property, type, nullable);
     }
+
     private static WritePropertyTypeInfo GetWritePropertyTypeInfo(PropertyInfo property)
     {
         var (type, nullable) = GetPropertyType(property);
