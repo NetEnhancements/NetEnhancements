@@ -56,7 +56,6 @@ internal static class PropertyParser
     /// Parse a class's properties' <see cref="ExcelColumnNameAttribute"/> to determine into which Excel column name to write its data.
     /// </summary>
     public static Dictionary<string, WritePropertyTypeInfo> ParseWriteProperties<TRow>()
-        where TRow : class, new()
     {
         var cache = new Dictionary<string, WritePropertyTypeInfo>();
 

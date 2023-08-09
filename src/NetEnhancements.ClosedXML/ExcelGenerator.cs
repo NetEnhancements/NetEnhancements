@@ -15,7 +15,6 @@ namespace NetEnhancements.ClosedXML
         /// <param name="dataList">The collection of objects to add to the worksheet.</param>
         /// <returns>A <see cref="XLWorkbook" /> workbook containing one worksheet with the data from the collection, or an empty workbook if the collection is empty.</returns>
         public static XLWorkbook GenerateExcel<T>(IEnumerable<T> dataList)
-            where T : class, new()
         {
             var dataSet = ToDataSet(dataList);
 
@@ -36,7 +35,7 @@ namespace NetEnhancements.ClosedXML
         /// <param name="list">The collection of objects to convert to a dataset.</param>
         /// <returns>A <see cref="DataSet" /> dataset containing one table with the object data.</returns>
         public static DataSet ToDataSet<T>(IEnumerable<T> list)
-            where T : class, new()
+            
         {
             var columns = PropertyParser.ParseWriteProperties<T>();
             var dataTable = new DataTable();

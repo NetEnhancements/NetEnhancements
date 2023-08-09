@@ -1,11 +1,4 @@
-﻿using System;
-using System.Collections;
-using System.Data;
-using System.Diagnostics.CodeAnalysis;
-
-using ClosedXML.Excel;
-using DocumentFormat.OpenXml.Spreadsheet;
-using DocumentFormat.OpenXml.Wordprocessing;
+﻿using ClosedXML.Excel;
 
 namespace NetEnhancements.ClosedXML
 {

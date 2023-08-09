@@ -18,8 +18,6 @@ internal class PropertyTypeInfo
     public CellType CellType { get; init; }
 
     public bool IsNullable { get; init; }
-
-    public IXLStyle Style { get; init; }
 }
 
 internal class WritePropertyTypeInfo : PropertyTypeInfo

@@ -159,7 +159,6 @@ namespace NetEnhancements.ClosedXML.Tests
         {
             [ExcelColumnName("Property 1")]
             [ExcelColumnStyle(HorizontalAlignment = XLAlignmentHorizontalValues.Right)]
-
             public string Prop1 { get; set; }
 
             [ExcelColumnStyle(NumberFormat = "#,##0.00")]
