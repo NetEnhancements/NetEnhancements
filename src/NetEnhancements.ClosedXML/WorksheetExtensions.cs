@@ -131,14 +131,32 @@ namespace NetEnhancements.ClosedXML
                     cell.Style.Border.LeftBorder = column.Value.LeftBorder;
                     cell.Style.Border.RightBorder = column.Value.RightBorder;
 
-                    cell.Style.Border.TopBorderColor = column.Value.TopBorderColor;
-                    cell.Style.Border.BottomBorderColor = column.Value.BottomBorderColor;
-                    cell.Style.Border.LeftBorderColor = column.Value.LeftBorderColor;
-                    cell.Style.Border.RightBorderColor = column.Value.RightBorderColor;
+                    if (!string.IsNullOrEmpty(column.Value.TopBorderColor))
+                    {
+                        cell.Style.Border.TopBorderColor = XLColor.FromHtml(column.Value.TopBorderColor);
+                    }
+                    if (!string.IsNullOrEmpty(column.Value.BottomBorderColor))
+                    {
+                        cell.Style.Border.BottomBorderColor = XLColor.FromHtml(column.Value.BottomBorderColor);
+                    }
+                    if (!string.IsNullOrEmpty(column.Value.LeftBorderColor))
+                    {
+                        cell.Style.Border.LeftBorderColor = XLColor.FromHtml(column.Value.LeftBorderColor);
+                    }
+                    if (!string.IsNullOrEmpty(column.Value.RightBorderColor))
+                    {
+                        cell.Style.Border.RightBorderColor = XLColor.FromHtml(column.Value.RightBorderColor);
+                    }
 
-                    cell.Style.Fill.BackgroundColor = column.Value.FillColor;
+                    if (!string.IsNullOrEmpty(column.Value.FillColor))
+                    {
+                        cell.Style.Fill.BackgroundColor = XLColor.FromHtml(column.Value.FillColor);
+                    }
+                    if (!string.IsNullOrEmpty(column.Value.FontColor))
+                    {
+                        cell.Style.Font.FontColor = XLColor.FromHtml(column.Value.FontColor);
+                    }
 
-                    cell.Style.Font.FontColor = column.Value.FontColor;
                     cell.Style.Font.Bold = column.Value.FontBold;
 
                     cell.Style.IncludeQuotePrefix = column.Value.IncludeQuotePrefix;

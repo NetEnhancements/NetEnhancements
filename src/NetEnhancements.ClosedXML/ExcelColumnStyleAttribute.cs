@@ -16,15 +16,15 @@ namespace NetEnhancements.ClosedXML
         public XLBorderStyleValues LeftBorder { get; set; } = XLBorderStyleValues.None;
         public XLBorderStyleValues RightBorder { get; set; } = XLBorderStyleValues.None;
 
-        public XLColor TopBorderColor { get; set; } = XLColor.FromArgb(255, 0, 0, 0);
-        public XLColor BottomBorderColor { get; set; } = XLColor.FromArgb(255, 0, 0, 0);
-        public XLColor LeftBorderColor { get; set; } = XLColor.FromArgb(255, 0, 0, 0);
-        public XLColor RightBorderColor { get; set; } = XLColor.FromArgb(255, 0, 0, 0);
+        public string? TopBorderColor { get; set; }
+        public string? BottomBorderColor { get; set; }
+        public string? LeftBorderColor { get; set; }
+        public string? RightBorderColor { get; set; }
 
         public string? DateFormat { get; }
 
-        public XLColor FillColor { get; set; } = XLColor.FromArgb(255, 0, 0, 0);
-        public XLColor FontColor { get; set; } = XLColor.Black;
+        public string? FillColor { get; set; }
+        public string? FontColor { get; set; }
 
         public bool FontBold { get; set; }
 

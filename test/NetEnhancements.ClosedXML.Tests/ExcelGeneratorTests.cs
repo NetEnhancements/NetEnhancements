@@ -185,6 +185,7 @@ namespace NetEnhancements.ClosedXML.Tests
 
             [ExcelColumnStyle(NumberFormat = "#,##0.00")]
             public decimal MagicNumber { get; set; }
+            [ExcelColumnStyle(FillColor = "#000000")]
             public int Prop2 { get; set; }
             [ExcelColumnDisabled]
             public string Prop3 { get; set; }
