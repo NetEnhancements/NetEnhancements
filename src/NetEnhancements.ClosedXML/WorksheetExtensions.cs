@@ -77,22 +77,26 @@ namespace NetEnhancements.ClosedXML
             foreach (var item in dataList)
             {
                 ResetRecordPosition();
-                foreach (var column in columns)
+
+                if (item != null)
                 {
-                    var cell = sheet.Cell(currentRowNumber, currentColumnNumber);
-
-                    if(!column.Value.PropertyInfo.DeclaringType!.IsInstanceOfType(item!))
+                    foreach (var column in columns)
                     {
-                        throw new InvalidOperationException($"{item!.GetType().FullName} is not the same type as {column.Value.PropertyInfo.DeclaringType.FullName}.");
+                        var cell = sheet.Cell(currentRowNumber, currentColumnNumber);
+
+                        if (!column.Value.PropertyInfo.DeclaringType!.IsInstanceOfType(item))
+                        {
+                            throw new InvalidOperationException($"{item.GetType().FullName} is not the same type as {column.Value.PropertyInfo.DeclaringType.FullName}.");
+                        }
+
+                        var cellValue = GetCellValue(column.Value.PropertyInfo.GetValue(item));
+
+                        cell.Value = cellValue;
+
+                        SetCellStyle(cell, column);
+
+                        IncrementFieldPosition();
                     }
-
-                    var cellValue = GetCellValue(column.Value.PropertyInfo.GetValue(item));
-
-                    cell.Value = cellValue;
-                    
-                    SetCellStyle(cell, column);
-
-                    IncrementFieldPosition();
                 }
 
                 IncrementRecordPosition();
