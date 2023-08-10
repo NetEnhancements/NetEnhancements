@@ -15,26 +15,28 @@ internal static class PropertyParser
         var cache = new Dictionary<int, PropertyTypeInfo>();
 
         var rowObjectTypeName = typeof(TRow).FullName;
-        var columnAttributeName = nameof(ExcelColumnNameAttribute).RemoveEnd(nameof(Attribute));
+        var columnAttributeName = nameof(ExcelColumnAddressAttribute).RemoveEnd(nameof(Attribute));
 
         var properties = typeof(TRow).GetProperties();
 
         foreach (var property in properties)
         {
-            var columnAttribute = property.GetCustomAttribute<ExcelColumnNameAttribute>();
+            var addressAttribute = property.GetCustomAttribute<ExcelColumnAddressAttribute>();
 
-            if (string.IsNullOrWhiteSpace(columnAttribute?.ColumnName))
+            if (addressAttribute == null)
             {
                 continue;
             }
 
-            var columnIndex = ColumnExtensions.LetterToIndex(columnAttribute.ColumnName);
+            var columnIndex = addressAttribute.Index;
 
             if (cache.TryGetValue(columnIndex, out var otherProperty))
             {
                 var thisPropertyName = rowObjectTypeName + "." + property.Name;
                 var otherPropertyName = rowObjectTypeName + "." + otherProperty.PropertyInfo.Name;
-                var attributeDescription = $"[{columnAttributeName}(\"{columnAttribute.ColumnName}\")]";
+                var columnName = ColumnExtensions.IndexToLetter(columnIndex);
+                
+                var attributeDescription = $"[{columnAttributeName}(\"{columnName}\")]";
 
                 var errorString = $"Property '{thisPropertyName}' has {attributeDescription}, but '{otherPropertyName}' already claimed that column.";
 
@@ -46,7 +48,7 @@ internal static class PropertyParser
 
         if (!cache.Any())
         {
-            throw new InvalidOperationException($"No [{columnAttributeName}] found on {rowObjectTypeName}");
+            throw new InvalidOperationException($"No [{columnAttributeName}] found on {rowObjectTypeName}'s properties");
         }
 
         return cache;

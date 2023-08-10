@@ -2,8 +2,6 @@ using ClosedXML.Excel;
 
 using System.Data;
 
-using DocumentFormat.OpenXml.Spreadsheet;
-
 namespace NetEnhancements.ClosedXML.Tests
 {
     public class ExcelGeneratorTests
@@ -98,7 +96,7 @@ namespace NetEnhancements.ClosedXML.Tests
 
             // Act
             var wb = new XLWorkbook();
-            wb.AddSheet(dataList, sheetName: "Fancy");
+            wb.AddAndPopulateSheet(dataList, sheetName: "Fancy");
 
             // Assert
             Assert.IsInstanceOf<XLWorkbook>(wb);

@@ -6,7 +6,7 @@
     public static class ColumnExtensions
     {
         /// <summary>
-        /// Returns the column index from its name ("A" = 0, "AA" = 26, ...).
+        /// Returns the column index from its name ("A" = 1, "AA" = 27, ...).
         /// </summary>
         /// <devdoc>
         /// Not an extension method on purpose, to not pollute the string type.
@@ -28,6 +28,23 @@
             }
 
             return index;
+        }
+
+        /// <summary>
+        /// Returns the column letter from its index (1 = "A", 27 = "AA", ...).
+        /// </summary>
+        public static string IndexToLetter(int columnIndex)
+        {
+            string result = "";
+
+            while (columnIndex > 0)
+            {
+                int remainder = columnIndex % 26;
+                result = (char)('A' + remainder) + result;
+                columnIndex = (columnIndex / 26);
+            }
+
+            return result;
         }
     }
 }

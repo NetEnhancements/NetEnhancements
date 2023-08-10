@@ -13,62 +13,65 @@ internal class PropertyTypeInfo
         IsNullable = isNullable;
     }
 
-    public PropertyInfo PropertyInfo { get; init; }
+    public PropertyInfo PropertyInfo { get; }
 
-    public CellType CellType { get; init; }
+    public CellType CellType { get; }
 
-    public bool IsNullable { get; init; }
+    public bool IsNullable { get; }
 }
 
 internal class WritePropertyTypeInfo : PropertyTypeInfo
 {
-    public XLAlignmentHorizontalValues? HorizontalAlignment { get; set; }
-    public XLAlignmentVerticalValues? VerticalAlignment { get; set; }
+    public XLAlignmentHorizontalValues? HorizontalAlignment { get; }
+    public XLAlignmentVerticalValues? VerticalAlignment { get; }
 
-    public XLBorderStyleValues? TopBorder { get; set; } 
-    public XLBorderStyleValues? BottomBorder { get; set; }
-    public XLBorderStyleValues? LeftBorder { get; set; } 
-    public XLBorderStyleValues? RightBorder { get; set; }
+    public XLBorderStyleValues? TopBorder { get; } 
+    public XLBorderStyleValues? BottomBorder { get; }
+    public XLBorderStyleValues? LeftBorder { get; } 
+    public XLBorderStyleValues? RightBorder { get; }
 
-    public string? TopBorderColor { get; set; } 
-    public string? BottomBorderColor { get; set; } 
-    public string? LeftBorderColor { get; set; }
-    public string? RightBorderColor { get; set; } 
+    public string? TopBorderColor { get; } 
+    public string? BottomBorderColor { get; } 
+    public string? LeftBorderColor { get; }
+    public string? RightBorderColor { get; } 
 
     public string? DateFormat { get; }
 
-    public string? FillColor { get; set; } 
-    public string? FontColor { get; set; } 
+    public string? FillColor { get; } 
+    public string? FontColor { get; } 
 
-    public bool FontBold { get; set; }
+    public bool FontBold { get; }
 
-    public bool IncludeQuotePrefix { get; set; }
+    public bool IncludeQuotePrefix { get; }
 
-    public string? NumberFormat { get; set; }
+    public string? NumberFormat { get; }
 
-    public bool IsProtected { get; set; }
+    public bool IsProtected { get; }
 
-    public bool SetIncludeQuotePrefix { get; set; } = true;
+    public bool SetIncludeQuotePrefix { get; } = true;
 
-    public WritePropertyTypeInfo(PropertyInfo propertyInfo, CellType cellType, bool isNullable,
-                                 XLAlignmentHorizontalValues? horizontalAlignment,
-                                 XLAlignmentVerticalValues? verticalAlignment,
-                                 XLBorderStyleValues? topBorder,
-                                 XLBorderStyleValues? bottomBorder,
-                                 XLBorderStyleValues? leftBorder,
-                                 XLBorderStyleValues? rightBorder,
-                                 string? topBorderColor,
-                                 string? bottomBorderColor,
-                                 string? leftBorderColor,
-                                 string? rightBorderColor,
-                                 string? fillColor,
-                                 string? fontColor,
-                                 bool fontBold,
-                                 string? dateFormat,
-                                 bool includeQuotePrefix,
-                                 string? numberFormat,
-                                 bool isProtected,
-                                 bool setIncludeQuotePrefix)
+    public WritePropertyTypeInfo(
+        PropertyInfo propertyInfo,
+        CellType cellType, 
+        bool isNullable,
+        XLAlignmentHorizontalValues? horizontalAlignment,
+        XLAlignmentVerticalValues? verticalAlignment,
+        XLBorderStyleValues? topBorder,
+        XLBorderStyleValues? bottomBorder,
+        XLBorderStyleValues? leftBorder,
+        XLBorderStyleValues? rightBorder,
+        string? topBorderColor,
+        string? bottomBorderColor,
+        string? leftBorderColor,
+        string? rightBorderColor,
+        string? fillColor,
+        string? fontColor,
+        bool fontBold,
+        string? dateFormat,
+        bool includeQuotePrefix,
+        string? numberFormat,
+        bool isProtected,
+        bool setIncludeQuotePrefix)
         : base(propertyInfo, cellType, isNullable)
     {
         HorizontalAlignment = horizontalAlignment;
@@ -81,10 +84,10 @@ internal class WritePropertyTypeInfo : PropertyTypeInfo
         BottomBorderColor = bottomBorderColor;
         LeftBorderColor = leftBorderColor;
         RightBorderColor = rightBorderColor;
-        DateFormat = dateFormat;
         FillColor = fillColor;
         FontColor = fontColor;
         FontBold = fontBold;
+        DateFormat = dateFormat;
         IncludeQuotePrefix = includeQuotePrefix;
         NumberFormat = numberFormat;
         IsProtected = isProtected;
