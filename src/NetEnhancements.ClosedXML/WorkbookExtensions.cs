@@ -12,7 +12,7 @@ namespace NetEnhancements.ClosedXML
         /// </summary>
         /// <param name="workbook">The workbook to save.</param>
         /// <returns>A <see cref="byte"/> array representing the Excel file.</returns>
-        public static byte[] ToBytes(this XLWorkbook workbook)
+        public static byte[] ToBytes(this IXLWorkbook workbook)
         {
             using var stream = new MemoryStream();
             workbook.SaveAs(stream);
