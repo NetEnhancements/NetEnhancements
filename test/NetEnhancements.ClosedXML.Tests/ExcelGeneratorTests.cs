@@ -55,6 +55,28 @@ namespace NetEnhancements.ClosedXML.Tests
         }
 
         [Test]
+        public void GenerateExcel_Uses_First_Item_Type_ReturnsWorkbookWithOneWorksheet_WithFourRowsAndTwoColumns()
+        {
+            var dataList = new List<IRandomInterface>
+            {
+                new MyClassWithInterface() { Prop1 = "A", Prop2 = 1 },
+                new MyClassWithInterface() { Prop1 = "B", Prop2 = 2 },
+                new MyClassWithInterface() { Prop1 = "C", Prop2 = 3 }
+            };
+
+            // Act
+            var workbook = ExcelGenerator.GenerateExcel(dataList);
+
+            // Assert
+            Assert.IsInstanceOf<XLWorkbook>(workbook);
+            Assert.That(workbook.Worksheets.Count, Is.EqualTo(1));
+            Assert.That(workbook.Worksheets.First().Rows().Count(), Is.EqualTo(dataList.Count + 1));
+            Assert.That(workbook.Worksheets.First().Columns().Count(), Is.EqualTo(2));
+            Assert.That(workbook.Worksheets.First().Row(1).Cell(1).Value.ToString(), Is.EqualTo("Prop1"));
+            Assert.That(workbook.Worksheets.First().Row(1).Cell(2).Value.ToString(), Is.EqualTo("Prop2"));
+        }
+
+        [Test]
         public void GenerateExcel_NonEmptyList_ReturnsWorkbookWithOneWorksheet_WithExcelAttributes()
         {
             // Arrange
@@ -158,6 +180,14 @@ namespace NetEnhancements.ClosedXML.Tests
                 Assert.That(dataSet.Tables[0].Columns[1].ColumnName, Is.EqualTo("Prop2"));
             });
             CollectionAssert.AreEquivalent(dataList.Select(x => new object[] { x.Prop1, x.Prop2 }).ToList(), dataSet.Tables[0].AsEnumerable().Select(x => x.ItemArray).ToList());
+        }
+
+        private interface IRandomInterface
+        {
+        }
+
+        private class MyClassWithInterface : MyClass, IRandomInterface
+        {
         }
 
         private class MyClass

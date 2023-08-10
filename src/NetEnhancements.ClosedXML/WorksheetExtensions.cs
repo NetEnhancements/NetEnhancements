@@ -34,7 +34,7 @@ namespace NetEnhancements.ClosedXML
         /// <param name="startingColumn">The column where the data table should start</param>
         public static void Populate<T>(this IXLWorksheet sheet, IReadOnlyCollection<T> dataList, bool printHeaders, int startingRow = 1, int startingColumn = 1)
         {
-            var columns = PropertyParser.ParseWriteProperties<T>();
+            var columns = PropertyParser.ParseWriteProperties<T>(dataList.First()?.GetType());
 
             var currentRowNumber = startingRow;
             var currentColumnNumber = startingColumn;
@@ -80,6 +80,11 @@ namespace NetEnhancements.ClosedXML
                 foreach (var column in columns)
                 {
                     var cell = sheet.Cell(currentRowNumber, currentColumnNumber);
+
+                    if(!column.Value.PropertyInfo.DeclaringType!.IsInstanceOfType(item!))
+                    {
+                        throw new InvalidOperationException($"{item!.GetType().FullName} is not the same type as {column.Value.PropertyInfo.DeclaringType.FullName}.");
+                    }
 
                     var cellValue = GetCellValue(column.Value.PropertyInfo.GetValue(item));
 

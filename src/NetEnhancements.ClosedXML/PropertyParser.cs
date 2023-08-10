@@ -35,7 +35,7 @@ internal static class PropertyParser
                 var thisPropertyName = rowObjectTypeName + "." + property.Name;
                 var otherPropertyName = rowObjectTypeName + "." + otherProperty.PropertyInfo.Name;
                 var columnName = ColumnExtensions.IndexToLetter(columnIndex);
-                
+
                 var attributeDescription = $"[{columnAttributeName}(\"{columnName}\")]";
 
                 var errorString = $"Property '{thisPropertyName}' has {attributeDescription}, but '{otherPropertyName}' already claimed that column.";
@@ -57,11 +57,19 @@ internal static class PropertyParser
     /// <summary>
     /// Parse a class's properties' <see cref="ExcelColumnNameAttribute"/> to determine into which Excel column name to write its data.
     /// </summary>
-    public static Dictionary<string, WritePropertyTypeInfo> ParseWriteProperties<TRow>()
+    public static Dictionary<string, WritePropertyTypeInfo> ParseWriteProperties<TRow>(Type? type = null)
     {
         var cache = new Dictionary<string, WritePropertyTypeInfo>();
 
-        var properties = typeof(TRow).GetProperties();
+        PropertyInfo[] properties;
+        if (type != null)
+        {
+            properties = type.GetProperties();
+        }
+        else
+        {
+            properties = typeof(TRow).GetProperties();
+        }
 
         foreach (var property in properties)
         {
@@ -97,30 +105,30 @@ internal static class PropertyParser
     private static WritePropertyTypeInfo GetWritePropertyTypeInfo(PropertyInfo property)
     {
         var (type, nullable) = GetPropertyType(property);
-        
+
         var columnFormat = property.GetCustomAttribute<ExcelColumnStyleAttribute>(inherit: true);
 
         // Maybe just toss the entire attribute in a ctor?
         if (columnFormat != null)
         {
-            return new WritePropertyTypeInfo(property, type, nullable, 
-                columnFormat.IsHorizontalAlignmentSet ? columnFormat.HorizontalAlignment : null, 
-                columnFormat.IsVerticalAlignmentSet ? columnFormat.VerticalAlignment : null, 
-                columnFormat.IsTopBorderSet ? columnFormat.TopBorder : null, 
+            return new WritePropertyTypeInfo(property, type, nullable,
+                columnFormat.IsHorizontalAlignmentSet ? columnFormat.HorizontalAlignment : null,
+                columnFormat.IsVerticalAlignmentSet ? columnFormat.VerticalAlignment : null,
+                columnFormat.IsTopBorderSet ? columnFormat.TopBorder : null,
                 columnFormat.IsBottomBorderSet ? columnFormat.BottomBorder : null,
                 columnFormat.IsLeftBorderSet ? columnFormat.LeftBorder : null,
                 columnFormat.IsRightBorderSet ? columnFormat.RightBorder : null,
-                columnFormat.TopBorderColor, 
-                columnFormat.BottomBorderColor, 
-                columnFormat.LeftBorderColor, 
-                columnFormat.RightBorderColor, 
-                columnFormat.FillColor, 
-                columnFormat.FontColor, 
-                columnFormat.FontBold, 
-                columnFormat.DateFormat, 
-                columnFormat.IncludeQuotePrefix, 
-                columnFormat.NumberFormat, 
-                columnFormat.IsProtected, 
+                columnFormat.TopBorderColor,
+                columnFormat.BottomBorderColor,
+                columnFormat.LeftBorderColor,
+                columnFormat.RightBorderColor,
+                columnFormat.FillColor,
+                columnFormat.FontColor,
+                columnFormat.FontBold,
+                columnFormat.DateFormat,
+                columnFormat.IncludeQuotePrefix,
+                columnFormat.NumberFormat,
+                columnFormat.IsProtected,
                 columnFormat.SetIncludeQuotePrefix);
 
         }
