@@ -34,6 +34,11 @@ namespace NetEnhancements.ClosedXML
         /// <param name="startingColumn">The column where the data table should start</param>
         public static void Populate<T>(this IXLWorksheet sheet, IReadOnlyCollection<T> dataList, bool printHeaders, int startingRow = 1, int startingColumn = 1)
         {
+            if (!dataList.Any())
+            {
+                return;
+            }
+
             var columns = PropertyParser.ParseWriteProperties<T>(dataList.First()?.GetType());
 
             var currentRowNumber = startingRow;
