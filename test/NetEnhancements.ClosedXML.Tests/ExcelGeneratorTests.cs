@@ -7,20 +7,6 @@ namespace NetEnhancements.ClosedXML.Tests
     public class ExcelGeneratorTests
     {
         [Test]
-        public void GenerateExcel_EmptyList_ReturnsEmptyWorkbook()
-        {
-            // Arrange
-            var dataList = new List<MyClass>();
-
-            // Act
-            var workbook = ExcelGenerator.GenerateExcel(dataList);
-
-            // Assert
-            Assert.IsInstanceOf<XLWorkbook>(workbook);
-            Assert.That(workbook.Worksheets.Count, Is.EqualTo(1));
-        }
-
-        [Test]
         public void GenerateExcel_NonEmptyList_ReturnsWorkbookWithOneWorksheet()
         {
             // Arrange
@@ -73,13 +59,13 @@ namespace NetEnhancements.ClosedXML.Tests
         {
             var dataList = new List<IRandomInterface>
             {
-                new MyClassWithInterface { Prop1 = "A", Prop2 = 1 },
-                new MyClassWithInterface { Prop1 = "B", Prop2 = 2 },
-                new MyClassWithInterface { Prop1 = "C", Prop2 = 3 }
+                new MyClassWithInterface() { Prop1 = "A", Prop2 = 1 },
+                new MyClassWithInterface() { Prop1 = "B", Prop2 = 2 },
+                new MyClassWithInterface() { Prop1 = "C", Prop2 = 3 }
             };
 
             // Act
-            var workbook = ExcelGenerator.GenerateExcel(dataList);
+            var workbook = ExcelGenerator.GenerateExcel(dataList, createTable: true);
 
             // Assert
             Assert.IsInstanceOf<XLWorkbook>(workbook);

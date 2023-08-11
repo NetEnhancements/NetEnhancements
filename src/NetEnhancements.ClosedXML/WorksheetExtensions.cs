@@ -1,4 +1,5 @@
 ﻿using ClosedXML.Excel;
+using DocumentFormat.OpenXml.Spreadsheet;
 
 namespace NetEnhancements.ClosedXML
 {
@@ -32,7 +33,8 @@ namespace NetEnhancements.ClosedXML
         /// <param name="printHeaders">Whether to print the column header names above the data.</param>
         /// <param name="startingRow">The row where the data table should start</param>
         /// <param name="startingColumn">The column where the data table should start</param>
-        public static void Populate<T>(this IXLWorksheet sheet, IReadOnlyCollection<T> dataList, bool printHeaders, int startingRow = 1, int startingColumn = 1)
+        /// <param name="createTable">Wheter to create a table of the data and create filters and basic styling</param>
+        public static void Populate<T>(this IXLWorksheet sheet, IReadOnlyCollection<T> dataList, bool printHeaders, int startingRow = 1, int startingColumn = 1, bool createTable = false)
         {
             if (!dataList.Any())
             {
@@ -105,6 +107,13 @@ namespace NetEnhancements.ClosedXML
                 }
 
                 IncrementRecordPosition();
+            }
+
+            if (createTable)
+            {
+                var range = sheet.Range(startingRow, startingColumn, maximumRowNumber, maximumColumnNumber -1);
+
+                range.CreateTable();
             }
         }
 
