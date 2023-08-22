@@ -121,7 +121,7 @@ namespace NetEnhancements.ClosedXML.Tests
             // Act
             var wb = new XLWorkbook();
             wb.AddAndPopulateSheet(dataList, sheetName: "Fancy");
-            //wb.SaveAs("D:\\mehsd.xlsx");
+            wb.SaveAs($"D:\\blerp{DateTime.Now.Ticks}.xlsx");
             // Assert
             Assert.IsInstanceOf<XLWorkbook>(wb);
             Assert.That(wb.Worksheets.Count, Is.EqualTo(1));
@@ -136,6 +136,11 @@ namespace NetEnhancements.ClosedXML.Tests
                 Assert.That(wb.Worksheets.First().Row(i + 2).Cell(2).Style.Alignment.Horizontal, Is.EqualTo(XLAlignmentHorizontalValues.General));
                 Assert.That(wb.Worksheets.First().Row(i + 2).Cell(2).Style.NumberFormat.Format, Is.EqualTo("#,##0.00"));
             }
+
+            var q = wb.Worksheets.First().ConditionalFormats.First().Range;
+            Assert.That(wb.Worksheets.First().ConditionalFormats.First().Style.Fill.BackgroundColor.ToString(), Is.EqualTo("FFFF0000"));
+            Assert.That(wb.Worksheets.First().ConditionalFormats.First().Range.RangeAddress.FirstAddress.ColumnNumber, Is.EqualTo(3));
+            //Assert.That(.Fill.BackgroundColor.ToString(), Is.EqualTo("FFFF0000"));
         }
 
         [Test]
@@ -215,7 +220,7 @@ namespace NetEnhancements.ClosedXML.Tests
             [ExcelColumnStyle(NumberFormat = "#,##0.00")]
             public decimal MagicNumber { get; set; }
             [ExcelColumnStyle(FillColor = "#000000")]
-            [ExcelColumnConditionalStyle(Condition = Conditions.WhenLessThan, Value = "0", FillColor = "#FF0000")]
+            [ExcelColumnConditionalStyle(Condition = Condition.WhenLessThan, Value = "0", FillColor = "#FF0000")]
             public int Prop2 { get; set; }
             [ExcelColumnDisabled]
             public string Prop3 { get; set; }

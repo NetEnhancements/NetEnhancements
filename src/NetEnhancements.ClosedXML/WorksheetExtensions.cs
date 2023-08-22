@@ -129,49 +129,49 @@ namespace NetEnhancements.ClosedXML
             {
                 switch (column.Value.ExcelColumnConditionalStyle.Condition)
                 {
-                    case Conditions.WhenIsBlank:
+                    case Condition.WhenIsBlank:
                         cell.AddConditionalFormat().WhenIsBlank().AddStyle(column.Value.ExcelColumnConditionalStyle);
                         break;
-                    case Conditions.WhenNotBlank:
+                    case Condition.WhenNotBlank:
                         cell.AddConditionalFormat().WhenNotBlank().AddStyle(column.Value.ExcelColumnConditionalStyle);
                         break;
-                    case Conditions.WhenIsError:
+                    case Condition.WhenIsError:
                         cell.AddConditionalFormat().WhenIsError().AddStyle(column.Value.ExcelColumnConditionalStyle);
                         break;
-                    case Conditions.WhenNotError:
+                    case Condition.WhenNotError:
                         cell.AddConditionalFormat().WhenNotError().AddStyle(column.Value.ExcelColumnConditionalStyle);
                         break;
-                    case Conditions.WhenContains:
+                    case Condition.WhenContains:
                         cell.AddConditionalFormat().WhenContains(column.Value.ExcelColumnConditionalStyle.Value).AddStyle(column.Value.ExcelColumnConditionalStyle);
                         break;
-                    case Conditions.WhenNotContains:
+                    case Condition.WhenNotContains:
                         cell.AddConditionalFormat().WhenNotContains(column.Value.ExcelColumnConditionalStyle.Value).AddStyle(column.Value.ExcelColumnConditionalStyle);
                         break;
-                    case Conditions.WhenStartsWith:
+                    case Condition.WhenStartsWith:
                         cell.AddConditionalFormat().WhenStartsWith(column.Value.ExcelColumnConditionalStyle.Value).AddStyle(column.Value.ExcelColumnConditionalStyle);
                         break;
-                    case Conditions.WhenEndsWith:
+                    case Condition.WhenEndsWith:
                         cell.AddConditionalFormat().WhenEndsWith(column.Value.ExcelColumnConditionalStyle.Value).AddStyle(column.Value.ExcelColumnConditionalStyle);
                         break;
-                    case Conditions.WhenEquals:
+                    case Condition.WhenEquals:
                         cell.AddConditionalFormat().WhenEquals(column.Value.ExcelColumnConditionalStyle.Value).AddStyle(column.Value.ExcelColumnConditionalStyle);
                         break;
-                    case Conditions.WhenNotEquals:
+                    case Condition.WhenNotEquals:
                         cell.AddConditionalFormat().WhenNotEquals(column.Value.ExcelColumnConditionalStyle.Value).AddStyle(column.Value.ExcelColumnConditionalStyle);
                         break;
-                    case Conditions.WhenGreaterThan:
+                    case Condition.WhenGreaterThan:
                         cell.AddConditionalFormat().WhenGreaterThan(column.Value.ExcelColumnConditionalStyle.Value).AddStyle(column.Value.ExcelColumnConditionalStyle);
                         break;
-                    case Conditions.WhenLessThan:
+                    case Condition.WhenLessThan:
                         cell.AddConditionalFormat().WhenLessThan(column.Value.ExcelColumnConditionalStyle.Value).AddStyle(column.Value.ExcelColumnConditionalStyle);
                         break;
-                    case Conditions.WhenEqualOrGreaterThan:
+                    case Condition.WhenEqualOrGreaterThan:
                         cell.AddConditionalFormat().WhenEqualOrGreaterThan(column.Value.ExcelColumnConditionalStyle.Value).AddStyle(column.Value.ExcelColumnConditionalStyle);
                         break;
-                    case Conditions.WhenEqualOrLessThan:
+                    case Condition.WhenEqualOrLessThan:
                         cell.AddConditionalFormat().WhenEqualOrLessThan(column.Value.ExcelColumnConditionalStyle.Value).AddStyle(column.Value.ExcelColumnConditionalStyle);
                         break;
-                    case Conditions.WhenIsTrue:
+                    case Condition.WhenIsTrue:
                         cell.AddConditionalFormat().WhenIsTrue(column.Value.ExcelColumnConditionalStyle.Value).AddStyle(column.Value.ExcelColumnConditionalStyle);
                         break;
                 }

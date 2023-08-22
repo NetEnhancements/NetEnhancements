@@ -8,25 +8,25 @@
     {
         public string Value { get; set; }
 
-        public Conditions Condition { get; set; }
+        public Condition Condition { get; set; }
     }
 
-    public enum Conditions
+    public enum Condition
     {
-        WhenIsBlank
-        , WhenNotBlank
-        , WhenIsError
-        , WhenNotError
-        , WhenContains
-        , WhenNotContains
-        , WhenStartsWith
-        , WhenEndsWith
-        , WhenEquals
-        , WhenNotEquals
-        , WhenGreaterThan
-        , WhenLessThan
-        , WhenEqualOrGreaterThan
-        , WhenEqualOrLessThan
-        , WhenIsTrue
+        WhenIsBlank,
+        WhenNotBlank,
+        WhenIsError,
+        WhenNotError,
+        WhenContains,
+        WhenNotContains,
+        WhenStartsWith,
+        WhenEndsWith,
+        WhenEquals,
+        WhenNotEquals,
+        WhenGreaterThan,
+        WhenLessThan,
+        WhenEqualOrGreaterThan,
+        WhenEqualOrLessThan,
+        WhenIsTrue
     }
 }
