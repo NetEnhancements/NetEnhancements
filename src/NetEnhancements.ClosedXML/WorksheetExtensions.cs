@@ -120,7 +120,10 @@ namespace NetEnhancements.ClosedXML
 
         private static void SetCellStyle(IXLCell cell, KeyValuePair<string, WritePropertyTypeInfo> column)
         {
-            cell.Style.AddStyle(column.Value.ExcelColumnStyle);
+            if (column.Value.ExcelColumnStyle != null)
+            {
+                cell.Style.AddStyle(column.Value.ExcelColumnStyle);
+            }
 
             if (column.Value.ExcelColumnConditionalStyle != null)
             {

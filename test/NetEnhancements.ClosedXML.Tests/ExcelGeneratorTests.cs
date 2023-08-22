@@ -121,7 +121,7 @@ namespace NetEnhancements.ClosedXML.Tests
             // Act
             var wb = new XLWorkbook();
             wb.AddAndPopulateSheet(dataList, sheetName: "Fancy");
-            wb.SaveAs("D:\\mehsd.xlsx");
+            //wb.SaveAs("D:\\mehsd.xlsx");
             // Assert
             Assert.IsInstanceOf<XLWorkbook>(wb);
             Assert.That(wb.Worksheets.Count, Is.EqualTo(1));
