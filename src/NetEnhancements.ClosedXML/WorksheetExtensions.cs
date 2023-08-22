@@ -174,8 +174,6 @@ namespace NetEnhancements.ClosedXML
                     case Conditions.WhenIsTrue:
                         cell.AddConditionalFormat().WhenIsTrue(column.Value.ExcelColumnConditionalStyle.Value).AddStyle(column.Value.ExcelColumnConditionalStyle);
                         break;
-                    default:
-                        break;
                 }
             }
         }
@@ -192,29 +190,29 @@ namespace NetEnhancements.ClosedXML
                 style.DateFormat.Format = column.DateFormat;
             }
 
-            if (column.HorizontalAlignment != default)
+            if (column.IsHorizontalAlignmentSet)
             {
                 style.Alignment.Horizontal = column.HorizontalAlignment;
             }
 
-            if (column.VerticalAlignment != default)
+            if (column.IsVerticalAlignmentSet)
             {
                 style.Alignment.Vertical = column.VerticalAlignment;
             }
 
-            if (column.TopBorder != default)
+            if (column.IsTopBorderSet)
             {
                 style.Border.TopBorder = column.TopBorder;
             }
-            if (column.BottomBorder != default)
+            if (column.IsBottomBorderSet)
             {
                 style.Border.BottomBorder = column.BottomBorder;
             }
-            if (column.LeftBorder != default)
+            if (column.IsLeftBorderSet)
             {
                 style.Border.LeftBorder = column.LeftBorder;
             }
-            if (column.RightBorder != default)
+            if (column.IsRightBorderSet)
             {
                 style.Border.RightBorder = column.RightBorder;
             }
