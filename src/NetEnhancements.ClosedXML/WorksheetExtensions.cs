@@ -1,5 +1,6 @@
 ﻿using ClosedXML.Excel;
 using DocumentFormat.OpenXml.Spreadsheet;
+using DocumentFormat.OpenXml.Wordprocessing;
 
 namespace NetEnhancements.ClosedXML
 {
@@ -111,7 +112,7 @@ namespace NetEnhancements.ClosedXML
 
             if (createTable)
             {
-                var range = sheet.Range(startingRow, startingColumn, maximumRowNumber, maximumColumnNumber -1);
+                var range = sheet.Range(startingRow, startingColumn, maximumRowNumber, maximumColumnNumber - 1);
 
                 range.CreateTable();
             }
@@ -119,74 +120,134 @@ namespace NetEnhancements.ClosedXML
 
         private static void SetCellStyle(IXLCell cell, KeyValuePair<string, WritePropertyTypeInfo> column)
         {
-            if (!string.IsNullOrEmpty(column.Value.NumberFormat))
+            cell.Style.AddStyle(column.Value.ExcelColumnStyle);
+
+            if (column.Value.ExcelColumnConditionalStyle != null)
             {
-                cell.Style.NumberFormat.Format = column.Value.NumberFormat;
+                switch (column.Value.ExcelColumnConditionalStyle.Condition)
+                {
+                    case Conditions.WhenIsBlank:
+                        cell.AddConditionalFormat().WhenIsBlank().AddStyle(column.Value.ExcelColumnConditionalStyle);
+                        break;
+                    case Conditions.WhenNotBlank:
+                        cell.AddConditionalFormat().WhenNotBlank().AddStyle(column.Value.ExcelColumnConditionalStyle);
+                        break;
+                    case Conditions.WhenIsError:
+                        cell.AddConditionalFormat().WhenIsError().AddStyle(column.Value.ExcelColumnConditionalStyle);
+                        break;
+                    case Conditions.WhenNotError:
+                        cell.AddConditionalFormat().WhenNotError().AddStyle(column.Value.ExcelColumnConditionalStyle);
+                        break;
+                    case Conditions.WhenContains:
+                        cell.AddConditionalFormat().WhenContains(column.Value.ExcelColumnConditionalStyle.Value).AddStyle(column.Value.ExcelColumnConditionalStyle);
+                        break;
+                    case Conditions.WhenNotContains:
+                        cell.AddConditionalFormat().WhenNotContains(column.Value.ExcelColumnConditionalStyle.Value).AddStyle(column.Value.ExcelColumnConditionalStyle);
+                        break;
+                    case Conditions.WhenStartsWith:
+                        cell.AddConditionalFormat().WhenStartsWith(column.Value.ExcelColumnConditionalStyle.Value).AddStyle(column.Value.ExcelColumnConditionalStyle);
+                        break;
+                    case Conditions.WhenEndsWith:
+                        cell.AddConditionalFormat().WhenEndsWith(column.Value.ExcelColumnConditionalStyle.Value).AddStyle(column.Value.ExcelColumnConditionalStyle);
+                        break;
+                    case Conditions.WhenEquals:
+                        cell.AddConditionalFormat().WhenEquals(column.Value.ExcelColumnConditionalStyle.Value).AddStyle(column.Value.ExcelColumnConditionalStyle);
+                        break;
+                    case Conditions.WhenNotEquals:
+                        cell.AddConditionalFormat().WhenNotEquals(column.Value.ExcelColumnConditionalStyle.Value).AddStyle(column.Value.ExcelColumnConditionalStyle);
+                        break;
+                    case Conditions.WhenGreaterThan:
+                        cell.AddConditionalFormat().WhenGreaterThan(column.Value.ExcelColumnConditionalStyle.Value).AddStyle(column.Value.ExcelColumnConditionalStyle);
+                        break;
+                    case Conditions.WhenLessThan:
+                        cell.AddConditionalFormat().WhenLessThan(column.Value.ExcelColumnConditionalStyle.Value).AddStyle(column.Value.ExcelColumnConditionalStyle);
+                        break;
+                    case Conditions.WhenEqualOrGreaterThan:
+                        cell.AddConditionalFormat().WhenEqualOrGreaterThan(column.Value.ExcelColumnConditionalStyle.Value).AddStyle(column.Value.ExcelColumnConditionalStyle);
+                        break;
+                    case Conditions.WhenEqualOrLessThan:
+                        cell.AddConditionalFormat().WhenEqualOrLessThan(column.Value.ExcelColumnConditionalStyle.Value).AddStyle(column.Value.ExcelColumnConditionalStyle);
+                        break;
+                    case Conditions.WhenIsTrue:
+                        cell.AddConditionalFormat().WhenIsTrue(column.Value.ExcelColumnConditionalStyle.Value).AddStyle(column.Value.ExcelColumnConditionalStyle);
+                        break;
+                    default:
+                        break;
+                }
+            }
+        }
+
+        private static void AddStyle(this IXLStyle style, ExcelColumnStyleAttribute column)
+        {
+            if (!string.IsNullOrEmpty(column.NumberFormat))
+            {
+                style.NumberFormat.Format = column.NumberFormat;
             }
 
-            if (!string.IsNullOrEmpty(column.Value.DateFormat))
+            if (!string.IsNullOrEmpty(column.DateFormat))
             {
-                cell.Style.DateFormat.Format = column.Value.DateFormat;
+                style.DateFormat.Format = column.DateFormat;
             }
 
-            if (column.Value.HorizontalAlignment.HasValue)
+            if (column.HorizontalAlignment != default)
             {
-                cell.Style.Alignment.Horizontal = column.Value.HorizontalAlignment.Value;
+                style.Alignment.Horizontal = column.HorizontalAlignment;
             }
 
-            if (column.Value.VerticalAlignment.HasValue)
+            if (column.VerticalAlignment != default)
             {
-                cell.Style.Alignment.Vertical = column.Value.VerticalAlignment.Value;
+                style.Alignment.Vertical = column.VerticalAlignment;
             }
 
-            if (column.Value.TopBorder.HasValue)
+            if (column.TopBorder != default)
             {
-                cell.Style.Border.TopBorder = column.Value.TopBorder.Value;
+                style.Border.TopBorder = column.TopBorder;
             }
-            if (column.Value.BottomBorder.HasValue)
+            if (column.BottomBorder != default)
             {
-                cell.Style.Border.BottomBorder = column.Value.BottomBorder.Value;
+                style.Border.BottomBorder = column.BottomBorder;
             }
-            if (column.Value.LeftBorder.HasValue)
+            if (column.LeftBorder != default)
             {
-                cell.Style.Border.LeftBorder = column.Value.LeftBorder.Value;
+                style.Border.LeftBorder = column.LeftBorder;
             }
-            if (column.Value.RightBorder.HasValue)
+            if (column.RightBorder != default)
             {
-                cell.Style.Border.RightBorder = column.Value.RightBorder.Value;
-            }
-
-            if (!string.IsNullOrEmpty(column.Value.TopBorderColor))
-            {
-                cell.Style.Border.TopBorderColor = XLColor.FromHtml(column.Value.TopBorderColor);
-            }
-            if (!string.IsNullOrEmpty(column.Value.BottomBorderColor))
-            {
-                cell.Style.Border.BottomBorderColor = XLColor.FromHtml(column.Value.BottomBorderColor);
-            }
-            if (!string.IsNullOrEmpty(column.Value.LeftBorderColor))
-            {
-                cell.Style.Border.LeftBorderColor = XLColor.FromHtml(column.Value.LeftBorderColor);
-            }
-            if (!string.IsNullOrEmpty(column.Value.RightBorderColor))
-            {
-                cell.Style.Border.RightBorderColor = XLColor.FromHtml(column.Value.RightBorderColor);
+                style.Border.RightBorder = column.RightBorder;
             }
 
-            if (!string.IsNullOrEmpty(column.Value.FillColor))
+            if (!string.IsNullOrEmpty(column.TopBorderColor))
             {
-                cell.Style.Fill.BackgroundColor = XLColor.FromHtml(column.Value.FillColor);
+                style.Border.TopBorderColor = XLColor.FromHtml(column.TopBorderColor);
             }
-            if (!string.IsNullOrEmpty(column.Value.FontColor))
+            if (!string.IsNullOrEmpty(column.BottomBorderColor))
             {
-                cell.Style.Font.FontColor = XLColor.FromHtml(column.Value.FontColor);
+                style.Border.BottomBorderColor = XLColor.FromHtml(column.BottomBorderColor);
+            }
+            if (!string.IsNullOrEmpty(column.LeftBorderColor))
+            {
+                style.Border.LeftBorderColor = XLColor.FromHtml(column.LeftBorderColor);
+            }
+            if (!string.IsNullOrEmpty(column.RightBorderColor))
+            {
+                style.Border.RightBorderColor = XLColor.FromHtml(column.RightBorderColor);
             }
 
-            cell.Style.Font.Bold = column.Value.FontBold;
+            if (!string.IsNullOrEmpty(column.FillColor))
+            {
+                style.Fill.BackgroundColor = XLColor.FromHtml(column.FillColor);
+            }
+            if (!string.IsNullOrEmpty(column.FontColor))
+            {
+                style.Font.FontColor = XLColor.FromHtml(column.FontColor);
+            }
 
-            cell.Style.IncludeQuotePrefix = column.Value.IncludeQuotePrefix;
-            cell.Style.SetIncludeQuotePrefix(column.Value.SetIncludeQuotePrefix);
-            cell.Style.Protection.Locked = column.Value.IsProtected;
+            style.Font.Bold = column.FontBold;
+
+            style.IncludeQuotePrefix = column.IncludeQuotePrefix;
+            style.SetIncludeQuotePrefix(column.SetIncludeQuotePrefix);
+            style.Protection.Locked = column.IsProtected;
+
         }
 
         private static XLCellValue GetCellValue(object? value)

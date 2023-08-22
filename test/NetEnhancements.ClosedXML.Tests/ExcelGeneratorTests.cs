@@ -1,6 +1,7 @@
 using ClosedXML.Excel;
 
 using System.Data;
+using System.Text;
 
 namespace NetEnhancements.ClosedXML.Tests
 {
@@ -38,7 +39,7 @@ namespace NetEnhancements.ClosedXML.Tests
 
             // Act
             var workbook = ExcelGenerator.GenerateExcel(dataList);
-
+            
             // Assert
             Assert.IsInstanceOf<XLWorkbook>(workbook);
             Assert.That(workbook.Worksheets.Count, Is.EqualTo(1));
@@ -113,13 +114,14 @@ namespace NetEnhancements.ClosedXML.Tests
                                {
                                    new() { Prop1 = "A", MagicNumber = 12345789.123456789m, Prop2 = 1, Prop3 = "Disabled" },
                                    new() { Prop1 = "B", MagicNumber = 12345789.123456789m, Prop2 = 2, Prop3 = "Disabled" },
-                                   new() { Prop1 = "C", MagicNumber = 12345789.123456789m, Prop2 = 3, Prop3 = "Disabled" }
+                                   new() { Prop1 = "C", MagicNumber = 12345789.123456789m, Prop2 = 3, Prop3 = "Disabled" },
+                                   new() { Prop1 = "D", MagicNumber = 12345789.123456789m, Prop2 = -4, Prop3 = "Disabled" }
                                };
 
             // Act
             var wb = new XLWorkbook();
             wb.AddAndPopulateSheet(dataList, sheetName: "Fancy");
-
+            wb.SaveAs("D:\\mehsd.xlsx");
             // Assert
             Assert.IsInstanceOf<XLWorkbook>(wb);
             Assert.That(wb.Worksheets.Count, Is.EqualTo(1));
@@ -213,6 +215,7 @@ namespace NetEnhancements.ClosedXML.Tests
             [ExcelColumnStyle(NumberFormat = "#,##0.00")]
             public decimal MagicNumber { get; set; }
             [ExcelColumnStyle(FillColor = "#000000")]
+            [ExcelColumnConditionalStyle(Condition = Conditions.WhenLessThan, Value = "0", FillColor = "#FF0000")]
             public int Prop2 { get; set; }
             [ExcelColumnDisabled]
             public string Prop3 { get; set; }
