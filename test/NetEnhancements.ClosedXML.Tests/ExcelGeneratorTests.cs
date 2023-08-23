@@ -114,6 +114,7 @@ namespace NetEnhancements.ClosedXML.Tests
             Assert.That(workbook.Worksheets, Has.Count.EqualTo(1));
 
             var sheet = workbook.Worksheets.First();
+
             Assert.Multiple(() =>
             {
                 Assert.That(sheet.Rows().Count(), Is.EqualTo(dataList.Count + 1));
@@ -135,6 +136,48 @@ namespace NetEnhancements.ClosedXML.Tests
         }
 
         [Test]
+        public void GenerateExcel_WithoutHeaders_KeepsCount()
+        {
+            // Arrange
+            var dataList = new List<MyClassWithAttribute>
+                               {
+                                   new() { Prop1 = "A", Prop2 = 1, Prop3 = "Disabled" },
+                                   new() { Prop1 = "B", Prop2 = 2, Prop3 = "Disabled" },
+                                   new() { Prop1 = "C", Prop2 = 3, Prop3 = "Disabled" }
+                               };
+
+            // Act
+            var workbook = ExcelGenerator.GenerateExcel(dataList, printHeaders: false);
+
+            workbook.SaveAs($"Test-{DateTime.Now.Ticks}.xlsx");
+            
+            // Assert
+            Assert.That(workbook, Is.InstanceOf<XLWorkbook>());
+            Assert.That(workbook.Worksheets, Has.Count.EqualTo(1));
+
+            var sheet = workbook.Worksheets.First();
+
+            Assert.Multiple(() =>
+            {
+                Assert.That(sheet.Rows().Count(), Is.EqualTo(dataList.Count));
+                Assert.That(sheet.Columns().Count(), Is.EqualTo(2));
+            });
+
+            for (int i = 0; i < dataList.Count; i++)
+            {
+                var row = sheet.Row(i + 1);
+
+                Assert.Multiple(() =>
+                {
+                    Assert.That(row.Cell(1).Value.ToString(), Is.EqualTo(dataList[i].Prop1));
+                    Assert.That(row.Cell(2).Value.ToString(), Is.EqualTo(dataList[i].Prop2.ToString()));
+                });
+            }
+
+            Assert.That(sheet.Row(4).Cell(1).Value.ToString(), Is.EqualTo(""));
+        }
+
+        [Test]
         public void InsertDataInternal_NonEmptyList_ReturnsWorkbookWithOneWorksheet_WithExcelAttributes()
         {
             // Arrange
@@ -147,15 +190,14 @@ namespace NetEnhancements.ClosedXML.Tests
                                };
 
             // Act
-            var wb = new XLWorkbook();
-            wb.AddAndPopulateSheet(dataList, sheetName: "Fancy");
-            wb.SaveAs($"D:\\blerp{DateTime.Now.Ticks}.xlsx");
-            
-            // Assert
-            Assert.That(wb, Is.InstanceOf<XLWorkbook>());
-            Assert.That(wb.Worksheets, Has.Count.EqualTo(1));
+            var workbook = new XLWorkbook();
+            workbook.AddAndPopulateSheet(dataList, sheetName: "Fancy");
 
-            var sheet = wb.Worksheets.First();
+            // Assert
+            Assert.That(workbook, Is.InstanceOf<XLWorkbook>());
+            Assert.That(workbook.Worksheets, Has.Count.EqualTo(1));
+
+            var sheet = workbook.Worksheets.First();
             
             Assert.Multiple(() =>
             {
@@ -221,7 +263,7 @@ namespace NetEnhancements.ClosedXML.Tests
             // Assert
             Assert.That(dataSet, Is.InstanceOf<DataSet>());
             Assert.That(dataSet.Tables, Has.Count.EqualTo(1));
-            
+
             Assert.Multiple(() =>
             {
                 Assert.That(dataSet.Tables[0].Rows, Has.Count.EqualTo(dataList.Count));

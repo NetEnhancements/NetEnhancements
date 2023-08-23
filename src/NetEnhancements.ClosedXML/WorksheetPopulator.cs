@@ -44,9 +44,9 @@ namespace NetEnhancements.ClosedXML
                     sheet.Cell(currentRowNumber, currentColumnNumber).Value = propertyName;
                     IncrementFieldPosition();
                 }
-            }
 
-            IncrementRecordPosition();
+                IncrementRecordPosition();
+            }
 
             // Set Values
             foreach (var item in dataList)
