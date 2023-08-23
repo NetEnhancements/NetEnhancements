@@ -17,15 +17,17 @@ namespace NetEnhancements.ClosedXML
         /// <param name="startingRow">The row where the data table should start</param>
         /// <param name="startingColumn">The column where the data table should start</param>
         /// <param name="sheetName">The name to give to the new worksheet.</param>
+        /// <param name="createTable">Wheter to create a table of the data and create filters and basic styling</param>
         /// <returns>A <see cref="XLWorkbook" /> workbook containing one worksheet with the data from the collection, or an empty workbook if the collection is empty.</returns>
         public static IXLWorkbook GenerateExcel<T>(
             IReadOnlyCollection<T> dataList,
             bool printHeaders = true,
             int startingRow = 1,
             int startingColumn = 1,
-            string? sheetName = null)
+            string? sheetName = null, 
+            bool createTable = false)
         {
-            return new XLWorkbook().AddAndPopulateSheet(dataList, printHeaders, startingRow, startingColumn, sheetName);
+            return new XLWorkbook().AddAndPopulateSheet(dataList, printHeaders, startingRow, startingColumn, sheetName, createTable);
         }
 
         /// <summary>

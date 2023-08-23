@@ -29,6 +29,7 @@ namespace NetEnhancements.ClosedXML
         /// <param name="startingRow">The row where the data table should start</param>
         /// <param name="startingColumn">The column where the data table should start</param>
         /// <param name="sheetName">The name to give to the new worksheet.</param>
+        /// <param name="createTable">Wheter to create a table of the data and create filters and basic styling</param>
         /// <returns>A <see cref="XLWorkbook" /> workbook with the new worksheet added.</returns>
         public static IXLWorkbook AddAndPopulateSheet<T>(
             this IXLWorkbook workbook,
@@ -36,7 +37,8 @@ namespace NetEnhancements.ClosedXML
             bool printHeaders = true,
             int startingRow = 1,
             int startingColumn = 1,
-            string? sheetName = null)
+            string? sheetName = null, 
+            bool createTable = false)
         {
             var sheet = workbook.Worksheets.Add();
 
@@ -45,7 +47,7 @@ namespace NetEnhancements.ClosedXML
                 sheet.Name = sheetName;
             }
 
-            sheet.Populate(dataList, printHeaders, startingRow, startingColumn);
+            sheet.Populate(dataList, printHeaders, startingRow, startingColumn, createTable);
 
             return workbook;
         }

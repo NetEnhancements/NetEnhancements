@@ -106,31 +106,18 @@ internal static class PropertyParser
     {
         var (type, nullable) = GetPropertyType(property);
 
-        var columnFormat = property.GetCustomAttribute<ExcelColumnStyleAttribute>(inherit: true);
+        var columnFormat = property.GetCustomAttributes<ExcelColumnStyleAttribute>(inherit: true).FirstOrDefault(a => a.GetType() == typeof(ExcelColumnStyleAttribute));
+        var conditionalColumnFormat = property.GetCustomAttributes<ExcelColumnConditionalStyleAttribute>(inherit: true).ToArray();
 
         // Maybe just toss the entire attribute in a ctor?
+        if (conditionalColumnFormat.Any())
+        {
+            return new WritePropertyTypeInfo(property, type, nullable, columnFormat, conditionalColumnFormat);
+        }
+        
         if (columnFormat != null)
         {
-            return new WritePropertyTypeInfo(property, type, nullable,
-                columnFormat.IsHorizontalAlignmentSet ? columnFormat.HorizontalAlignment : null,
-                columnFormat.IsVerticalAlignmentSet ? columnFormat.VerticalAlignment : null,
-                columnFormat.IsTopBorderSet ? columnFormat.TopBorder : null,
-                columnFormat.IsBottomBorderSet ? columnFormat.BottomBorder : null,
-                columnFormat.IsLeftBorderSet ? columnFormat.LeftBorder : null,
-                columnFormat.IsRightBorderSet ? columnFormat.RightBorder : null,
-                columnFormat.TopBorderColor,
-                columnFormat.BottomBorderColor,
-                columnFormat.LeftBorderColor,
-                columnFormat.RightBorderColor,
-                columnFormat.FillColor,
-                columnFormat.FontColor,
-                columnFormat.FontBold,
-                columnFormat.DateFormat,
-                columnFormat.IncludeQuotePrefix,
-                columnFormat.NumberFormat,
-                columnFormat.IsProtected,
-                columnFormat.SetIncludeQuotePrefix);
-
+         return new WritePropertyTypeInfo(property, type, nullable, columnFormat);
         }
 
         return new WritePropertyTypeInfo(property, type, nullable);
