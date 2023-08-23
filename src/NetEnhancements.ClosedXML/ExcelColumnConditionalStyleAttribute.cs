@@ -9,7 +9,7 @@
         /// <summary>
         /// The condition value the cell's value should meet before applying the conditional styling.
         /// </summary>
-        public required string Value { get; set; }
+        public string? Value { get; set; }
 
         /// <summary>
         /// The condition logic the cell's value should meet before applying the conditional styling.

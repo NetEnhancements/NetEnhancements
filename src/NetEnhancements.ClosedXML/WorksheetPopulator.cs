@@ -98,7 +98,7 @@ namespace NetEnhancements.ClosedXML
             }
         }
 
-        private static IXLStyle GetCondition(Condition condition, IXLCell cell, string value)
+        private static IXLStyle GetCondition(Condition condition, IXLCell cell, string? value)
         {
             var conditionalFormat = cell.AddConditionalFormat();
 
