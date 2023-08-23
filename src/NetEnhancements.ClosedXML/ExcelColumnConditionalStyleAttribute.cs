@@ -6,9 +6,15 @@
     [AttributeUsage(AttributeTargets.Property, AllowMultiple = true)]
     public class ExcelColumnConditionalStyleAttribute : ExcelColumnStyleAttribute
     {
-        public string Value { get; set; }
+        /// <summary>
+        /// The condition value the cell's value should meet before applying the conditional styling.
+        /// </summary>
+        public required string Value { get; set; }
 
-        public Condition Condition { get; set; }
+        /// <summary>
+        /// The condition logic the cell's value should meet before applying the conditional styling.
+        /// </summary>
+        public required Condition Condition { get; set; }
     }
 
     /// <summary>
