@@ -299,7 +299,7 @@ namespace NetEnhancements.ClosedXML.Tests
             [ExcelColumnName("Property 1")]
             public string? Prop1 { get; set; }
             public int Prop2 { get; set; }
-            [ExcelColumnDisabled]
+            [ExcelColumnIgnored]
             public string? Prop3 { get; set; }
         }
 
@@ -316,7 +316,7 @@ namespace NetEnhancements.ClosedXML.Tests
             [ExcelColumnConditionalStyle(Condition = Condition.WhenEqualOrGreaterThan, Value = "0", FillColor = "#CCFF60")]
             public int ConditionalAndUnconditional { get; set; }
             
-            [ExcelColumnDisabled]
+            [ExcelColumnIgnored]
             public string? Ignored { get; set; }
 
             [ExcelColumnConditionalStyle(Condition = Condition.WhenContains, Value = "foo", FillColor = "#60CCFF")]

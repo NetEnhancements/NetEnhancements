@@ -73,9 +73,9 @@ internal static class PropertyParser
 
         foreach (var property in properties)
         {
-            var disabledAttribute = property.GetCustomAttribute<ExcelColumnDisabledAttribute>(inherit: true);
+            var ignoredAttribute = property.GetCustomAttribute<ExcelColumnIgnoredAttribute>(inherit: true);
 
-            if (disabledAttribute != null)
+            if (ignoredAttribute != null)
             {
                 continue;
             }
