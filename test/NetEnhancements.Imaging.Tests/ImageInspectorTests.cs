@@ -1,6 +1,6 @@
 namespace NetEnhancements.Imaging.Tests
 {
-    public class ScheduledBackgroundServiceTests
+    public class ImageInspectorTests
     {
         [Test]
         public async Task GetImageInfoAsync_Gets_ImageInfo()
