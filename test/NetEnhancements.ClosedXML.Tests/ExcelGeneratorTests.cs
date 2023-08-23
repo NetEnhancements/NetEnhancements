@@ -148,8 +148,6 @@ namespace NetEnhancements.ClosedXML.Tests
 
             // Act
             var workbook = ExcelGenerator.GenerateExcel(dataList, printHeaders: false);
-
-            workbook.SaveAs($"Test-{DateTime.Now.Ticks}.xlsx");
             
             // Assert
             Assert.That(workbook, Is.InstanceOf<XLWorkbook>());
