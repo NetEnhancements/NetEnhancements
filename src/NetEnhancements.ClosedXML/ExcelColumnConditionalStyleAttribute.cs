@@ -3,7 +3,7 @@
     /// <summary>
     /// Gives the property a custom style name when writing to Excel.
     /// </summary>
-    [AttributeUsage(AttributeTargets.Property)]
+    [AttributeUsage(AttributeTargets.Property, AllowMultiple = true)]
     public class ExcelColumnConditionalStyleAttribute : ExcelColumnStyleAttribute
     {
         public string Value { get; set; }

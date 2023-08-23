@@ -20,24 +20,27 @@ internal class PropertyTypeInfo
 
 internal class WritePropertyTypeInfo : PropertyTypeInfo
 {
-    public ExcelColumnConditionalStyleAttribute? ExcelColumnConditionalStyle { get; set; }
-    public ExcelColumnStyleAttribute? ExcelColumnStyle { get; set; }
+    public IReadOnlyCollection<ExcelColumnConditionalStyleAttribute> ConditionalStyleAttributes { get; }
 
-    public WritePropertyTypeInfo(PropertyInfo propertyInfo, CellType cellType, bool isNullable, ExcelColumnStyleAttribute excelColumnStyleAttribute)
-        : base(propertyInfo, cellType, isNullable)
-    {
-        ExcelColumnStyle = excelColumnStyleAttribute;
-    }
-
-    public WritePropertyTypeInfo(PropertyInfo propertyInfo, CellType cellType, bool isNullable, ExcelColumnStyleAttribute excelColumnStyleAttribute, ExcelColumnConditionalStyleAttribute columnConditionalStyle)
-           : base(propertyInfo, cellType, isNullable)
-    {
-        ExcelColumnStyle = excelColumnStyleAttribute;
-        ExcelColumnConditionalStyle = columnConditionalStyle;
-    }
+    public ExcelColumnStyleAttribute? ExcelColumnStyle { get; }
 
     public WritePropertyTypeInfo(PropertyInfo propertyInfo, CellType cellType, bool isNullable)
         : base(propertyInfo, cellType, isNullable)
     {
+        ConditionalStyleAttributes = Array.Empty<ExcelColumnConditionalStyleAttribute>();
+    }
+
+    public WritePropertyTypeInfo(PropertyInfo propertyInfo, CellType cellType, bool isNullable, ExcelColumnStyleAttribute? excelColumnStyleAttribute)
+        : base(propertyInfo, cellType, isNullable)
+    {
+        ExcelColumnStyle = excelColumnStyleAttribute;
+        ConditionalStyleAttributes = Array.Empty<ExcelColumnConditionalStyleAttribute>();
+    }
+
+    public WritePropertyTypeInfo(PropertyInfo propertyInfo, CellType cellType, bool isNullable, ExcelColumnStyleAttribute? excelColumnStyleAttribute, IReadOnlyCollection<ExcelColumnConditionalStyleAttribute> columnConditionalStyle)
+           : base(propertyInfo, cellType, isNullable)
+    {
+        ExcelColumnStyle = excelColumnStyleAttribute;
+        ConditionalStyleAttributes = columnConditionalStyle;
     }
 }

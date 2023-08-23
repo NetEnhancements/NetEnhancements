@@ -106,18 +106,18 @@ internal static class PropertyParser
     {
         var (type, nullable) = GetPropertyType(property);
 
-        var columnFormat = property.GetCustomAttributes<ExcelColumnStyleAttribute>(inherit: true).FirstOrDefault(x => x.GetType() == typeof(ExcelColumnStyleAttribute));
-        var conditionalColumnFormat = property.GetCustomAttributes<ExcelColumnConditionalStyleAttribute>(inherit: true).FirstOrDefault(x => x.GetType() == typeof(ExcelColumnConditionalStyleAttribute));
+        var columnFormat = property.GetCustomAttributes<ExcelColumnStyleAttribute>(inherit: true).FirstOrDefault();
+        var conditionalColumnFormat = property.GetCustomAttributes<ExcelColumnConditionalStyleAttribute>(inherit: true).ToArray();
 
         // Maybe just toss the entire attribute in a ctor?
+        if (conditionalColumnFormat.Any())
+        {
+            return new WritePropertyTypeInfo(property, type, nullable, columnFormat, conditionalColumnFormat);
+        }
+        
         if (columnFormat != null)
         {
-            if (conditionalColumnFormat != null)
-            {
-                return new WritePropertyTypeInfo(property, type, nullable, columnFormat, conditionalColumnFormat);
-            }
-
-            return new WritePropertyTypeInfo(property, type, nullable, columnFormat);
+         return new WritePropertyTypeInfo(property, type, nullable, columnFormat);
         }
 
         return new WritePropertyTypeInfo(property, type, nullable);

@@ -219,9 +219,12 @@ namespace NetEnhancements.ClosedXML.Tests
 
             [ExcelColumnStyle(NumberFormat = "#,##0.00")]
             public decimal MagicNumber { get; set; }
+            
             [ExcelColumnStyle(FillColor = "#000000")]
-            [ExcelColumnConditionalStyle(Condition = Condition.WhenLessThan, Value = "0", FillColor = "#FF0000")]
+            [ExcelColumnConditionalStyle(Condition = Condition.WhenLessThan, Value = "0", FillColor = "#FF60CC")]
+            [ExcelColumnConditionalStyle(Condition = Condition.WhenEqualOrGreaterThan, Value = "0", FillColor = "#CCFF60")]
             public int Prop2 { get; set; }
+            
             [ExcelColumnDisabled]
             public string Prop3 { get; set; }
         }
