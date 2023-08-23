@@ -106,7 +106,7 @@ internal static class PropertyParser
     {
         var (type, nullable) = GetPropertyType(property);
 
-        var columnFormat = property.GetCustomAttributes<ExcelColumnStyleAttribute>(inherit: true).FirstOrDefault();
+        var columnFormat = property.GetCustomAttributes<ExcelColumnStyleAttribute>(inherit: true).FirstOrDefault(a => a.GetType() == typeof(ExcelColumnStyleAttribute));
         var conditionalColumnFormat = property.GetCustomAttributes<ExcelColumnConditionalStyleAttribute>(inherit: true).ToArray();
 
         // Maybe just toss the entire attribute in a ctor?
