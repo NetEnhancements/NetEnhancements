@@ -18,28 +18,30 @@ internal class PropertyTypeInfo
     public bool IsNullable { get; }
 }
 
-internal class WritePropertyTypeInfo : PropertyTypeInfo
+internal class WritePropertyTypeInfo 
 {
     public IReadOnlyCollection<ExcelColumnConditionalStyleAttribute> ConditionalStyleAttributes { get; }
 
     public ExcelColumnStyleAttribute? ExcelColumnStyle { get; }
 
-    public WritePropertyTypeInfo(PropertyInfo propertyInfo, CellType cellType, bool isNullable)
-        : base(propertyInfo, cellType, isNullable)
+    public PropertyInfo PropertyInfo { get; }
+
+    public WritePropertyTypeInfo(PropertyInfo propertyInfo)
     {
+        PropertyInfo = propertyInfo;
         ConditionalStyleAttributes = Array.Empty<ExcelColumnConditionalStyleAttribute>();
     }
 
-    public WritePropertyTypeInfo(PropertyInfo propertyInfo, CellType cellType, bool isNullable, ExcelColumnStyleAttribute? excelColumnStyleAttribute)
-        : base(propertyInfo, cellType, isNullable)
+    public WritePropertyTypeInfo(PropertyInfo propertyInfo, ExcelColumnStyleAttribute? excelColumnStyleAttribute)
     {
+        PropertyInfo = propertyInfo;
         ExcelColumnStyle = excelColumnStyleAttribute;
         ConditionalStyleAttributes = Array.Empty<ExcelColumnConditionalStyleAttribute>();
     }
 
-    public WritePropertyTypeInfo(PropertyInfo propertyInfo, CellType cellType, bool isNullable, ExcelColumnStyleAttribute? excelColumnStyleAttribute, IReadOnlyCollection<ExcelColumnConditionalStyleAttribute> columnConditionalStyle)
-           : base(propertyInfo, cellType, isNullable)
+    public WritePropertyTypeInfo(PropertyInfo propertyInfo, ExcelColumnStyleAttribute? excelColumnStyleAttribute, IReadOnlyCollection<ExcelColumnConditionalStyleAttribute> columnConditionalStyle)
     {
+        PropertyInfo = propertyInfo;
         ExcelColumnStyle = excelColumnStyleAttribute;
         ConditionalStyleAttributes = columnConditionalStyle;
     }
