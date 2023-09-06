@@ -18,7 +18,7 @@ internal class PropertyTypeInfo
     public bool IsNullable { get; }
 }
 
-internal class WritePropertyTypeInfo 
+internal class WritePropertyTypeInfo
 {
     public IReadOnlyCollection<ExcelColumnConditionalStyleAttribute> ConditionalStyleAttributes { get; }
 
@@ -32,17 +32,13 @@ internal class WritePropertyTypeInfo
         ConditionalStyleAttributes = Array.Empty<ExcelColumnConditionalStyleAttribute>();
     }
 
-    public WritePropertyTypeInfo(PropertyInfo propertyInfo, ExcelColumnStyleAttribute? excelColumnStyleAttribute)
+    public WritePropertyTypeInfo(PropertyInfo propertyInfo, ExcelColumnStyleAttribute? excelColumnStyleAttribute) : this(propertyInfo)
     {
-        PropertyInfo = propertyInfo;
         ExcelColumnStyle = excelColumnStyleAttribute;
-        ConditionalStyleAttributes = Array.Empty<ExcelColumnConditionalStyleAttribute>();
     }
 
-    public WritePropertyTypeInfo(PropertyInfo propertyInfo, ExcelColumnStyleAttribute? excelColumnStyleAttribute, IReadOnlyCollection<ExcelColumnConditionalStyleAttribute> columnConditionalStyle)
+    public WritePropertyTypeInfo(PropertyInfo propertyInfo, ExcelColumnStyleAttribute? excelColumnStyleAttribute, IReadOnlyCollection<ExcelColumnConditionalStyleAttribute> columnConditionalStyle) : this(propertyInfo, excelColumnStyleAttribute)
     {
-        PropertyInfo = propertyInfo;
-        ExcelColumnStyle = excelColumnStyleAttribute;
         ConditionalStyleAttributes = columnConditionalStyle;
     }
 }
