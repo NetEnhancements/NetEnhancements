@@ -104,23 +104,21 @@ internal static class PropertyParser
 
     private static WritePropertyTypeInfo GetWritePropertyTypeInfo(PropertyInfo property)
     {
-        var (type, nullable) = GetPropertyType(property);
-
         var columnFormat = property.GetCustomAttributes<ExcelColumnStyleAttribute>(inherit: true).FirstOrDefault(a => a.GetType() == typeof(ExcelColumnStyleAttribute));
         var conditionalColumnFormat = property.GetCustomAttributes<ExcelColumnConditionalStyleAttribute>(inherit: true).ToArray();
 
         // Maybe just toss the entire attribute in a ctor?
         if (conditionalColumnFormat.Any())
         {
-            return new WritePropertyTypeInfo(property, type, nullable, columnFormat, conditionalColumnFormat);
+            return new WritePropertyTypeInfo(property, columnFormat, conditionalColumnFormat);
         }
         
         if (columnFormat != null)
         {
-         return new WritePropertyTypeInfo(property, type, nullable, columnFormat);
+         return new WritePropertyTypeInfo(property, columnFormat);
         }
 
-        return new WritePropertyTypeInfo(property, type, nullable);
+        return new WritePropertyTypeInfo(property);
     }
 
     /// <summary>
@@ -159,6 +157,7 @@ internal static class PropertyParser
         if (type == typeof(bool))
             return CellType.Boolean;
 
+        // Do we really want to throw here and not just default to CellType.Text?
         throw new ArgumentException($"Invalid property type '{property.PropertyType.FullName}' for '{property.DeclaringType?.FullName}.{property.Name}'");
     }
 }
