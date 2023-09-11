@@ -16,8 +16,8 @@ namespace NetEnhancements.ClosedXML
             var maximumColumnNumber = currentColumnNumber;
             var maximumRowNumber = currentRowNumber;
 
-            maximumColumnNumber += dataList.Count - 1;
-            maximumRowNumber += columns.Count - 1;
+            maximumColumnNumber += columns.Count - 1;
+            maximumRowNumber += dataList.Count - 1;
 
             void IncrementFieldPosition()
             {
@@ -79,7 +79,7 @@ namespace NetEnhancements.ClosedXML
 
             if (createTable)
             {
-                var range = sheet.Range(startingRow, startingColumn, maximumRowNumber, maximumColumnNumber - 1);
+                var range = sheet.Range(startingRow, startingColumn, maximumRowNumber, maximumColumnNumber);
 
                 range.CreateTable();
             }
