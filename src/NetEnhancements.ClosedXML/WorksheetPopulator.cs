@@ -80,7 +80,6 @@ namespace NetEnhancements.ClosedXML
             if (createTable)
             {
                 var range = sheet.Range(startingRow, startingColumn, maximumRowNumber, maximumColumnNumber);
-
                 range.CreateTable();
             }
         }

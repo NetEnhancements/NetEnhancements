@@ -13,6 +13,7 @@ namespace NetEnhancements.ClosedXML
         public static async IAsyncEnumerable<TRow> ParseRowsAsync<TRow>(this IXLWorksheet worksheet, int rowsToSkip = 1)
             where TRow : class, new()
         {
+
             var objectParser = new RowParser<TRow>();
 
             foreach (var row in worksheet.RowsUsed().Skip(rowsToSkip))
@@ -42,5 +43,16 @@ namespace NetEnhancements.ClosedXML
 
             WorksheetPopulator.Populate(dataList, sheet, printHeaders, startingRow, startingColumn, createTable);
         }
-    }
+
+		/// <summary>
+		/// Adjusts the width of all columns on the sheet based on its contents.
+		/// </summary>
+		/// <param name="sheet">The sheet to adjust the columns on.</param>
+		/// <returns>A <see cref="IXLWorksheet" /> sheet the adjusted column width.</returns>
+		public static IXLWorksheet AdjustToContents(this IXLWorksheet sheet)
+		{
+			sheet.Columns().AdjustToContents();
+            return sheet;
+		}
+	}
 }
