@@ -20,6 +20,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NetEnhancements.OAuth", "sr
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "0. Solution Items", "0. Solution Items", "{62F3D058-5DF2-4E7F-8FF0-E79F86FBFC61}"
 	ProjectSection(SolutionItems) = preProject
+		.editorconfig = .editorconfig
 		CONTRIBUTING.md = CONTRIBUTING.md
 		LICENSE = LICENSE
 		README.md = README.md
