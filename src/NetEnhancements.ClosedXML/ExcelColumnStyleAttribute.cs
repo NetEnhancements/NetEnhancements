@@ -49,7 +49,7 @@ namespace NetEnhancements.ClosedXML
         private readonly int? _internalTopBorder;
 
         internal bool IsTopBorderSet => _internalTopBorder.HasValue;
-        
+
         /// <summary>Sets the cell's bottom border.</summary>
         public XLBorderStyleValues BottomBorder
         {
@@ -63,7 +63,7 @@ namespace NetEnhancements.ClosedXML
         private readonly int? _internalBottomBorder;
 
         internal bool IsBottomBorderSet => _internalBottomBorder.HasValue;
-        
+
         /// <summary>Sets the cell's left border.</summary>
         public XLBorderStyleValues LeftBorder
         {
@@ -77,7 +77,7 @@ namespace NetEnhancements.ClosedXML
         private readonly int? _internalLeftBorder;
 
         internal bool IsLeftBorderSet => _internalLeftBorder.HasValue;
-        
+
         /// <summary>Sets the cell's right border.</summary>
         public XLBorderStyleValues RightBorder
         {
@@ -91,7 +91,7 @@ namespace NetEnhancements.ClosedXML
         private readonly int? _internalRightBorder;
 
         internal bool IsRightBorderSet => _internalRightBorder.HasValue;
-        
+
         /// <summary>Sets the cell's top border color using a hex value.</summary>
         public string? TopBorderColor { get; set; }
         /// <summary>Sets the cell's bottom border color using a hex value.</summary>

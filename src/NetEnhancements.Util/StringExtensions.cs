@@ -63,7 +63,7 @@ namespace NetEnhancements.Util
         /// <exception cref="ArgumentOutOfRangeException">When the length of the input string is odd.</exception>
         public static byte[] ToBytes(this string input)
         {
-            if (input.Length %2 != 0)
+            if (input.Length % 2 != 0)
             {
                 throw new ArgumentOutOfRangeException(nameof(input));
             }
@@ -109,11 +109,11 @@ namespace NetEnhancements.Util
         {
             if (input == null) throw new ArgumentNullException(nameof(input));
             if (suffix == null) throw new ArgumentNullException(nameof(suffix));
-            
+
             var settingsIndex = input.LastIndexOf(suffix, comparisonType);
 
-            return settingsIndex >= 0 && settingsIndex == input.Length - suffix.Length 
-                ? input[..settingsIndex] 
+            return settingsIndex >= 0 && settingsIndex == input.Length - suffix.Length
+                ? input[..settingsIndex]
                 : input;
         }
 

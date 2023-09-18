@@ -16,7 +16,7 @@
         /// The name to encrypt data with.
         /// </summary>
         public string? ApplicationName { get; set; }
-        
+
         /// <summary>
         /// Max age of a JWT.
         /// </summary>

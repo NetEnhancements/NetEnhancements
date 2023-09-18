@@ -11,7 +11,7 @@ namespace NetEnhancements.ClosedXML.Tests
 
             [ExcelColumnAddress("B")]
             public string? ClientName { get; set; }
-            
+
             [ExcelColumnAddress(4)]
             public decimal TotalOrderAmount { get; set; }
         }
@@ -37,7 +37,7 @@ namespace NetEnhancements.ClosedXML.Tests
 
             Assert.That(sixthRecord, Is.Not.Null);
 
-            Assert.Multiple(()=>
+            Assert.Multiple(() =>
             {
                 Assert.That(sixthRecord.OrderNumber, Is.EqualTo("0006"));
                 Assert.That(sixthRecord.ClientName, Is.EqualTo("Relation #6"));

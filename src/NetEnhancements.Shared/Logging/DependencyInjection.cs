@@ -1,8 +1,8 @@
 ﻿using System.Reflection;
-using NetEnhancements.Shared.Configuration;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using NetEnhancements.Shared.Configuration;
 
 namespace NetEnhancements.Shared.Logging
 {

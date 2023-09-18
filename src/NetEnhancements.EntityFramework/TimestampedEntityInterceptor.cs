@@ -21,7 +21,7 @@ public class TimestampedEntityInterceptor : ISaveChangesInterceptor
     public InterceptionResult<int> SavingChanges(DbContextEventData eventData, InterceptionResult<int> result)
     {
         MarkModifiedEntitiesAsModified(eventData.Context!.ChangeTracker);
-        
+
         return result;
     }
 

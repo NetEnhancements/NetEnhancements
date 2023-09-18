@@ -17,7 +17,7 @@
             {
                 throw new InvalidOperationException("Target size must be 2x2 pixels or larger.");
             }
-            
+
             if (originalWidth == originalHeight && desiredWidth == desiredHeight)
             {
                 // Image and bounding box are square.

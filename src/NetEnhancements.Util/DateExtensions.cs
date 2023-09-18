@@ -418,7 +418,7 @@ namespace NetEnhancements.Util
 
             var startWeek = ISOWeek.GetWeekOfYear(firstDay.ToDateTime(default));
             var endWeek = ISOWeek.GetWeekOfYear(lastDay.ToDateTime(default));
-            
+
             if (firstDay.Year == lastDay.Year && startWeek == endWeek)
             {
                 return week + " " + startWeek + " " + lastDay.Year;

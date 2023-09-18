@@ -6,8 +6,8 @@ internal enum CellType
 
     Integer,
     Decimal,
-    
+
     Boolean,
- 
+
     DateTime,
 }

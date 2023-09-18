@@ -13,7 +13,7 @@ namespace NetEnhancements.EntityFramework.Tests
             // Act & Assert
             // We can't actually test what gets sent to the database without a whole lot of mocking. This is here for coverage.
             Assert.ThrowsAsync<InvalidOperationException>(
-                async () => await testContext.EnableIdentityInsertAsync<TestEntity>(enable: true), 
+                async () => await testContext.EnableIdentityInsertAsync<TestEntity>(enable: true),
                 "Relational-specific methods can only be used when the context is using a relational database provider."
             );
         }

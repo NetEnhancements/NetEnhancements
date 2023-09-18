@@ -9,7 +9,7 @@ public class RowParser<TRow>
     where TRow : class, new()
 {
     private readonly Dictionary<int, PropertyTypeInfo> _propertyCache;
-    
+
     /// <summary>
     ///Initialize a new instance.
     /// </summary>
@@ -43,7 +43,7 @@ public class RowParser<TRow>
         object value = property.CellType switch
         {
             CellType.Text => cell.Value.ToString(),
-            
+
             CellType.Decimal => property.IsNullable ? cell.GetNullableValue<decimal>() : cell.GetValue<decimal>(),
             CellType.Integer => property.IsNullable ? cell.GetNullableValue<int>() : cell.GetValue<int>(),
 

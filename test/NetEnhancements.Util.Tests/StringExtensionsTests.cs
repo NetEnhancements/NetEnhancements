@@ -9,7 +9,7 @@
             Assert.Throws<ArgumentNullException>(() => _ = ((string?)null!).RemoveEnd("foo"));
             Assert.Throws<ArgumentNullException>(() => _ = "foo".RemoveEnd(null!));
         }
-        
+
         [Test]
         [TestCase("Befoo", "foo", "Be")]
         [TestCase("foo", "foo", "")]

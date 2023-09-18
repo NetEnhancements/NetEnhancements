@@ -20,7 +20,7 @@ namespace NetEnhancements.Shared.Configuration
             var (section, settings) = configuration.GetSectionOrThrow<TSettings>(sectionName);
 
             services.Configure<TSettings>(section);
-            
+
             if (registerIOptions)
             {
                 services.AddOptions<TSettings>()

@@ -16,9 +16,9 @@
             using MemoryStream memoryStream = new();
 
             stream.CopyTo(memoryStream);
-            
+
             if (dispose)
-            { 
+            {
                 // We're done with the source stream, and so should the caller.
                 stream.Dispose();
             }

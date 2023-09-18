@@ -48,7 +48,7 @@ namespace NetEnhancements.Services
         private TimeSpan GetDelay()
         {
             var now = DateTime.Now;
-            
+
             var nextOccurrence = _crontabSchedule.Value.GetNextOccurrence(now, now.AddMonths(3));
 
             return nextOccurrence - now;
@@ -68,7 +68,7 @@ namespace NetEnhancements.Services
                     if (!isInitialRun || !SkipInitialRun)
                     {
                         using var scope = _services.CreateScope();
-                        
+
                         await ExecuteScheduledTaskAsync(scope.ServiceProvider, stoppingToken);
                     }
 

@@ -1,5 +1,5 @@
-﻿using NetEnhancements.Util;
-using Microsoft.Extensions.Configuration;
+﻿using Microsoft.Extensions.Configuration;
+using NetEnhancements.Util;
 
 namespace NetEnhancements.Shared.Configuration
 {

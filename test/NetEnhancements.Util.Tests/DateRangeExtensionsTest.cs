@@ -8,7 +8,7 @@
             // Arrange
             var from = new DateTime(2023, 04, 02);
             var until = from.AddDays(-1);
-            
+
             // Act & Assert
             Assert.Throws<ArgumentException>(() => from.GetDayFrequency(until));
         }

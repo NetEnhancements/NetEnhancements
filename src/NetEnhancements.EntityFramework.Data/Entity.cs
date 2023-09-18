@@ -21,7 +21,7 @@ namespace NetEnhancements.EntityFramework
     public abstract class GuidIdEntity : Entity, IGuidIdEntity
     {
         /// <inheritdoc/>
-        public Guid  Id { get; set; }
+        public Guid Id { get; set; }
     }
 
     /// <summary>

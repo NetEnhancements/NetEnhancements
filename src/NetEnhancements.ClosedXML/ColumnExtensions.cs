@@ -14,7 +14,7 @@
         public static int LetterToIndex(string columnName)
         {
             int index = 0;
-            
+
             columnName = columnName.ToUpper();
 
             foreach (char c in columnName)
