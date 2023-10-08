@@ -459,12 +459,12 @@
         public void TestFromUnixTime_Negative()
         {
             // Arrange
-            long unixTime = -2208988800; 
+            long unixTime = -2208988800;
             DateTime expected = new DateTime(1900, 1, 1, 0, 0, 0, DateTimeKind.Utc).ToLocalTime();
-            
+
             // Act
             DateTime actual = DateExtensions.FromUnixTime(unixTime);
-            
+
             // Assert
             Assert.That(actual, Is.EqualTo(expected));
         }
@@ -474,7 +474,7 @@
             // Arrange
             DateTime dt = DateTime.MinValue;
             long expected = 0;
-            
+
             // Act
             long actual = dt.ToUnixTime();
 
@@ -502,7 +502,7 @@
             // Arrange
             DateTime dt = new DateTime(1900, 1, 1, 0, 0, 0, DateTimeKind.Utc);
             long expected = -2208988800; // 1900-01-01 00:00:00 UTC
-            
+
             // Act
             long actual = dt.ToUnixTime();
 
@@ -625,7 +625,7 @@
         public void ToReadableString((DateTimeOffset? DateTimeOffset, bool UseValue, string? Expected) testData)
         {
             var (dateTimeOffset, useValue, expected) = testData;
-            
+
             // UseValue calls using .Value, the non-nullable overload.
             Assert.That(useValue ? dateTimeOffset!.Value.ToReadableString() : dateTimeOffset.ToReadableString(), Is.EqualTo(expected));
         }
@@ -647,7 +647,7 @@
                 (new DateTimeOffset(now.Date.AddHours(9).AddMinutes(12).AddSeconds(15), TimeSpan.FromHours(2)), true, "today, 09:12:15"),
                 (new DateTimeOffset(now.Date.AddDays(-1).AddHours(19).AddMinutes(12).AddSeconds(15), TimeSpan.FromHours(2)), true, "yesterday, 19:12:15"),
                 (new DateTimeOffset(now.Date.AddDays(-1).AddHours(19).AddMinutes(12).AddSeconds(15), TimeSpan.FromHours(2)), true, "yesterday, 19:12:15"),
-                
+
                 (new DateTimeOffset(nineMonthsAgo, TimeSpan.FromHours(2)), true, nineMonthsAgo.ToString("MMM dd, HH:mm:ss")),
                 (new DateTimeOffset(elevenMonthsAgo, TimeSpan.FromHours(2)), true, elevenMonthsAgo.ToString("MMM dd yyyy, HH:mm:ss")),
             };

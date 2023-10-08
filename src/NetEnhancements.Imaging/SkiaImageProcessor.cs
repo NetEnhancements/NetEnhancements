@@ -14,7 +14,7 @@ internal class SkiaImageProcessor : IImageInspector, IImageProcessor
 
         var info = new ImageInfo(
             Map(skiaCodec.EncodedFormat),
-            skiaCodec.Info.Width, 
+            skiaCodec.Info.Width,
             skiaCodec.Info.Height,
             length
         );

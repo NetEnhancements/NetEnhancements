@@ -1,6 +1,6 @@
 ﻿using System.Text.Json;
-using NetEnhancements.Util.Json;
 using Microsoft.AspNetCore.Http;
+using NetEnhancements.Util.Json;
 
 namespace NetEnhancements.AspNet
 {

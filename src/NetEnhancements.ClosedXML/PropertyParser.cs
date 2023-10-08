@@ -1,5 +1,4 @@
 ﻿using System.Reflection;
-
 using NetEnhancements.Util;
 
 namespace NetEnhancements.ClosedXML;
@@ -112,10 +111,10 @@ internal static class PropertyParser
         {
             return new WritePropertyTypeInfo(property, columnFormat, conditionalColumnFormat);
         }
-        
+
         if (columnFormat != null)
         {
-         return new WritePropertyTypeInfo(property, columnFormat);
+            return new WritePropertyTypeInfo(property, columnFormat);
         }
 
         return new WritePropertyTypeInfo(property);

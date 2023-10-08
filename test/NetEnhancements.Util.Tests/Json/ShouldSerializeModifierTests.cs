@@ -1,6 +1,6 @@
-﻿using NetEnhancements.Util.Json;
-using System.Text.Json;
+﻿using System.Text.Json;
 using System.Text.Json.Serialization;
+using NetEnhancements.Util.Json;
 
 namespace NetEnhancements.Util.Tests.Json
 {
@@ -33,7 +33,7 @@ namespace NetEnhancements.Util.Tests.Json
             var foo = new PropertyTest { Foo = "42" };
 
             var options = new JsonSerializerOptions().WithShouldSerializeModifier();
-            
+
             // Act
             string json = JsonSerializer.Serialize(foo, options);
 

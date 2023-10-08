@@ -1,5 +1,5 @@
-﻿using ClosedXML.Excel;
-using System.Data;
+﻿using System.Data;
+using ClosedXML.Excel;
 
 namespace NetEnhancements.ClosedXML
 {
@@ -24,7 +24,7 @@ namespace NetEnhancements.ClosedXML
             bool printHeaders = true,
             int startingRow = 1,
             int startingColumn = 1,
-            string? sheetName = null, 
+            string? sheetName = null,
             bool createTable = false)
         {
             return new XLWorkbook().AddAndPopulateSheet(dataList, printHeaders, startingRow, startingColumn, sheetName, createTable);

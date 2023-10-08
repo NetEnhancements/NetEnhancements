@@ -94,7 +94,7 @@ namespace NetEnhancements.Util
         /// </example>
         public static T Random<T>(this IReadOnlyCollection<T> collection, Random random)
         {
-	        ((ICollection)collection).ThrowIfNullOrEmpty();
+            ((ICollection)collection).ThrowIfNullOrEmpty();
 
             int index = random.Next(collection.Count);
 

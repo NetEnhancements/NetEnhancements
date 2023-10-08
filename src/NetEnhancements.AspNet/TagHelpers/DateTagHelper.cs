@@ -1,6 +1,6 @@
 ﻿using System.Web;
-using NetEnhancements.Util;
 using Microsoft.AspNetCore.Razor.TagHelpers;
+using NetEnhancements.Util;
 
 namespace NetEnhancements.AspNet.TagHelpers
 {

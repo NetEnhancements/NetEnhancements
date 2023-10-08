@@ -18,13 +18,13 @@
         public void HasDecimals_Returns_Boolean((decimal Value, bool HasDecimals) data)
         {
             var (value, hasDecimals) = data;
-            
+
             Assert.That(value.HasDecimals(), Is.EqualTo(hasDecimals));
         }
 
         private static (decimal Value, bool HasDecimals)[] HasDecimals_DataSource()
         {
-            return new []
+            return new[]
             {
                 (0m, false),
                 (1m, false),

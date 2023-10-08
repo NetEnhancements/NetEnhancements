@@ -1,10 +1,10 @@
-﻿using NetEnhancements.Identity.Data;
-using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using NetEnhancements.EntityFramework;
 using NetEnhancements.EntityFramework.Query;
+using NetEnhancements.Identity.Data;
 
 namespace NetEnhancements.Identity.Managers
 {
@@ -132,7 +132,7 @@ namespace NetEnhancements.Identity.Managers
             if (otherUser != null)
             {
                 // TODO: log
-                return IdentityResult.Failed(new IdentityError{ Code = "2", Description = "E-mailadres reeds in gebruik" });
+                return IdentityResult.Failed(new IdentityError { Code = "2", Description = "E-mailadres reeds in gebruik" });
             }
 
             var emailResult = await SetEmailAsync(user, newEmail);

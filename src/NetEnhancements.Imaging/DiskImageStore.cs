@@ -20,7 +20,7 @@ internal class DiskImageStore : IImageStore
         var diskFileName = Path.Combine(filePath, GetFileName(imageIdentifier, extension, resolution: null));
 
         await using var fileStream = File.OpenWrite(diskFileName);
-        
+
         await imageStream.CopyToAsync(fileStream);
     }
 

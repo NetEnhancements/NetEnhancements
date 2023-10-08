@@ -16,7 +16,7 @@ namespace NetEnhancements.Services.Tests.Services
 
             CronSchedule = cronSchedule;
         }
-        
+
         protected override string CronSchedule { get; }
 
         protected override Task ExecuteScheduledTaskAsync(IServiceProvider serviceProvider, CancellationToken stoppingToken)
