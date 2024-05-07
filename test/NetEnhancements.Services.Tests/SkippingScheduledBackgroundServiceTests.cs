@@ -58,7 +58,7 @@ namespace NetEnhancements.Services.Tests
             await classUnderTest.StartAsync(cancellationTokenSource.Token);
 
             // Assert
-            cancellationTokenSource.Cancel();
+            await cancellationTokenSource.CancelAsync();
             Assert.That(classUnderTest.IsCalled, Is.True);
         }
 
@@ -74,7 +74,7 @@ namespace NetEnhancements.Services.Tests
             await classUnderTest.StartAsync(cancellationTokenSource.Token);
 
             // Assert
-            cancellationTokenSource.Cancel();
+            await cancellationTokenSource.CancelAsync();
             Assert.That(classUnderTest.IsCalled, Is.False);
         }
 

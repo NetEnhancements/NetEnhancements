@@ -28,7 +28,7 @@ internal class SkiaImageProcessor : IImageInspector, IImageProcessor
 
         using var skiaCodec = SKCodec.Create(skiaStream) ?? throw new InvalidOperationException("Could not decode image stream");
 
-        using var bitmap = SKBitmap.Decode(skiaCodec);
+        using var bitmap = SKBitmap.Decode(skiaCodec) ?? throw new InvalidOperationException("Could not decode bitmap image");
 
         // Possibly not equal to desired size, because of ratios.
         var targetResolution = SizeCalculator.GetRelativeSize(new(bitmap.Width, bitmap.Height), resolution);
