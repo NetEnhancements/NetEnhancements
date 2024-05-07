@@ -5,6 +5,9 @@ using NetEnhancements.AspNet.Conventions;
 
 namespace NetEnhancements.AspNet
 {
+    /// <summary>
+    /// Extension method container for MVC options.
+    /// </summary>
     public static class MvcOptionsExtensions
     {
         public static void UseGeneralRoutePrefix<TControllerBase>(this MvcOptions opts, IRouteTemplateProvider routeAttribute)

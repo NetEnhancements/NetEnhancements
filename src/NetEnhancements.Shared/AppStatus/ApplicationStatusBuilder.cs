@@ -45,6 +45,5 @@ namespace NetEnhancements.Shared.AppStatus
 
         private static Assembly GetEntryAssembly() => Assembly.GetEntryAssembly()
             ?? throw new InvalidOperationException("Entry Assembly not found!");
-
     }
 }

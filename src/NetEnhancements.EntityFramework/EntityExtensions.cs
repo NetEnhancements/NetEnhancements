@@ -4,6 +4,9 @@ using NetEnhancements.EntityFramework.Query;
 
 namespace NetEnhancements.EntityFramework
 {
+    /// <summary>
+    /// Extension method container for entities.
+    /// </summary>
     public static class EntityExtensions
     {
         /// <summary>

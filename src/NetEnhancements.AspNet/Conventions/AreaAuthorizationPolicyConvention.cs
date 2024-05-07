@@ -26,6 +26,11 @@ namespace NetEnhancements.AspNet.Conventions
         public const string PolicyName = "(DefaultPolicy)";
     }
 
+    /// <summary>
+    /// Configures an area policy using an area name and zero or more filters.
+    /// </summary>
+    /// <param name="AreaName">The name of the area to apply the filters to. <c>null</c> means no area.</param>
+    /// <param name="Filters">The filter(s) to apply, if any.</param>
     public record AreaPolicy(string? AreaName, params IFilterMetadata[] Filters);
 
     /// <summary>
@@ -33,18 +38,21 @@ namespace NetEnhancements.AspNet.Conventions
     /// </summary>
     public class AreaAuthorizationPolicyConvention : IControllerModelConvention, IPageApplicationModelConvention
     {
-
         private readonly IFilterMetadata[] _defaultPolicy;
 
-        private readonly ICollection<AreaPolicy> _policies;
+        private readonly IReadOnlyList<AreaPolicy> _policies;
 
+        /// <summary>
+        /// Instantiates the convention with the given policies.
+        /// </summary>
+        /// <param name="policies"></param>
         // ReSharper disable once SuggestBaseTypeForParameterInConstructor - so user can use `new()`.
         public AreaAuthorizationPolicyConvention(List<AreaPolicy> policies)
         {
             ValidatePolicies(policies);
 
             _policies = policies;
-            _defaultPolicy = _policies.FirstOrDefault(p => p.AreaName == DefaultAreaPolicy.PolicyName)?.Filters ?? Array.Empty<IFilterMetadata>();
+            _defaultPolicy = _policies.FirstOrDefault(p => p.AreaName == DefaultAreaPolicy.PolicyName)?.Filters ?? [];
         }
 
         [StackTraceHidden]

@@ -22,7 +22,8 @@ internal static class ShouldSerializeModifier
 
         foreach (var p in jsonTypeInfo.Properties)
         {
-            if (p.AttributeProvider?.GetCustomAttributes(typeof(JsonIgnoreAttribute), inherit: true).Any() == true)
+            // Ignore [JsonIgnore] properties.
+            if (p.AttributeProvider?.GetCustomAttributes(typeof(JsonIgnoreAttribute), inherit: true).Length != 0)
             {
                 continue;
             }

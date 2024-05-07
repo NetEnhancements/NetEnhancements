@@ -38,7 +38,7 @@ namespace NetEnhancements.Util.Tests.Json
             string json = JsonSerializer.Serialize(foo, options);
 
             // Assert
-            Assert.That(json, Is.EqualTo(/*lang=json,strict*/ @"{""Foo"":""42""}"));
+            Assert.That(json, Is.EqualTo(/*lang=json,strict*/ """{"Foo":"42"}"""));
         }
 
         [Test]
@@ -53,7 +53,7 @@ namespace NetEnhancements.Util.Tests.Json
             string json = JsonSerializer.Serialize(foo, options);
 
             // Assert
-            Assert.That(json, Is.EqualTo(/*lang=json,strict*/ @"{""Foo"":""42""}"));
+            Assert.That(json, Is.EqualTo(/*lang=json,strict*/ """{"Foo":"42"}"""));
         }
     }
 }

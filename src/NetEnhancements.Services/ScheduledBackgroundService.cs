@@ -30,7 +30,7 @@ namespace NetEnhancements.Services
         protected abstract string CronSchedule { get; }
 
         /// <summary>
-        /// Insantiates the service.
+        /// Instantiates the service.
         /// </summary>
         protected ScheduledBackgroundService(ILogger<ScheduledBackgroundService> logger, IServiceProvider services)
         {

@@ -7,7 +7,7 @@ namespace NetEnhancements.Util.Tests.Json
     public class ShouldSerializeExtensionTests
     {
         [Test]
-        public void WithShouldSerializeModifier_NullResolver_InstantitesResolver()
+        public void WithShouldSerializeModifier_NullResolver_InstantiatesResolver()
         {
             // Arrange
             var options = new JsonSerializerOptions();

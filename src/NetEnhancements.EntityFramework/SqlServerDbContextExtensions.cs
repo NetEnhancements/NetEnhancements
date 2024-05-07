@@ -8,7 +8,7 @@ namespace NetEnhancements.EntityFramework
     public static class SqlServerDbContextExtensions
     {
         /// <summary>
-        /// Enables or disables [Identity Insert](https://learn.microsoft.com/en-us/sql/t-sql/statements/set-identity-insert-transact-sql) for the given <typeparamref name="TEntity"/>.
+        /// Enables or disables <a href="https://learn.microsoft.com/en-us/sql/t-sql/statements/set-identity-insert-transact-sql">Identity Insert</a> for the given <typeparamref name="TEntity"/>.
         /// </summary>
         public static Task EnableIdentityInsertAsync<TEntity>(this DbContext context, bool enable)
         {
@@ -29,7 +29,7 @@ namespace NetEnhancements.EntityFramework
         }
 
         /// <summary>
-        /// Enables [Identity Insert](https://learn.microsoft.com/en-us/sql/t-sql/statements/set-identity-insert-transact-sql) for the given <typeparamref name="TEntity"/>, saves the changes and disables Identity Insert again, all wrapped in a transaction.
+        /// Enables <a href="https://learn.microsoft.com/en-us/sql/t-sql/statements/set-identity-insert-transact-sql">Identity Insert</a> for the given <typeparamref name="TEntity"/>, saves the changes and disables Identity Insert again, all wrapped in a transaction.
         /// </summary>
         public static async Task<int> SaveChangesWithIdentityInsertAsync<TEntity>(this DbContext context)
         {

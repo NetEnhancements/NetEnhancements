@@ -6,7 +6,7 @@
         /// Wednesday till Wednesday two weeks later = 3 weeks
         /// </summary>
         [Test]
-        public void WeeksBeteen_Midweek_AddsWeek()
+        public void WeeksBetween_Midweek_AddsWeek()
         {
             // Arrange
             var startDate = new DateOnly(2023, 05, 11);
@@ -48,7 +48,7 @@
         }
 
         [Test]
-        public void WeeksBeteen_SubWeek_OneWeek()
+        public void WeeksBetween_SubWeek_OneWeek()
         {
             // Arrange
             var startDate = new DateOnly(2023, 05, 04);
@@ -67,7 +67,7 @@
         }
 
         [Test]
-        public void WeeksBeteen_OneDay_OneWeek()
+        public void WeeksBetween_OneDay_OneWeek()
         {
             // Arrange
             var startDate = new DateOnly(2023, 05, 04);

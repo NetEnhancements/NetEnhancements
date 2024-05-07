@@ -1,7 +1,13 @@
 ﻿namespace NetEnhancements.EntityFramework.Query
 {
+    /// <summary>
+    /// Represents a database query involving paging.
+    /// </summary>
     public class PagedQuery
     {
+        /// <summary>
+        /// The default number of items per page, being 24.
+        /// </summary>
         public const int DefaultPerPage = 24;
 
         /// <summary>

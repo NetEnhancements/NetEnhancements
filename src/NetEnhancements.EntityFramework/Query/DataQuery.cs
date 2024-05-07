@@ -1,7 +1,7 @@
 ﻿namespace NetEnhancements.EntityFramework.Query
 {
     /// <summary>
-    /// Allows for passing query strings and sort clauses from controllers to managers.
+    /// Allows for passing query strings and sort clauses from controllers to repositories.
     ///
     /// TODO: nested queries, range queries, this is a POC.
     /// </summary>

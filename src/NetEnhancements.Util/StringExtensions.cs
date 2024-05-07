@@ -89,7 +89,7 @@ namespace NetEnhancements.Util
         }
 
         /// <summary>
-        /// Converts the given string to_snake_case.
+        /// Converts the given string to snake_case.
         /// </summary>
         /// <param name="str">The string to convert.</param>
         /// <returns>A new string in snake case format.</returns>
