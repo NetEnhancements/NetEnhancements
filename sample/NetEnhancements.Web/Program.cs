@@ -31,8 +31,12 @@ app.UseAuthorization();
 
 app.MapRazorPages();
 
-//var d = app.Services.CreateScope().ServiceProvider.GetRequiredService<IRouteDebugger>();
+// One of our enhancements.
+app.MapDefaultAreaControllerRoute();
 
-//var route = d.GetRoutes().Last();
+app.MapGet("/Minimal", () => "Hello World!");
+
+// This one must be defined last.
+app.MapDefaultControllerRoute();
 
 app.Run();
