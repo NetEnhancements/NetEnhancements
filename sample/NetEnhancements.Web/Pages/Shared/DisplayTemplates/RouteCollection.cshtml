@@ -1,0 +1,19 @@
+﻿@model IEnumerable<NetEnhancements.AspNet.Routing.RouteModel>
+
+<table>
+    <tr>
+        <th>Name</th>
+        <th>Area</th>
+        <th>Template</th>
+        <th>Methods</th>
+    </tr>
+    @foreach (var route in Model)
+    {
+        <tr>
+            <td>@route.Name</td>
+            <td>@route.Area</td>
+            <td>@route.Template</td>
+            <td>@string.Join(", ", route.Methods)</td>
+        </tr>
+    }
+</table>
