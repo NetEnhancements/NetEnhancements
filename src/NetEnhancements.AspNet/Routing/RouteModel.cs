@@ -1,4 +1,4 @@
-﻿namespace NetEnhancements.AspNet
+﻿namespace NetEnhancements.AspNet.Routing
 {
     /// <summary>
     /// An ASP.NET Core route.
@@ -11,7 +11,7 @@
         public string? Area { get; set; }
 
         /// <summary>
-        /// Route name.
+        /// Route, page or controller name.
         /// </summary>
         public string? Name { get; set; }
 
@@ -19,5 +19,10 @@
         /// Route template.
         /// </summary>
         public string? Template { get; set; }
+
+        /// <summary>
+        /// The HTTP methods through which the route is accessible; all if empty.
+        /// </summary>
+        public IReadOnlyList<string> Methods { get; set; } = Array.Empty<string>();
     }
 }

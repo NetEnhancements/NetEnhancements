@@ -7,11 +7,18 @@ namespace NetEnhancements.AspNet.Conventions
     /// </summary>
     public static class ControllerModelExtensions
     {
+        private const string AreaRouteKey = "area";
+
         /// <summary>
         /// Route this controller to an area based on their "Areas." namespace, if any. This prevents having to put [Area("Foo")] on it.
         /// </summary>
         public static void RouteAreaNamespace(this ControllerModel controller)
         {
+            if (controller.RouteValues.TryGetValue(AreaRouteKey, out var _))
+            {
+                return;
+            }
+
             var hasRouteAttributes = controller.Selectors.Any(selector => selector.AttributeRouteModel != null);
             if (hasRouteAttributes)
             {
@@ -30,16 +37,8 @@ namespace NetEnhancements.AspNet.Conventions
                 return;
             }
 
-            var template = areaName + "/[controller]/[action]";
-            controller.RouteValues.Add("area", areaName);
-
-            foreach (var selector in controller.Selectors)
-            {
-                selector.AttributeRouteModel = new AttributeRouteModel
-                {
-                    Template = template
-                };
-            }
+            // This is what the [Area] attribute ultimately does.
+            controller.RouteValues.Add(AreaRouteKey, areaName);
         }
     }
 }
