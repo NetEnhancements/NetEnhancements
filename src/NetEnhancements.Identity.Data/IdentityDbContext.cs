@@ -35,10 +35,11 @@ namespace NetEnhancements.Identity.Data
         /// <param name="builder"></param>
         protected override void OnModelCreating(ModelBuilder builder)
         {
-            // Identity.
+            // Call the default Identity configuration first.
             base.OnModelCreating(builder);
 
-            // Customized
+            // Then override the registered entities with customized table and schema names.
+            // These are our inherited, custom entities.
             builder.Entity<ApplicationUser>(entity =>
             {
                 entity.ToTable(name: "Users", IdentitySchema);
@@ -52,7 +53,7 @@ namespace NetEnhancements.Identity.Data
                 entity.ToTable("UserRoles", IdentitySchema);
             });
 
-            // Default
+            // These are the default, untouched entities - but we still need to configure the table and schema names.
             builder.Entity<IdentityUserClaim<Guid>>(entity =>
             {
                 entity.ToTable("UserClaims", IdentitySchema);
