@@ -276,9 +276,8 @@ namespace NetEnhancements.ClosedXML.Tests
             var list1 = dataList.Select(x => new object?[] { x.Prop1, x.Prop2 }).ToList();
             var list2 = dataSet.Tables[0].AsEnumerable().Select(x => x.ItemArray).ToList();
 
-            CollectionAssert.AreEquivalent(list1, list2);
+            Assert.That(list1, Is.EquivalentTo(list2));
         }
-
 
         [Test]
         public void AdjustToContents_On_Workbook_Adjusts_All_Columns_On_All_Sheets()
@@ -323,15 +322,15 @@ namespace NetEnhancements.ClosedXML.Tests
 
         private class MyClass
         {
-            public string? Prop1 { get; set; }
-            public int Prop2 { get; set; }
+            public string? Prop1 { get; init; }
+            public int Prop2 { get; init; }
         }
 
         private class MyClassWithAttribute
         {
             [ExcelColumnName("Property 1")]
-            public string? Prop1 { get; set; }
-            public int Prop2 { get; set; }
+            public string? Prop1 { get; init; }
+            public int Prop2 { get; init; }
             [ExcelColumnIgnored]
             public string? Prop3 { get; set; }
         }

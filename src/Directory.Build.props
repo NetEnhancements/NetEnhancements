@@ -4,7 +4,7 @@
   <PropertyGroup>
     <Version>0.0.99-dev</Version>
     <Deterministic>true</Deterministic>
-    <TargetFramework>net7.0</TargetFramework>
+    <TargetFramework>net8.0</TargetFramework>
     <LangVersion>latest</LangVersion>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
@@ -56,6 +56,6 @@
   <ItemGroup>
     <!-- Update here, not through the NuGet Package Manager, that updates it in individual .csproj files. -->
     <!-- Also note the PrivateAssets="All", meaning it doesn't get included in the package as a reference -->
-    <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.1.1" PrivateAssets="All"/>
+    <PackageReference Include="Microsoft.SourceLink.GitHub" Version="8.0.0" PrivateAssets="All"/>
   </ItemGroup>
 </Project>

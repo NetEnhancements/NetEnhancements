@@ -73,6 +73,16 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NetEnhancements.Imaging.Tes
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NetEnhancements.Services.Tests", "test\NetEnhancements.Services.Tests\NetEnhancements.Services.Tests.csproj", "{369CA694-8C0A-47C2-9BAC-E2C33B5AC99E}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{A4539729-D4F6-41B6-B0A9-3BF516DCC7DF}"
+	ProjectSection(SolutionItems) = preProject
+		test\Directory.Build.props = test\Directory.Build.props
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "sample", "sample", "{11C4D321-C255-44EB-BCD1-DFBA0F93C06A}"
+	ProjectSection(SolutionItems) = preProject
+		sample\Directory.Build.props = sample\Directory.Build.props
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -195,6 +205,8 @@ Global
 		{493D8E72-EA58-4E64-8B21-02ED487C5EA8} = {461E31B6-8B02-43E7-A7A0-DF0CF76A7C8C}
 		{EB815F4B-ED04-49A3-8EBC-51FF127529DD} = {716BA8E5-8A7F-4A53-A47D-6629757A24D6}
 		{369CA694-8C0A-47C2-9BAC-E2C33B5AC99E} = {716BA8E5-8A7F-4A53-A47D-6629757A24D6}
+		{A4539729-D4F6-41B6-B0A9-3BF516DCC7DF} = {62F3D058-5DF2-4E7F-8FF0-E79F86FBFC61}
+		{11C4D321-C255-44EB-BCD1-DFBA0F93C06A} = {62F3D058-5DF2-4E7F-8FF0-E79F86FBFC61}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {3C76D7A0-C62A-46D9-AD19-84BEC6192FE2}

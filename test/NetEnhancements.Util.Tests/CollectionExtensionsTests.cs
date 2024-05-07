@@ -42,7 +42,7 @@ namespace NetEnhancements.Util.Tests
             IEnumerable<IEnumerable<int>> result = inputList.GetPermutations();
 
             // Assert
-            CollectionAssert.AreEquivalent(expectedPermutations, result.Select(p => p.ToList()));
+            Assert.That(result.Select(p => p.ToList()), Is.EquivalentTo(expectedPermutations));
         }
 
         [Test]
@@ -65,7 +65,7 @@ namespace NetEnhancements.Util.Tests
             IEnumerable<IEnumerable<int>> result = inputList.GetPermutations(length);
 
             // Assert
-            CollectionAssert.AreEquivalent(expectedPermutations, result.Select(p => p.ToList()));
+            Assert.That(result.Select(p => p.ToList()), Is.EquivalentTo(expectedPermutations));
         }
 
         [Test]

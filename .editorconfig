@@ -54,6 +54,9 @@ csharp_style_prefer_null_check_over_type_check = true:suggestion
 csharp_prefer_simple_default_expression = true:suggestion
 csharp_indent_labels = one_less_than_current
 csharp_space_around_binary_operators = before_and_after
+csharp_style_prefer_local_over_anonymous_function = true:suggestion
+csharp_style_prefer_index_operator = true:suggestion
+csharp_style_prefer_range_operator = true:suggestion
 
 [*.{cs,vb}]
 dotnet_sort_system_directives_first = true
@@ -121,3 +124,4 @@ tab_width = 4
 indent_size = 4
 indent_style = space
 end_of_line = crlf
+dotnet_style_prefer_collection_expression = true:suggestion
