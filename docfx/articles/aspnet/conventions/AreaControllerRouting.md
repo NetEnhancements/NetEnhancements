@@ -15,6 +15,7 @@ namespace MyApp.Areas.Bar
 This `[Area("Bar")]` needs to be applied to all controllers within that area.
 
 ## Not anymore!
+
 Using our [`UseAreaControllerNamespace()`](/api/NetEnhancements.AspNet.Conventions.ControllerModelExtensions.html) you don't have to anymore:
 
 ```csharp

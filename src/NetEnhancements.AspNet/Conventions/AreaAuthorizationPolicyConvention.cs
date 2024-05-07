@@ -1,4 +1,5 @@
-﻿using System.Diagnostics;
+﻿using System.Collections.ObjectModel;
+using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc.ApplicationModels;
 using Microsoft.AspNetCore.Mvc.Authorization;
 using Microsoft.AspNetCore.Mvc.Filters;
@@ -6,57 +7,50 @@ using Microsoft.AspNetCore.Mvc.Filters;
 namespace NetEnhancements.AspNet.Conventions
 {
     /// <summary>
-    /// Represents the default policy, applied to all unspecified areas (including no area).
+    /// Configures an area policy using an area name and zero or more filters.
     /// </summary>
-    public class DefaultAreaPolicyFilter : AuthorizeFilter
-    {
-        /// Instantiate the default policy, applied to all unspecified areas (including no area).
-        public DefaultAreaPolicyFilter() : base(DefaultAreaPolicy.PolicyName) { }
-    }
+    /// <param name="AreaName">The name of the area to apply the filters to. Use <see cref="DefaultAreaPolicy.PolicyName"/> to indicate any unspecified area (including no area).</param>
+    /// <param name="Filters">The filter(s) to apply, if any.</param>
+    public record AreaPolicy(string AreaName, params IFilterMetadata[] Filters);
 
     /// <summary>
     /// Registers filters for the "default area policy", i.e. not applicable to any other registered policy.
     /// </summary>
-    public record DefaultAreaPolicy()
-        : AreaPolicy(PolicyName, new DefaultAreaPolicyFilter())
+    public record DefaultAreaPolicy() : AreaPolicy(PolicyName, new AuthorizeFilter(PolicyName))
     {
         /// <summary>
-        /// Placeholder name to recognize the default policy being applied.
+        /// Placeholder name to recognize the default area policy being applied.
         /// </summary>
-        public const string PolicyName = "(DefaultPolicy)";
+        public const string PolicyName = "(DefaultAreaPolicy)";
     }
-
-    /// <summary>
-    /// Configures an area policy using an area name and zero or more filters.
-    /// </summary>
-    /// <param name="AreaName">The name of the area to apply the filters to. <c>null</c> means no area.</param>
-    /// <param name="Filters">The filter(s) to apply, if any.</param>
-    public record AreaPolicy(string? AreaName, params IFilterMetadata[] Filters);
 
     /// <summary>
     /// Applies the provided policies to MVC Controllers and Razor Pages.
     /// </summary>
     public class AreaAuthorizationPolicyConvention : IControllerModelConvention, IPageApplicationModelConvention
     {
-        private readonly IFilterMetadata[] _defaultPolicy;
+        private readonly IFilterMetadata[] _defaultPolicyFilters;
 
-        private readonly IReadOnlyList<AreaPolicy> _policies;
+        private readonly ReadOnlyDictionary<string, AreaPolicy> _policies;
 
         /// <summary>
         /// Instantiates the convention with the given policies.
         /// </summary>
         /// <param name="policies"></param>
         // ReSharper disable once SuggestBaseTypeForParameterInConstructor - so user can use `new()`.
-        public AreaAuthorizationPolicyConvention(List<AreaPolicy> policies)
+        public AreaAuthorizationPolicyConvention(IReadOnlyCollection<AreaPolicy> policies)
         {
             ValidatePolicies(policies);
+            
+            _policies = policies.ToDictionary(p => p.AreaName).AsReadOnly();
 
-            _policies = policies;
-            _defaultPolicy = _policies.FirstOrDefault(p => p.AreaName == DefaultAreaPolicy.PolicyName)?.Filters ?? [];
+            _policies.TryGetValue(DefaultAreaPolicy.PolicyName, out var defaultPolicy);
+
+            _defaultPolicyFilters = defaultPolicy?.Filters ?? [];
         }
 
         [StackTraceHidden]
-        private static void ValidatePolicies(List<AreaPolicy> policies)
+        private static void ValidatePolicies(IReadOnlyCollection<AreaPolicy> policies)
         {
             if (policies.DistinctBy(p => p.AreaName).Count() != policies.Count)
             {
@@ -80,15 +74,13 @@ namespace NetEnhancements.AspNet.Conventions
 
         private void ApplyPolicy(string? areaName, ICollection<IFilterMetadata> filters)
         {
-            var areaPolicy = _policies.FirstOrDefault(p => p.AreaName == areaName)?.Filters;
+            var wasConfigured = _policies.TryGetValue(areaName ?? DefaultAreaPolicy.PolicyName, out var areaPolicy);
 
-            var wasConfigured = areaPolicy != null;
+            var policyFilters = areaPolicy?.Filters ?? _defaultPolicyFilters;
 
-            areaPolicy ??= _defaultPolicy;
+            Debug.WriteLine($"Using {(wasConfigured ? "configured" : "default")} policy with {policyFilters.Length} filter{(policyFilters.Length == 1 ? "" : "s")} for area {areaName}");
 
-            Debug.WriteLine($"Using {(wasConfigured ? "configured" : "default")} policy with {areaPolicy.Length} filter{(areaPolicy.Length == 1 ? "" : "s")} for area {areaName}");
-
-            foreach (var filter in areaPolicy)
+            foreach (var filter in policyFilters)
             {
                 filters.Add(filter);
             }
