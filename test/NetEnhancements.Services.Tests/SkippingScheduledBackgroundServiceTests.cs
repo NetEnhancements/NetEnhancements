@@ -1,8 +1,8 @@
 using System.ComponentModel.Design;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
-using Moq;
 using NetEnhancements.Services.Tests.Services;
+using NSubstitute;
 
 namespace NetEnhancements.Services.Tests
 {
@@ -12,17 +12,17 @@ namespace NetEnhancements.Services.Tests
         /// TODO: doesn't any other package offer this?
         /// </summary>
         /// <returns></returns>
-        private static IServiceContainer BuildScopedContainer()
+        private static ServiceContainer BuildScopedContainer()
         {
             var containerFake = new ServiceContainer();
 
-            var scopeMock = new Mock<IServiceScope>();
-            scopeMock.SetupGet(s => s.ServiceProvider).Returns(containerFake);
+            var scopeMock = Substitute.For<IServiceScope>();
+            scopeMock.ServiceProvider.Returns(containerFake);
 
-            var scopeFactoryMock = new Mock<IServiceScopeFactory>(MockBehavior.Strict);
-            scopeFactoryMock.Setup(s => s.CreateScope()).Returns(scopeMock.Object);
+            var scopeFactoryMock = Substitute.For<IServiceScopeFactory>();
+            scopeFactoryMock.CreateScope().Returns(scopeMock);
 
-            containerFake.AddService(typeof(IServiceScopeFactory), scopeFactoryMock.Object);
+            containerFake.AddService(typeof(IServiceScopeFactory), scopeFactoryMock);
 
             return containerFake;
         }
@@ -34,8 +34,8 @@ namespace NetEnhancements.Services.Tests
             // Invalid because seconds are mandatory.
             const string invalidPattern = "* * * * *";
 
-            var loggerMock = new Mock<ILogger<SkippingService>>(MockBehavior.Loose);
-            var classUnderTest = new SkippingService(loggerMock.Object, BuildScopedContainer(), invalidPattern, skipInitial: false);
+            var loggerMock = Substitute.For<ILogger<SkippingService>>();
+            var classUnderTest = new SkippingService(loggerMock, BuildScopedContainer(), invalidPattern, skipInitial: false);
             var cancellationTokenSource = new CancellationTokenSource();
 
             // Assert
@@ -50,8 +50,8 @@ namespace NetEnhancements.Services.Tests
         public async Task NotSkippingInitialRun_RunsImmediately()
         {
             // Arrange
-            var loggerMock = new Mock<ILogger<SkippingService>>(MockBehavior.Loose);
-            var classUnderTest = new SkippingService(loggerMock.Object, BuildScopedContainer(), "*/1 * * * * *", skipInitial: false);
+            var loggerMock = Substitute.For<ILogger<SkippingService>>();
+            var classUnderTest = new SkippingService(loggerMock, BuildScopedContainer(), "*/1 * * * * *", skipInitial: false);
             var cancellationTokenSource = new CancellationTokenSource();
 
             // Act
@@ -66,8 +66,8 @@ namespace NetEnhancements.Services.Tests
         public async Task SkippingInitialRun_WaitsImmediately()
         {
             // Arrange
-            var loggerMock = new Mock<ILogger<SkippingService>>(MockBehavior.Loose);
-            var classUnderTest = new SkippingService(loggerMock.Object, BuildScopedContainer(), "*/1 * * * * *", skipInitial: true);
+            var loggerMock = Substitute.For<ILogger<SkippingService>>();
+            var classUnderTest = new SkippingService(loggerMock, BuildScopedContainer(), "*/1 * * * * *", skipInitial: true);
             var cancellationTokenSource = new CancellationTokenSource();
 
             // Act
@@ -82,8 +82,8 @@ namespace NetEnhancements.Services.Tests
         public async Task SkippingInitialRun_RunsAfterInitialWait()
         {
             // Arrange
-            var loggerMock = new Mock<ILogger<SkippingService>>(MockBehavior.Loose);
-            var classUnderTest = new SkippingService(loggerMock.Object, BuildScopedContainer(), "*/1 * * * * *", skipInitial: true);
+            var loggerMock = Substitute.For<ILogger<SkippingService>>();
+            var classUnderTest = new SkippingService(loggerMock, BuildScopedContainer(), "*/1 * * * * *", skipInitial: true);
             var cancellationTokenSource = new CancellationTokenSource();
 
             // Act
