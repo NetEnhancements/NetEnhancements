@@ -1,0 +1,7 @@
+version: "1.0"
+linter: jetbrains/qodana-cdnet:2024.1-eap # community (free)
+#linter: jetbrains/qodana-dotnet:2024.1 # pro (paid)
+dotnet:
+  solution: NetEnhancements.sln
+exclude:
+  - name: ExplicitCallerInfoArgument
