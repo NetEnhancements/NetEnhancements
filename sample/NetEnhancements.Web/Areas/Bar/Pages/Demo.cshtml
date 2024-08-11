@@ -1,0 +1,34 @@
+﻿@page
+@model DemoModel
+@{
+    ViewData["Title"] = ".NET Enhancements Demo Site";
+}
+
+<div class="text-center">
+    <h1 class="display-4">.NET Enhancements - Bar Area</h1>
+    <p>Welcome to the Bar area.</p>
+</div>
+
+<div class="row">
+    <div class="col-sm-3">
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">FooController</h5>
+                <h6 class="card-subtitle mb-2 text-muted">Use <code>FooController</code> without <code>[Area("Bar")]</code>.</h6>
+                <p class="card-text">The <code>FooController</code> resides in the Bar area, as specified by its namespace (and correspondingly, its directory structure - if you're consistent). Why specify that again?</p>
+                <a asp-area="Bar" asp-controller="Foo" class="card-link">See it in action</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-sm-3">
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">HomeController</h5>
+                <h6 class="card-subtitle mb-2 text-muted">Use <code>HomeController</code> without <code>[Area("Bar")]</code>.</h6>
+                <p class="card-text">Utilizing the default route (see URL). All by convention.</p>
+                <a asp-area="Bar" asp-controller="Home" asp-action="Index" class="card-link">See it in action</a>
+            </div>
+        </div>
+    </div>
+</div>

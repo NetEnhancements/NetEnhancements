@@ -9,7 +9,7 @@ using NetEnhancements.Identity.Data;
 namespace NetEnhancements.Identity.Managers
 {
     /// <inheritdoc/>
-    public partial class ApplicationUserManager : UserManager<ApplicationUser>
+    public class ApplicationUserManager : UserManager<ApplicationUser>
     {
         private readonly IdentityDbContext _dbContext;
         private readonly RoleManager<ApplicationRole> _roleManager;

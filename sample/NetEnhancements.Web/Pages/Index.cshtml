@@ -1,10 +1,34 @@
 ﻿@page
 @model IndexModel
 @{
-    ViewData["Title"] = "Home page";
+    ViewData["Title"] = ".NET Enhancements Demo Site";
 }
 
 <div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+    <h1 class="display-4">.NET Enhancements</h1>
+    <p>This web application serves as code demo for the .NET Enhancements.</p>
+</div>
+
+<div class="row">
+    <div class="col-sm-3">
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">Route Debugger</h5>
+                <h6 class="card-subtitle mb-2 text-muted">Show all registered routes</h6>
+                <p class="card-text">Especially useful during development and debugging. Shows the routes that are registered with ASP.NET Core.</p>
+                <a asp-page="RouteDebugger" class="card-link">See it in action</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-sm-3">
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">Area Convention</h5>
+                <h6 class="card-subtitle mb-2 text-muted"><code>mvcOptions.UseAreaControllerNamespace()</code></h6>
+                <p class="card-text">Instead of using <code>[Area("Bar")]</code> on every controller, specify it once during startup.</p>
+                <a asp-area="Bar" asp-page="Demo" class="card-link">See it in action</a>
+            </div>
+        </div>
+    </div>
 </div>
