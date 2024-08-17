@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Mvc.Authorization;
 using NetEnhancements.AspNet;
 using NetEnhancements.AspNet.Conventions;
+using NetEnhancements.AspNet.StaticFiles;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -71,7 +72,13 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
-app.UseStaticFiles();
+app.UseStaticFiles(new StaticFileOptions
+{
+    FileProvider = new CachingPhysicalFileProvider(app.Environment, new PhysicalFileCachingOptions
+    {
+        MaxSingleFileSize = 512 * 1024
+    }),
+});
 
 app.UseRouting();
 
