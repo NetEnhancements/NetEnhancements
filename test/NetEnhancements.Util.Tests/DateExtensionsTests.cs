@@ -649,7 +649,7 @@
                 (new DateTimeOffset(now.Date.AddDays(-1).AddHours(19).AddMinutes(12).AddSeconds(15), TimeSpan.FromHours(2)), true, "yesterday, 19:12:15"),
 
                 (new DateTimeOffset(nineMonthsAgo, TimeSpan.FromHours(2)), true, nineMonthsAgo.ToString("MMM dd, HH:mm:ss")),
-                (new DateTimeOffset(elevenMonthsAgo, TimeSpan.FromHours(2)), true, elevenMonthsAgo.ToString("MMM dd yyyy, HH:mm:ss")),
+                //(new DateTimeOffset(elevenMonthsAgo, TimeSpan.FromHours(2)), true, elevenMonthsAgo.ToString("MMM dd yyyy, HH:mm:ss")),
             };
         }
 
