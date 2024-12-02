@@ -10,7 +10,7 @@ namespace NetEnhancements.AspNet
         {
             if (context.Request.Headers.TryGetValue(SharedConstants.XForwardedFor, out var forwardedHeader))
             {
-                forwardedHeader.ToString();
+                return forwardedHeader.ToString();
             }
 
             return context.Connection.RemoteIpAddress?.MapToIPv4().ToString()
