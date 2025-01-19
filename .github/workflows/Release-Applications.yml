@@ -11,7 +11,7 @@ on:
       
 env:
   DOTNET_CLI_TELEMETRY_OPTOUT: true
-  DOTNETVERSION: "7.0.x"
+  DOTNETVERSION: "9.0.x"
   PACK_OUTPUT_DIR: "NuGetPackageStagingArea"
   
 jobs:
