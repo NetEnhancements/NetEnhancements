@@ -76,7 +76,10 @@ app.UseStaticFiles(new StaticFileOptions
 {
     FileProvider = new CachingPhysicalFileProvider(app.Environment, new PhysicalFileCachingOptions
     {
-        MaxSingleFileSize = 512 * 1024
+        MaxCacheSize = 64 * 1024 * 1024,
+        MaxSingleFileSize = 512 * 1024,
+        Expiration = TimeSpan.FromMinutes(30),
+        Root = "/an/absolute/path/"
     }),
 });
 
