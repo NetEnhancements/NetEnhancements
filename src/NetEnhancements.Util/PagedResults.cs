@@ -1,10 +1,49 @@
-﻿namespace NetEnhancements.Util;
+﻿using System.Diagnostics.CodeAnalysis;
+
+namespace NetEnhancements.Util;
 
 /// <summary>
 /// Container for results and pagination.
 /// </summary>
-public sealed record PagedResults<TEntity>(IReadOnlyCollection<TEntity> Items, long CurrentPage, long ItemsPerPage, long TotalItems)
+public sealed record PagedResults<TEntity>
 {
+    /// <summary>
+    /// Initializes a new instance of the <see cref="PagedResults{TEntity}"/> class.
+    /// </summary>
+    public PagedResults() { }
+
+    /// <summary>
+    /// Initializes a new instance of the <see cref="PagedResults{TEntity}"/> class.
+    /// </summary>
+    [SetsRequiredMembers]
+    public PagedResults(IReadOnlyCollection<TEntity> items, long currentPage, long itemsPerPage, long totalItems)
+    {
+        Items = items;
+        CurrentPage = currentPage;
+        ItemsPerPage = itemsPerPage;
+        TotalItems = totalItems;
+    }
+
+    /// <summary>
+    /// Gets the collection of items of type <typeparamref name="TEntity"/>.
+    /// </summary>
+    public required IReadOnlyCollection<TEntity> Items { get; init; }
+
+    /// <summary>
+    /// Current page number (1-based).
+    /// </summary>
+    public required long CurrentPage { get; init; }
+    
+    /// <summary>
+    /// Page size.
+    /// </summary>
+    public required long ItemsPerPage { get; init; }
+
+    /// <summary>
+    /// Total items in the source collection.
+    /// </summary>
+    public required long TotalItems { get; init; }
+
     /// <summary>
     /// Total number of pages, calculated from the <see cref="TotalItems"/> and <see cref="ItemsPerPage"/>.
     /// </summary>
@@ -16,7 +55,6 @@ public sealed record PagedResults<TEntity>(IReadOnlyCollection<TEntity> Items, l
             return Math.Max((long)ceil, 0);
         }
     }
-
     /// <summary>
     /// Converts one PagedResults{TSource} to another, copying paging properties and assigning the passed <paramref name="entities"/>.
     /// </summary>
@@ -29,7 +67,7 @@ public sealed record PagedResults<TEntity>(IReadOnlyCollection<TEntity> Items, l
     public PagedResults<TDestination> ConvertUsing<TDestination>(Func<TEntity, TDestination> convert)
     {
         var converted = Items.Select(convert).ToArray();
-
+        
         return PagedResults<TDestination>.From(this, converted);
     }
 
