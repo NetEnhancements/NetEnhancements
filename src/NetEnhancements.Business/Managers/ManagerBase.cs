@@ -3,6 +3,7 @@ using System.Runtime.CompilerServices;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using NetEnhancements.EntityFramework;
+using NetEnhancements.Util;
 
 namespace NetEnhancements.Business.Managers
 {

@@ -5,6 +5,7 @@ using Microsoft.Extensions.Options;
 using NetEnhancements.EntityFramework;
 using NetEnhancements.EntityFramework.Query;
 using NetEnhancements.Identity.Data;
+using NetEnhancements.Util;
 
 namespace NetEnhancements.Identity.Managers
 {
@@ -46,12 +47,14 @@ namespace NetEnhancements.Identity.Managers
                 userQuery = userQuery.Include(u => u.Roles);
             }
 
+            var totalItems = await userQuery.CountAsync();
+
             var items = await userQuery
                 .ApplyOrder(query, ApplicationUser.OrderClause)
                 .Page(query)
                 .ToListAsync();
 
-            return new PagedResults<ApplicationUser>(items, query);
+            return new PagedResults<ApplicationUser>(items, query.PerPage, query.PageNumber, totalItems);
         }
 
         public Task<ApplicationUser?> FindByIdAsync(Guid? userId, bool includeRoles = false)
