@@ -28,22 +28,28 @@ namespace NetEnhancements.Services.Tests
         }
 
         [Test]
-        public void InvalidSchedule_Throws()
+        public async Task InvalidSchedule_Throws()
         {
             // Arrange
             // Invalid because seconds are mandatory.
             const string invalidPattern = "* * * * *";
 
             var loggerMock = Substitute.For<ILogger<SkippingService>>();
-            var classUnderTest = new SkippingService(loggerMock, BuildScopedContainer(), invalidPattern, skipInitial: false);
+            var classUnderTest = new SkippingService(loggerMock, BuildScopedContainer(), invalidPattern, skipInitial: true);
             var cancellationTokenSource = new CancellationTokenSource();
+
+            // Act
+            await classUnderTest.StartAsync(cancellationTokenSource.Token);
 
             // Assert
             Assert.ThrowsAsync<InvalidOperationException>(async () =>
             {
-                // Act
-                await classUnderTest.StartAsync(cancellationTokenSource.Token);
+                await classUnderTest.ExecuteTask!.WaitAsync(TimeSpan.FromSeconds(1));
             });
+
+            Assert.That(classUnderTest.ExecuteTask!.Exception, Is.InstanceOf<AggregateException>());
+            Assert.That(classUnderTest.ExecuteTask!.Exception!.InnerException!, Is.InstanceOf<InvalidOperationException>());
+            Assert.That(classUnderTest.ExecuteTask!.Exception!.InnerException!.Message, Contains.Substring("cron schedule"));
         }
 
         [Test]
