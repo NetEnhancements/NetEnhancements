@@ -1,18 +1,14 @@
 <Project Sdk="Microsoft.NET.Sdk">
-
   <PropertyGroup>
     <Description>Extensions for Entity Framework.</Description>
   </PropertyGroup>
-
   <ItemGroup>
-    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="10.0.0" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Abstractions" Version="10.0.0" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="10.0.0" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Abstractions" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Relational" />
   </ItemGroup>
-
   <ItemGroup>
     <ProjectReference Include="..\NetEnhancements.EntityFramework.Data\NetEnhancements.EntityFramework.Data.csproj" />
     <ProjectReference Include="..\NetEnhancements.Util\NetEnhancements.Util.csproj" />
   </ItemGroup>
-
 </Project>
