@@ -1,0 +1,53 @@
+<Solution>
+  <Folder Name="/0. Solution Items/">
+    <File Path=".editorconfig" />
+    <File Path="CONTRIBUTING.md" />
+    <File Path="LICENSE" />
+    <File Path="README.md" />
+    <Project Path="docfx/NetEnhancements.Documentation.csproj" />
+  </Folder>
+  <Folder Name="/0. Solution Items/sample/">
+    <File Path="sample/Directory.Build.props" />
+  </Folder>
+  <Folder Name="/0. Solution Items/src/">
+    <File Path="src/Directory.Build.props" />
+  </Folder>
+  <Folder Name="/0. Solution Items/test/">
+    <File Path="test/Directory.Build.props" />
+  </Folder>
+  <Folder Name="/1. Fundamentals/">
+    <Project Path="src/NetEnhancements.AspNet/NetEnhancements.AspNet.csproj" />
+    <Project Path="src/NetEnhancements.Services/NetEnhancements.Services.csproj" />
+    <Project Path="src/NetEnhancements.Shared/NetEnhancements.Shared.csproj" />
+    <Project Path="src/NetEnhancements.Util/NetEnhancements.Util.csproj" />
+  </Folder>
+  <Folder Name="/2. Security/">
+    <Project Path="src/NetEnhancements.Identity.Data/NetEnhancements.Identity.Data.csproj" />
+    <Project Path="src/NetEnhancements.Identity/NetEnhancements.Identity.csproj" />
+    <Project Path="src/NetEnhancements.OAuth/NetEnhancements.OAuth.csproj" />
+  </Folder>
+  <Folder Name="/3. Library Extensions/">
+    <Project Path="src/NetEnhancements.ClosedXML/NetEnhancements.ClosedXML.csproj" />
+    <Project Path="src/NetEnhancements.EntityFramework.Data/NetEnhancements.EntityFramework.Data.csproj" />
+    <Project Path="src/NetEnhancements.EntityFramework/NetEnhancements.EntityFramework.csproj" />
+  </Folder>
+  <Folder Name="/4. Business/">
+    <Project Path="src/NetEnhancements.Business/NetEnhancements.Business.csproj" />
+  </Folder>
+  <Folder Name="/5. Imaging/">
+    <Project Path="src/NetEnhancements.Imaging.EntityFramework/NetEnhancements.Imaging.EntityFramework.csproj" />
+    <Project Path="src/NetEnhancements.Imaging/NetEnhancements.Imaging.csproj" />
+  </Folder>
+  <Folder Name="/6. Tests/">
+    <Project Path="test/NetEnhancements.AspNet.Tests/NetEnhancements.AspNet.Tests.csproj" />
+    <Project Path="test/NetEnhancements.ClosedXML.Tests/NetEnhancements.ClosedXML.Tests.csproj" />
+    <Project Path="test/NetEnhancements.EntityFramework.Tests/NetEnhancements.EntityFramework.Tests.csproj" />
+    <Project Path="test/NetEnhancements.Imaging.Tests/NetEnhancements.Imaging.Tests.csproj" />
+    <Project Path="test/NetEnhancements.Services.Tests/NetEnhancements.Services.Tests.csproj" />
+    <Project Path="test/NetEnhancements.Shared.Tests/NetEnhancements.Shared.Tests.csproj" />
+    <Project Path="test/NetEnhancements.Util.Tests/NetEnhancements.Util.Tests.csproj" />
+  </Folder>
+  <Folder Name="/7. Apps/">
+    <Project Path="sample/NetEnhancements.Web/NetEnhancements.Web.csproj" />
+  </Folder>
+</Solution>
