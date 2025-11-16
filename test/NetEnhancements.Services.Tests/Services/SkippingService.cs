@@ -7,7 +7,9 @@ namespace NetEnhancements.Services.Tests.Services
     /// </summary>
     internal class SkippingService : ScheduledBackgroundService
     {
-        public bool IsCalled { get; private set; }
+        private readonly TaskCompletionSource _started = new(TaskCreationOptions.RunContinuationsAsynchronously);
+
+        public Task HasStarted => _started.Task;
 
         public SkippingService(ILogger<ScheduledBackgroundService> logger, IServiceProvider services, string cronSchedule, bool skipInitial)
             : base(logger, services)
@@ -23,7 +25,8 @@ namespace NetEnhancements.Services.Tests.Services
         {
             Logger.LogInformation("Doing scheduled work");
 
-            IsCalled = true;
+            // Signal tests that we've started.
+            _started.TrySetResult();
 
             return Task.CompletedTask;
         }
