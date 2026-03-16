@@ -28,22 +28,28 @@ namespace NetEnhancements.Services.Tests
         }
 
         [Test]
-        public void InvalidSchedule_Throws()
+        public async Task InvalidSchedule_Throws()
         {
             // Arrange
             // Invalid because seconds are mandatory.
             const string invalidPattern = "* * * * *";
 
             var loggerMock = Substitute.For<ILogger<SkippingService>>();
-            var classUnderTest = new SkippingService(loggerMock, BuildScopedContainer(), invalidPattern, skipInitial: false);
+            var classUnderTest = new SkippingService(loggerMock, BuildScopedContainer(), invalidPattern, skipInitial: true);
             var cancellationTokenSource = new CancellationTokenSource();
 
-            // Assert
-            Assert.ThrowsAsync<InvalidOperationException>(async () =>
+            // Act
+            await classUnderTest.StartAsync(cancellationTokenSource.Token);
+
+            do
             {
-                // Act
-                await classUnderTest.StartAsync(cancellationTokenSource.Token);
-            });
+                await Task.Delay(12);
+            } while (!classUnderTest.ExecuteTask!.IsCompleted);
+
+            // Assert
+            Assert.That(classUnderTest.ExecuteTask!.Exception, Is.InstanceOf<AggregateException>());
+            Assert.That(classUnderTest.ExecuteTask!.Exception!.InnerException!, Is.InstanceOf<InvalidOperationException>());
+            Assert.That(classUnderTest.ExecuteTask!.Exception!.InnerException!.Message, Contains.Substring("cron schedule"));
         }
 
         [Test]
@@ -58,8 +64,8 @@ namespace NetEnhancements.Services.Tests
             await classUnderTest.StartAsync(cancellationTokenSource.Token);
 
             // Assert
+            await classUnderTest.HasStarted;
             await cancellationTokenSource.CancelAsync();
-            Assert.That(classUnderTest.IsCalled, Is.True);
         }
 
         [Test]
@@ -74,8 +80,8 @@ namespace NetEnhancements.Services.Tests
             await classUnderTest.StartAsync(cancellationTokenSource.Token);
 
             // Assert
+            await classUnderTest.HasStarted;
             await cancellationTokenSource.CancelAsync();
-            Assert.That(classUnderTest.IsCalled, Is.False);
         }
 
         [Test]
@@ -88,10 +94,10 @@ namespace NetEnhancements.Services.Tests
 
             // Act
             await classUnderTest.StartAsync(cancellationTokenSource.Token);
-            await Task.Delay(TimeSpan.FromMilliseconds(1200), cancellationTokenSource.Token);
 
             // Assert
-            Assert.That(classUnderTest.IsCalled, Is.True);
+            await classUnderTest.HasStarted;
+            await cancellationTokenSource.CancelAsync();
         }
     }
 }

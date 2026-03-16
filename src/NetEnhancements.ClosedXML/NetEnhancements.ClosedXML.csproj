@@ -1,15 +1,11 @@
 <Project Sdk="Microsoft.NET.Sdk">
-
   <PropertyGroup>
     <Description>Readers and writers for objects-to-OpenXML.</Description>
   </PropertyGroup>
-
   <ItemGroup>
-    <PackageReference Include="ClosedXML" Version="0.102.2" />
+    <PackageReference Include="ClosedXML" />
   </ItemGroup>
-
   <ItemGroup>
     <ProjectReference Include="..\NetEnhancements.Util\NetEnhancements.Util.csproj" />
   </ItemGroup>
-
 </Project>

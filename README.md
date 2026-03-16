@@ -1,7 +1,7 @@
 <div align="center">
 
-# NetEnhancements  
-A modular toolkit for building .NET 7+ applications with speed and clarity
+# NetEnhancements
+A modular toolkit for building .NET 10+ applications with speed and clarity.
 
 [![Docs](https://img.shields.io/badge/docs-netenhancements.github.io-blue)](https://netenhancements.github.io/)
 [![Build](https://img.shields.io/github/actions/workflow/status/NetEnhancements/NetEnhancements/Continuous-Integration.yml?branch=main)](https://github.com/NetEnhancements/NetEnhancements/actions)
@@ -15,8 +15,8 @@ See https://netenhancements.github.io/.
 
 ## 📦 Features
 
-- `Util`: Extension methods for dates, strings, enums, collections, randomness, and hashing.  
-- `Shared`: Centralized app configuration (`IConfiguration`), environment detection, and structured logging support.
+- `Util`: Extension methods for dates, strings, enums, collections, randomness, and hashing; helpers and attributes for validation and converters for JSON.
+- `Shared`: App configuration extensions, runtime status information.
 - `AspNet`: Conventions for routing, security headers, model validation, exception handling, and minimal API helpers.
 - `EntityFramework`: EF Core extensions for `DateOnly`/`TimeOnly`, auditing (`CreatedOn`, `ModifiedOn`), soft deletes, and GUID-based primary keys.
   - `EntityFramework.Data`: Adds repository and unit of work patterns, query projections, paging, and service registration helpers.
