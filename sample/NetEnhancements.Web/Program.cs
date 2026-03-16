@@ -29,6 +29,8 @@ builder.Services.AddAuthorization(o =>
     });
 });
 
+builder.Services.ConfigureCloudflareForwarding();
+
 AreaPolicy[] areaPolicies = 
 [
     // Identity area: uses its own policies, leave as-is.
@@ -64,6 +66,8 @@ mvcBuilder.AddRazorPagesOptions(options =>
 mvcBuilder.AddRouteDebugger();
 
 var app = builder.Build();
+
+app.UseForwardedHeaders();
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
