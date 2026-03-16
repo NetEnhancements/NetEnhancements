@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using NetEnhancements.AspNet;
 
 namespace NetEnhancements.Web.Controllers
 {
@@ -6,7 +7,9 @@ namespace NetEnhancements.Web.Controllers
     {
         public IActionResult Index()
         {
-            return Content("/Foo");
+            var clientIp = Request.HttpContext.GetRequestIPAddress();
+
+            return Content(clientIp);
         }
     }
 }
